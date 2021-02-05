@@ -1,0 +1,16 @@
+POR HACER
+
+*La entidad seleccionada será cambiada dentro del mismo editor de niveles al ser seleccionada dentro de la aplicacion.
+*Implementar las colisiones del jugador con los bloques.
+*Implementar el sistema de animaciones, cada sprite tendrá un vector de texturas.
+*Agregar mas bloques a la lista bloques de muestra.
+*Implementar el guardado de niveles en archivos.
+*Separar la ejecución en modo de editor de niveles y de juego, dividiendo en dos estados talvez.
+*Crear una clase para controlar la funcionalidad de la cámara.
+*Inicializar el editor de niveles en su constructor.
+*Crear una clase para el manejo del texto.
+*
+
+
+HECHO
+*Agregar el cuadro de seleccion en la ventana de seleccion de tiles.
