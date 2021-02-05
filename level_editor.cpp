@@ -164,7 +164,7 @@ void LevelEditor::drawSampleSelectionSquare(){
 		tileSelectionSection.sampleSelectionSquareBox.y = tileSelectionSection.offset + (yTile * tileSelectionSection.editorTileSize);
 		// sprite.boundingBox.x = x - camera->x;
 		// sprite.boundingBox.y = y - camera->y;
-
+		// COMENTARIO DE PRUEBA
 		SDL_RenderCopy(renderer, tileSelectionSection.sampleSelectionSquare, nullptr, &tileSelectionSection.sampleSelectionSquareBox);
 	}
 }
