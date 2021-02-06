@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 	
 	// SDL_SetWindowSize(window, 1280, 720);
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);	
-	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	// SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	// int rendererX = getRendererWidth();
 	// int rendererY = getRendererHeight();
@@ -144,6 +144,7 @@ int main(int argc, char* argv[]) {
 				// SDL_RaiseWindow(SDL_GetWindowFromID(e.window.windowID));
 			// }
 		}		
+		editor.setSelectedEntity();
 		editor.setTileOnClick();
 		editor.deleteTileOnClick();
 		

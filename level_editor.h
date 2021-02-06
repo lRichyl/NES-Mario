@@ -37,6 +37,7 @@ struct LevelEditor{
 	void drawSampleSelectionSquare();
 	void setTileMapBeingEdited();
 	void setTileOnClick();
+	void setSelectedEntity();
 	void deleteTileOnClick();
 	bool isMouseInSceneLimits(int xMousePos, int yMousePos);
 	void initializeSampleEntities();

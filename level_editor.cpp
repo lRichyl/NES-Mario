@@ -36,13 +36,13 @@ void TileSelectionSection::draw(){
 	SDL_RenderFillRect(renderer, &border);
 }
 
-void LevelEditor::resizeSampleEntities(){
-	for(unsigned int i = 0; i < sampleEntities.size() ; i++){
-		if(sampleEntities[i] != nullptr){				
-			sampleEntities[i]->setTileSize(tileSelectionSection.editorTileSize);			
-		}	
-	}
-}
+// void LevelEditor::resizeSampleEntities(){
+	// for(unsigned int i = 0; i < sampleEntities.size() ; i++){
+		// if(sampleEntities[i] != nullptr){				
+			// sampleEntities[i]->setTileSize(tileSelectionSection.editorTileSize);			
+		// }	
+	// }
+// }
 
 void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new Ground());
@@ -57,7 +57,7 @@ void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PipeLeftDown());
 	sampleEntities.push_back(new PipeRightDown());	
 	
-	resizeSampleEntities();
+	// resizeSampleEntities();
 }
 
 void LevelEditor::calculateSampleEntitiesPosition(){
@@ -70,7 +70,7 @@ void LevelEditor::calculateSampleEntitiesPosition(){
 			e->sprite.boundingBox.y = (row * tileSelectionSection.editorTileSize) + tileSelectionSection.offset + 1;
 			// e->draw();
 			col++;
-			if(col == (tileSelectionSection.xSize - tileSelectionSection.offset)/tileSelectionSection.editorTileSize) {
+			if(col == (tileSelectionSection.tilesPerRow)){
 				col = 0;
 				row++;
 			}
@@ -128,11 +128,34 @@ void LevelEditor::deleteTileOnClick(){
 	}
 }
 
+void LevelEditor::setSelectedEntity(){
+	int mouseX;
+	int mouseY;	
+	SDL_GetMouseState(&mouseX, &mouseY);	
+	if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) && (mouseX > tileSelectionSection.offset && mouseX < tileSelectionSection.xSize - tileSelectionSection.offset)){
+		int xTile = (mouseX - tileSelectionSection.offset)  / tileSelectionSection.editorTileSize;
+		int yTile = (mouseY - tileSelectionSection.offset) / tileSelectionSection.editorTileSize;
+		
+		std::cout << xTile << " , " << yTile << " : ";
+		
+		int entityInMouseID = xTile + (yTile * tileSelectionSection.tilesPerRow);
+		std::cout << entityInMouseID << endl;
+
+		selectedEntity = sampleEntities[entityInMouseID];
+		// sampleEntities[entityInMouseID]->sprite.boundingBox.w = 64;
+		// sampleEntities[entityInMouseID]->sprite.boundingBox.h = 64;
+	}
+}
+
 void LevelEditor::drawSampleEntities(){
 	for(unsigned int i = 0; i < sampleEntities.size() ; i++){
 		if(sampleEntities[i] != nullptr){
+			sampleEntities[i]->sprite.boundingBox.w = tileSelectionSection.editorTileSize;
+			sampleEntities[i]->sprite.boundingBox.h = tileSelectionSection.editorTileSize;
 			sampleEntities[i]->draw();
 			
+			sampleEntities[i]->sprite.boundingBox.w = Tile::tileSize;
+			sampleEntities[i]->sprite.boundingBox.h = Tile::tileSize;
 		}
 	}
 }
