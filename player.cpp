@@ -6,22 +6,22 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 		if( currentKeyStates[ SDL_SCANCODE_UP ] )
 		{
-			y -= velocity * deltaTime;
+			position.y -= velocity.y * deltaTime;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 		{
-			y += velocity * deltaTime;
+			position.y += velocity.y * deltaTime;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 		{
-			x -= velocity * deltaTime;
+			position.x -= velocity.x * deltaTime;
 		}
 		if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 		{
-			x += velocity * deltaTime;
+			position.x += velocity.x * deltaTime;
 		}
-		sprite.boundingBox.x = x - camera->x;
-		sprite.boundingBox.y = y - camera->y;
+		sprite.boundingBox.x = position.x - camera->x;
+		sprite.boundingBox.y = position.y - camera->y;
 
 }
 

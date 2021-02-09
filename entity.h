@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include "sprite.h"
+#include "vector2df.h"
 
 enum ENTITY_TYPE {
 	DYNAMIC,
@@ -22,8 +23,7 @@ struct Entity{
 	static int IDcount;
 	int ID;
 	bool isActive;
-	float x = 0;
-	float y = 0;
+	Vector2df position;
 	int xTile;
 	int yTile;
 	bool isStatic = true;

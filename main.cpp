@@ -56,75 +56,15 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	SDL_Rect camera;
-	camera.x = 0;
-	camera.y = 0;
-	camera.w = 1280;
-	camera.h = 720;
-	// SDL_Texture *texture = loadTexture("assets/textures/mario.png");
-	// for(int i = 0; i < 100; i++){
-		// Player player;
-		// player.sprite.texture = texture;
-		// player.sprite.boundingBox.x = i;
-		// player.sprite.boundingBox.y = i + 1;
-		// player.sprite.boundingBox.w = 80;
-		// player.sprite.boundingBox.h = 80;
-
-		// sprites.push_back(player);
-	// }
-	// Scene scene1;
-
-	// int *w;
-	// int *h;
-	// Uint32 *format;
-	// SDL_QueryTexture(texture, format, NULL, w, h);
-	// std::cout << *w << "  " << *h << std::endl;
-
-	// Player player;
-	// player.x = 30;
-	// player.y = 0;
-	// // player.sprite.texture = texture;
-	// player.sprite.boundingBox.w = 64;
-	// player.sprite.boundingBox.h = 64;
-	// player.clippingBox.x = 0;
-	// player.clippingBox.y = 0;
-	// player.clippingBox.w = 16;// THIS WILL BE CLEANED UP EVENTUALLY. THIS WAS ONLY FOR TESTING
-	// player.clippingBox.h = 16;
-
-	// Ground brick;
-	// brick.x = 30;
-	// brick.y = 0;
-	// brick.sprite.texture = texture;
-	// brick.sprite.boundingBox.x = 32;
-	// brick.sprite.boundingBox.y = 32;
-
-
-
-
-	// std::cout << "TEST" << std::endl;
 	bool testingLevel = false;
 	Scene editedLevel;
 	LevelEditor editor;
 	editor.level = &editedLevel;
-	editor.level->camera = &camera;
-	// editor.layerBeingEdited = 0;
 	editor.setTileMapBeingEdited();
-	// editor.selectedEntity = &brick;
-	// editor.level.setScale(xScale, yScale);
-
-	// scene1.background.addEntityByTile(&tile1);
-	// scene1.collideable.addEntityByTile(&player);
-
-
 
 	SDL_Event e;
 	bool quit = false;
-	// int countedFrames = 0;
 
-	// auto begin = std::chrono::high_resolution_clock::now();
-	// auto end = std::chrono::high_resolution_clock::now();
-	float x;
-	float y;
 	while( !quit )
 	{
 		// auto startingTime = std::chrono::system_clock::now();
@@ -149,26 +89,17 @@ int main(int argc, char* argv[]) {
 	                switch( e.key.keysym.sym ){
 	                    case SDLK_SPACE:
 	                        testingLevel = !testingLevel;
-					    if(testingLevel) editor.loadEntitiesToScene();
+					    if(testingLevel){
+						     editor.loadEntitiesToScene();
+							editedLevel.resetCamera();
+						}
 					    else editedLevel.unloadEntities();
 	                        break;
 	            }
 	        }
-			// if (e.type == SDL_MOUSEBUTTONDOWN){
-				// std::cout << e.window.windowID << std::endl;
-				// SDL_RaiseWindow(SDL_GetWindowFromID(e.window.windowID));
-			// }
+
 		}
-		const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-		// if( currentKeyStates[ SDL_SCANCODE_SPACE ] && !testingLevel){
-		// 	editor.loadEntitiesToScene();
-		// 	testingLevel = true;
-		// }else
-		// if( currentKeyStates[ SDL_SCANCODE_SPACE ] && testingLevel){
-		// 	testingLevel = false;
-		// 	editedLevel.unloadEntities();
-		// }
-		// std::cout << testingLevel << std::endl;
+
 		if(!testingLevel){
 			editor.setSelectedEntity();
 			editor.setTileOnClick();
@@ -182,36 +113,6 @@ int main(int argc, char* argv[]) {
 			SDL_RenderPresent( renderer );
 
 		}
-
-
-		// //ALL OF THIS WAS ONLY FOR TESTING. THIS NEEDS TO BE REMOVED.
-		// //MOVE THIS TO A NEW FILE FOR CAMERA RELATED FUNCTIONS
-
-		if( currentKeyStates[ SDL_SCANCODE_W ] )
-		{
-			y -= 60 * deltaT;
-		}
-		if( currentKeyStates[ SDL_SCANCODE_S ] )
-		{
-			y += 60 * deltaT;
-		}
-		if( currentKeyStates[ SDL_SCANCODE_A ] )
-		{
-			x -= 60 * deltaT;
-		}
-		if( currentKeyStates[ SDL_SCANCODE_D ] )
-		{
-			x += 60 * deltaT;
-		}
-		camera.x = x;
-		camera.y = y;
-		if(camera.x < 0) {
-			camera.x = 0;
-		}
-		if(camera.y < 0) {
-			camera.y = 0;
-		}
-
 
 		if(testingLevel){
 			editedLevel.updateScene(deltaT);

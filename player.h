@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "sprite.h"
 #include "texture.h"
+#include "vector2df.h"
 
 struct Player : public Entity{
 	Player(){
@@ -15,7 +16,7 @@ struct Player : public Entity{
 		sprite.boundingBox.h = 64;
 		setClippingBox(98, 32, 12, 16);
 	}
-	float velocity = 100.f;
+	Vector2df velocity = Vector2df(100.0f, 100.0f);
 
 
 	void update(float deltaTime, SDL_Rect *camera) override;

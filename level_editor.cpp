@@ -29,6 +29,7 @@ LevelEditor::LevelEditor(){
 	camera.w = 1280;
 	camera.h = 720;
 	initializeSampleEntities();
+	selectedEntity = sampleEntities[0];
 	calculateSampleEntitiesPosition();
 }
 
@@ -112,8 +113,8 @@ void LevelEditor::setTileOnClick(){
 
 		selectedEntity->xTile = xTile;
 		selectedEntity->yTile = yTile;
-		selectedEntity->x = xTile * tileMapBeingEdited->tileWidth;
-		selectedEntity->y = yTile * tileMapBeingEdited->tileHeight;
+		selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
+		selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
 		// }
 
 		if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
@@ -163,9 +164,36 @@ void LevelEditor::setSelectedEntity(){
 
 	}
 }
-
+float x = 0;
+float y = 0;
 
 void LevelEditor::udpateEditorLevel(){
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+
+	if( currentKeyStates[ SDL_SCANCODE_W ] )
+	{
+		y -= 60 * deltaT;
+	}
+	if( currentKeyStates[ SDL_SCANCODE_S ] )
+	{
+		y += 60 * deltaT;
+	}
+	if( currentKeyStates[ SDL_SCANCODE_A ] )
+	{
+		x -= 60 * deltaT;
+	}
+	if( currentKeyStates[ SDL_SCANCODE_D ] )
+	{
+		x += 60 * deltaT;
+	}
+	camera.x = x;
+	camera.y = y;
+	if(camera.x < 0) {
+		camera.x = 0;
+	}
+	if(camera.y < 0) {
+		camera.y = 0;
+	}
 	editorLayer0.update(deltaT, &camera);
 	editorLayer1.update(deltaT, &camera);
 	editorLayer2.update(deltaT, &camera);
@@ -233,8 +261,10 @@ void LevelEditor::drawEditorWindow(){
 }
 
 static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
-	d->x = tileEntity->sprite.boundingBox.x;
-	d->y = tileEntity->sprite.boundingBox.y;
+	d->position.x = tileEntity->position.x;
+	d->position.y = tileEntity->position.y;
+	// d->x = tileEntity->sprite.boundingBox.x;
+	// d->y = tileEntity->sprite.boundingBox.y;
 }
 
 void LevelEditor::loadEntitiesToScene(){

@@ -11,7 +11,7 @@ struct Scene{
 	int levelWidth;
 	int levelHeight;
 	SDL_Texture *tileset;
-	SDL_Rect *camera;
+	SDL_Rect camera;
 
 	CollisionManager collisionManager;
 
@@ -22,6 +22,7 @@ struct Scene{
 
 	// void setScale(float xScale, float yScale);
 	void unloadEntities();
+	void resetCamera();
 	void updateScene(float deltaTime);
 	void checkCollisions();
 	void setPositionInCamera();

@@ -19,13 +19,13 @@ void Tile::setTileSize(int newTileSize){
 
 Tile::Tile(){
 	setTileSize(Tile::tileSize);
-	
+
 };
 
 
 void Tile::update(float deltaTime, SDL_Rect *camera){
-	sprite.boundingBox.x = x - camera->x;
-	sprite.boundingBox.y = y - camera->y;
+	sprite.boundingBox.x = position.x - camera->x;
+	sprite.boundingBox.y = position.y - camera->y;
 }
 void Tile::draw(){
 	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &sprite.boundingBox );
