@@ -8,83 +8,94 @@
 
 struct Tile : public Entity{
 	Tile();
-	
+
 	void setTileSize(int newTileSize);
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
-	
+
 	// THIS IS CREATING A COPY FOR EVERY TILE
 	static SDL_Texture *texture;
 	static const int tileSize = 64;
-	
-	Entity *clone()override{return new Tile(*this);}
+
+	Entity *clone()override{
+		Entity::IDcount++;
+		ID = Entity::IDcount;
+		return new Tile(*this);}
 };
 
+struct PlayerTile : public Tile{
+	PlayerTile(){
+	sprite.texture = loadTexture("assets/textures/mario_animations.png");
+	// isStatic = false;
+	setClippingBox(98, 32, 12, 16);
+	entityType = ENTITY_TYPE::PLAYER;
+	}
+};
 struct Ground : public Tile{
 	Ground(){
-	setClippingBox(0, 0, 16, 16 ); 
+	setClippingBox(0, 0, 16, 16 );
 	entityType = ENTITY_TYPE::GROUND;
 	}
 };
 struct Brick : public Tile{
 	Brick(){
-	setClippingBox(16, 0, 16, 16 ); 
+	setClippingBox(16, 0, 16, 16 );
 	entityType = ENTITY_TYPE::BRICK;
 	}
 };
 struct QuestionMark : public Tile{
 	QuestionMark(){
-	setClippingBox(384, 0, 16, 16 ); 
+	setClippingBox(384, 0, 16, 16 );
 	entityType = ENTITY_TYPE::QUESTIONMARK;
 	}
 };
-struct CloudLeftTop : public Tile{	
+struct CloudLeftTop : public Tile{
 	CloudLeftTop(){
-	setClippingBox(8, 320, 16, 16 ); 
+	setClippingBox(8, 320, 16, 16 );
 	entityType = ENTITY_TYPE::CLOUDLEFTTOP;
-	}	
+	}
 };
-struct CloudLeftDown : public Tile{	
+struct CloudLeftDown : public Tile{
 	CloudLeftDown(){
-	setClippingBox(8, 336, 16, 16 ); 
+	setClippingBox(8, 336, 16, 16 );
 	entityType = ENTITY_TYPE::CLOUDLEFTDOWN;
-	}	
+	}
 };
-struct CloudRightTop : public Tile{	
+struct CloudRightTop : public Tile{
 	CloudRightTop(){
-	setClippingBox(24, 320, 16, 16 ); 
+	setClippingBox(24, 320, 16, 16 );
 	entityType = ENTITY_TYPE::CLOUDRIGHTTOP;
-	}	
+	}
 };
-struct CloudRightDown : public Tile{	
+struct CloudRightDown : public Tile{
 	CloudRightDown(){
-	setClippingBox(24, 336, 16, 16 ); 	
+	setClippingBox(24, 336, 16, 16 );
 	entityType = ENTITY_TYPE::CLOUDRIGHTDOWN;
-	}	
+	}
 };
-struct PipeLeftTop : public Tile{	
+struct PipeLeftTop : public Tile{
 	PipeLeftTop(){
-	setClippingBox(0, 128, 16, 16 ); 
+	setClippingBox(0, 128, 16, 16 );
 	entityType = ENTITY_TYPE::PIPELEFTTOP;
-	}	
+	}
 };
-struct PipeLeftDown : public Tile{	
+struct PipeLeftDown : public Tile{
 	PipeLeftDown(){
-	setClippingBox(0, 144, 16, 16 ); 
+	setClippingBox(0, 144, 16, 16 );
 	entityType = ENTITY_TYPE::PIPELEFTDOWN;
-	}	
+	}
 };
-struct PipeRightTop : public Tile{	
+struct PipeRightTop : public Tile{
 	PipeRightTop(){
-	setClippingBox(16, 128, 16, 16 ); 
+	setClippingBox(16, 128, 16, 16 );
 	entityType = ENTITY_TYPE::PIPERIGHTTOP;
-	}	
+	}
 };
-struct PipeRightDown : public Tile{	
+struct PipeRightDown : public Tile{
 	PipeRightDown(){
-	setClippingBox(16, 144, 16, 16 ); 
+	setClippingBox(16, 144, 16, 16 );
 	entityType = ENTITY_TYPE::PIPERIGHTDOWN;
-	}	
+	}
 };
 
 

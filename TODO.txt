@@ -1,9 +1,11 @@
 POR HACER
 
-*La entidad seleccionada será cambiada dentro del mismo editor de niveles al ser seleccionada dentro de la aplicacion.
+*Separar en dos listas las entidades estáticas(bloques) y las entidades dinámicas(jugador y enemigos).
+*Agregar la capacidad de poder probar los niveles activando y reseteando las entidades dinámicas.
 *Implementar las colisiones del jugador con los bloques.
 *Implementar el sistema de animaciones, cada sprite tendrá un vector de texturas.
 *Agregar mas bloques a la lista bloques de muestra.
+*Implementar la opción de cambiar la capa que está siendo editada
 *Implementar el guardado de niveles en archivos.
 *Separar la ejecución en modo de editor de niveles y de juego, dividiendo en dos estados talvez.
 *Crear una clase para controlar la funcionalidad de la cámara.
@@ -12,5 +14,7 @@ POR HACER
 *
 
 
+
 HECHO
 *Agregar el cuadro de seleccion en la ventana de seleccion de tiles.
+*La entidad seleccionada será cambiada dentro del mismo editor de niveles al ser seleccionada dentro de la aplicacion.

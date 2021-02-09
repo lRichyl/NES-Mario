@@ -24,6 +24,10 @@ void Scene::updateScene(float deltaTime){
 	layer3.update(deltaT, camera);
 }
 
+void Scene::checkCollisions(){
+	collisionManager.checkCollisions(&layer2);
+}
+
 void Scene::drawScene(){
 	layer0.draw();
 	// SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_ADD); //This will be used later for lighting.
@@ -32,6 +36,13 @@ void Scene::drawScene(){
 	layer3.draw();
 }
 
+void Scene::unloadEntities(){
+	layer0.emptyTilemap();
+	layer1.emptyTilemap();
+	layer2.emptyTilemap();
+	layer3.emptyTilemap();
+}
+
 void Scene::setPositionInCamera(){
-	
+
 }

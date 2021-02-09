@@ -9,7 +9,8 @@
 SDL_Texture* Tile::texture = nullptr;
 
 void Tile::setTileSize(int newTileSize){
-	if(Tile::texture == nullptr) Tile::texture = loadTexture("assets/textures/mario.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
+	isActive = true;
+	if(Tile::texture == nullptr) Tile::texture = loadTexture("assets/textures/mario_blocks.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
 	sprite.texture = Tile::texture;
 	sprite.boundingBox.w = tileSize;
 	sprite.boundingBox.h = tileSize;

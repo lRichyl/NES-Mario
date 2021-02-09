@@ -1,7 +1,10 @@
 #include "entity.h"
 
+int Entity::IDcount = 0;
+
 Entity::Entity(){
-	
+	ID = IDcount;
+	IDcount++;
 }
 
 void Entity::update(float deltaTime, SDL_Rect *camera){

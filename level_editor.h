@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "scene.h"
 #include "tile.h"
+#include "entity.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();
@@ -16,41 +17,57 @@ struct TileSelectionSection{
 	int offset = 12;
 	int tilesPerRow = 3;
 	int editorTileSize = 32;
-	
+
 	void draw();
 };
 
 struct LevelEditor{
 	LevelEditor();
 	~LevelEditor();
-	
-	Scene level;
+
+	Scene *level;
 	std::vector<Entity*> sampleEntities;
 	Entity *selectedEntity;
 	TileMap *tileMapBeingEdited;
+	TileMap editorLayer0;
+	TileMap editorLayer1;
+	TileMap editorLayer2;
+	TileMap editorLayer3;
+	SDL_Rect camera;
+
 	TileSelectionSection tileSelectionSection;
-	int layerBeingEdited = 0;
-	
+	int layerBeingEdited = 2;
+	// bool playScene = false;
+
+	void udpateEditorLevel();
+	void drawEditorLevel();
+
 	void drawEditorWindow();
 	void drawSampleEntities();
 	void drawSelectionSquare();
 	void drawSampleSelectionSquare();
+
 	void setTileMapBeingEdited();
-	void setTileOnClick();
 	void setSelectedEntity();
+	// void setPlayMode();
+
+	void setTileOnClick();
 	void deleteTileOnClick();
+
 	bool isMouseInSceneLimits(int xMousePos, int yMousePos);
 	void initializeSampleEntities();
 	void calculateSampleEntitiesPosition();
 	void resizeSampleEntities();
-	
+
+	void loadEntitiesToScene();
+
 	// void changeSelectionTileSize();
-	
+
 	//////////		READ		////////////////
 	// When implementing REMEMBER to substract the xSize of the tileSelectionSection to the positions of all th entities
 	// to get the real position when the actual game loads the level files.
-	// bool saveLevelIntoFile(); 
-	
+	// bool saveLevelIntoFile();
+
 };
 
 #endif
