@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 
 		if(testingLevel){
 			editedLevel.updateScene(deltaT);
-			// editedLevel.checkCollisions();
+			editedLevel.checkCollisions();
 
 			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
 			SDL_RenderClear( renderer );

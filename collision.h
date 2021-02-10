@@ -5,7 +5,7 @@
 #include "tile_map.h"
 
 struct CollisionManager{
-	static bool AABBCollision(SDL_Rect b1, SDL_Rect b2);
+	void minkowskiDifference(SDL_Rect b1, SDL_Rect b2);
 	void checkCollisions(TileMap *collisionLayer);
 };
 
