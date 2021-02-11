@@ -19,6 +19,10 @@ struct TileSelectionSection{
 	int editorTileSize = 32;
 
 	void draw();
+	~TileSelectionSection(){
+		SDL_DestroyTexture(selectionSquare);
+		SDL_DestroyTexture(sampleSelectionSquare);
+	}
 };
 
 struct LevelEditor{

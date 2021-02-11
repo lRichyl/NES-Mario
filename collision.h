@@ -3,9 +3,11 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 #include "tile_map.h"
+#include "vector2di.h"
+#include "global_variables.h"
 
 struct CollisionManager{
-	void minkowskiDifference(SDL_Rect b1, SDL_Rect b2);
+	static bool minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *penetration);
 	void checkCollisions(TileMap *collisionLayer);
 };
 

@@ -23,3 +23,14 @@ Vector2df operator-(Vector2df v){
      result.y -= v.y;
      return result;
 }
+
+int Vector2df::dotProduct(Vector2df v){
+     return (x * v.x) + (y * v.y);
+}
+
+// Vector2di operator-(Vector2di v){
+//      Vector2di result;
+//      result.x -= v.x;
+//      result.y -= v.y;
+//      return result;
+// }

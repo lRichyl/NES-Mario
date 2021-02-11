@@ -145,6 +145,7 @@ void LevelEditor::deleteTileOnClick(){
 		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.x);
 		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.y);
 
+		delete tileMapBeingEdited->entities[xTile][yTile];
 		tileMapBeingEdited->entities[xTile][yTile] = nullptr;
 	}
 }

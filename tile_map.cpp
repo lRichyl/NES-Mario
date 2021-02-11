@@ -54,6 +54,7 @@ void TileMap::update(float deltaT, SDL_Rect *camera){
 void TileMap::emptyTilemap(){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
+			delete dynamicEntities[i];
 			dynamicEntities[i] = nullptr;
 		}
 	}
@@ -61,6 +62,7 @@ void TileMap::emptyTilemap(){
 	for(unsigned int i = 0; i < entities.size() ; i++){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
+				delete entities[i][j];
 				entities[i][j] = nullptr;
 			}
 		}

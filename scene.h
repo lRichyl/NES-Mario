@@ -8,10 +8,11 @@
 #include "collision.h"
 
 struct Scene{
+	Scene();
 	int levelWidth;
 	int levelHeight;
 	SDL_Texture *tileset;
-	SDL_Rect camera;
+	// SDL_Rect camera;
 
 	CollisionManager collisionManager;
 

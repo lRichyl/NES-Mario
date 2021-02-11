@@ -5,6 +5,7 @@
 #include "sprite.h"
 #include "texture.h"
 #include "vector2df.h"
+// #include "vector2di.h"
 
 struct Player : public Entity{
 	Player(){
@@ -16,11 +17,16 @@ struct Player : public Entity{
 		sprite.boundingBox.h = 64;
 		setClippingBox(98, 32, 12, 16);
 	}
+	~Player();
 	Vector2df velocity = Vector2df(100.0f, 100.0f);
+	int xdirection = 1;
+	int ydirection = 1;
 
 
 	void update(float deltaTime, SDL_Rect *camera) override;
+	void updatePosition();
 	void draw()override;
+	void onCollision(Vector2df penetration) override;
 	Entity *clone()override{
 		Entity::IDcount++;
 		ID = Entity::IDcount;

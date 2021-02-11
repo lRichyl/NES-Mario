@@ -1,21 +1,14 @@
 #include "scene.h"
+#include "global_variables.h"
 #include <iostream>
 
 
-// void Scene::setScale(float xScale, float yScale){
-	// background.xScale = xScale;
-	// background.yScale = yScale;
-	// background.scaleDimensions();
-	// below.xScale = xScale;
-	// below.yScale = yScale;
-	// below.scaleDimensions(),
-	// collideable.xScale = xScale;
-	// collideable.yScale = yScale;
-	// collideable.scaleDimensions();
-	// above.xScale = xScale;
-	// above.yScale = yScale;
-	// above.scaleDimensions();
-// }
+Scene::Scene(){
+	CAMERA.x = 0;
+	CAMERA.y = 0;
+	CAMERA.w = 1280;
+	CAMERA.h = 720;
+}
 static float x = 0;// This variables are temporary. Should be in the camera class
 static float y = 0;
 void Scene::updateScene(float deltaTime){
@@ -37,18 +30,18 @@ void Scene::updateScene(float deltaTime){
 	{
 		x += 60 * deltaT;
 	}
-	camera.x = x;
-	camera.y = y;
-	if(camera.x < 0) {
-		camera.x = 0;
+	CAMERA.x = x;
+	CAMERA.y = y;
+	if(CAMERA.x < 0) {
+		CAMERA.x = 0;
 	}
-	if(camera.y < 0) {
-		camera.y = 0;
+	if(CAMERA.y < 0) {
+		CAMERA.y = 0;
 	}
-	layer0.update(deltaT, &camera);
-	layer1.update(deltaT, &camera);
-	layer2.update(deltaT, &camera);
-	layer3.update(deltaT, &camera);
+	layer0.update(deltaT, &CAMERA);
+	layer1.update(deltaT, &CAMERA);
+	layer2.update(deltaT, &CAMERA);
+	layer3.update(deltaT, &CAMERA);
 }
 
 void Scene::checkCollisions(){
@@ -71,8 +64,8 @@ void Scene::unloadEntities(){
 }
 
 void Scene::resetCamera(){
-	camera.x = 0;
-	camera.y = 0;
+	CAMERA.x = 0;
+	CAMERA.y = 0;
 	x = 0;
 	y = 0;
 }

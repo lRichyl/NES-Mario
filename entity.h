@@ -2,6 +2,7 @@
 #define ENTITY_H
 #include "sprite.h"
 #include "vector2df.h"
+#include "vector2di.h"
 
 enum ENTITY_TYPE {
 	DYNAMIC,
@@ -36,6 +37,7 @@ struct Entity{
 	Entity();
 	virtual void update(float deltaTime, SDL_Rect *camera) = 0;
 	virtual void draw() = 0;
+	virtual void onCollision(Vector2df){};
 	void setTileSize(int tileSize);
 	virtual Entity *clone() = 0;
 	virtual ~Entity() = default;

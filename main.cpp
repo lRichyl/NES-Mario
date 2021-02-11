@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 		float startingTime = (float)SDL_GetTicks() / 1000.f;
 		float FPS = 1.0f / deltaT;
 		// std::cout << "ms: " << deltaTime * 1000.f << std::endl;
-		// std::cout << "FPS: " << FPS << std::endl;
+		std::cout << "FPS: " << FPS << std::endl;
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -133,6 +133,7 @@ int main(int argc, char* argv[]) {
 	// SDL_DestroyTexture(texture);
     SDL_DestroyRenderer( renderer );
     SDL_DestroyWindow( window );
+    SDL_DestroyTexture(Tile::texture);
     window = NULL;
     renderer = NULL;
 

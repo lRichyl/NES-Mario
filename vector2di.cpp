@@ -23,3 +23,7 @@ Vector2di operator-(Vector2di v){
      result.y -= v.y;
      return result;
 }
+
+int Vector2di::dotProduct(Vector2di v){
+     return (x * v.x) + (y * v.y);
+}

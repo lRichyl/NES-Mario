@@ -1,7 +1,6 @@
 POR HACER
 
 
-*Implementar las colisiones de las entidades dinámicas con los bloques.
 *Agregar las camaras a sus propias clases
 *Implementar el sistema de animaciones, cada sprite tendrá un vector de texturas.
 *Agregar mas bloques a la lista bloques de muestra.
@@ -17,3 +16,4 @@ HECHO
 *La entidad seleccionada será cambiada dentro del mismo editor de niveles al ser seleccionada dentro de la aplicacion.
 *Separar en dos listas las entidades estáticas(bloques) y las entidades dinámicas(jugador y enemigos).
 *Agregar la capacidad de poder probar los niveles activando y reseteando las entidades dinámicas.
+*Implementar la resolucion de colisiones
