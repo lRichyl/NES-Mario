@@ -8,24 +8,21 @@
 // #include "vector2di.h"
 
 struct Player : public Entity{
-	Player(){
-		entityType = ENTITY_TYPE::PLAYER;
-		isStatic = false;
-		isActive = true;
-		sprite.texture = loadTexture("assets/textures/mario_animations.png");
-		sprite.boundingBox.w = 64;
-		sprite.boundingBox.h = 64;
-		setClippingBox(98, 32, 12, 16);
-	}
+	Player();
 	~Player();
-	Vector2df velocity = Vector2df(100.0f, 100.0f);
+	Vector2df velocity = Vector2df(150.0f, 100.0f);
 	int xdirection = 1;
 	int ydirection = 1;
+	// SDL_Rect boundingBox;
+	Sprite *currentAnimation = nullptr;
+	Sprite idleAnimation;
+	Sprite walkingAnimation;
 
 
 	void update(float deltaTime, SDL_Rect *camera) override;
 	void updatePosition();
 	void draw()override;
+	void initializeAnimationFrames();
 	void onCollision(Vector2df penetration) override;
 	Entity *clone()override{
 		Entity::IDcount++;

@@ -12,8 +12,8 @@ void Tile::setTileSize(int newTileSize){
 	isActive = true;
 	if(Tile::texture == nullptr) Tile::texture = loadTexture("assets/textures/mario_blocks.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
 	sprite.texture = Tile::texture;
-	sprite.boundingBox.w = tileSize;
-	sprite.boundingBox.h = tileSize;
+	boundingBox.w = tileSize;
+	boundingBox.h = tileSize;
 }
 
 
@@ -24,11 +24,11 @@ Tile::Tile(){
 
 
 void Tile::update(float deltaTime, SDL_Rect *camera){
-	sprite.boundingBox.x = position.x - camera->x;
-	sprite.boundingBox.y = position.y - camera->y;
+	boundingBox.x = position.x - camera->x;
+	boundingBox.y = position.y - camera->y;
 }
 void Tile::draw(){
-	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &sprite.boundingBox );
+	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &boundingBox );
 }
 
 

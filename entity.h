@@ -30,6 +30,7 @@ struct Entity{
 	bool isStatic = true;
 	Sprite sprite;
 	SDL_Rect clippingBox;
+	SDL_Rect boundingBox;
 	ENTITY_TYPE entityType;
 	// int xTileNumber;
 	// int yTileNumber;

@@ -30,6 +30,9 @@ struct PlayerTile : public Tile{
 	setClippingBox(98, 32, 12, 16);
 	entityType = ENTITY_TYPE::PLAYER;
 	}
+	~PlayerTile(){
+		SDL_DestroyTexture(sprite.texture);
+	}
 };
 struct Ground : public Tile{
 	Ground(){

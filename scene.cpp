@@ -6,8 +6,7 @@
 Scene::Scene(){
 	CAMERA.resetCamera();
 }
-static float x = 0;// This variables are temporary. Should be in the camera class
-static float y = 0;
+
 void Scene::updateScene(float deltaTime){
 	CAMERA.updatePosition();
 	layer0.update(deltaT, &CAMERA.bounds);

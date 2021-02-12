@@ -69,8 +69,8 @@ void LevelEditor::calculateSampleEntitiesPosition(){
 	for(unsigned int i = 0; i < sampleEntities.size() ; i++){
 		if(sampleEntities[i] != nullptr){
 			Entity *e = sampleEntities[i];
-			e->sprite.boundingBox.x = (col * tileSelectionSection.editorTileSize) + tileSelectionSection.offset + 1;
-			e->sprite.boundingBox.y = (row * tileSelectionSection.editorTileSize) + tileSelectionSection.offset + 1;
+			e->boundingBox.x = (col * tileSelectionSection.editorTileSize) + tileSelectionSection.offset + 1;
+			e->boundingBox.y = (row * tileSelectionSection.editorTileSize) + tileSelectionSection.offset + 1;
 			// e->draw();
 			col++;
 			if(col == (tileSelectionSection.tilesPerRow)){
@@ -117,8 +117,8 @@ void LevelEditor::setTileOnClick(){
 		if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
 			Entity *newEntity = selectedEntity->clone();
 			// if(!selectedEntity->isStatic){
-				// newEntity->sprite.boundingBox.x = selectedEntity->x;
-				// newEntity->sprite.boundingBox.y = selectedEntity->y;// selectedEntity->ystd::cout << xTile << ", " << yTile << std::endl;
+				// newEntity->boundingBox.x = selectedEntity->x;
+				// newEntity->boundingBox.y = selectedEntity->y;// selectedEntity->ystd::cout << xTile << ", " << yTile << std::endl;
 			// }
 			// int count = 0;
 		// for(unsigned int i = 0; i < tileMapBeingEdited.entities.size() ; i++){
@@ -183,12 +183,12 @@ void LevelEditor::drawEditorLevel(){
 void LevelEditor::drawSampleEntities(){
 	for(unsigned int i = 0; i < sampleEntities.size() ; i++){
 		if(sampleEntities[i] != nullptr){
-			sampleEntities[i]->sprite.boundingBox.w = tileSelectionSection.editorTileSize;
-			sampleEntities[i]->sprite.boundingBox.h = tileSelectionSection.editorTileSize;
+			sampleEntities[i]->boundingBox.w = tileSelectionSection.editorTileSize;
+			sampleEntities[i]->boundingBox.h = tileSelectionSection.editorTileSize;
 			sampleEntities[i]->draw();
 
-			sampleEntities[i]->sprite.boundingBox.w = Tile::tileSize;
-			sampleEntities[i]->sprite.boundingBox.h = Tile::tileSize;
+			sampleEntities[i]->boundingBox.w = Tile::tileSize;
+			sampleEntities[i]->boundingBox.h = Tile::tileSize;
 		}
 	}
 }
@@ -202,8 +202,8 @@ void LevelEditor::drawSelectionSquare(){
 		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 		tileSelectionSection.selectionSquareBox.x = (xTile * tileMapBeingEdited->tileWidth) - camera.bounds.x;
 		tileSelectionSection.selectionSquareBox.y = (yTile * tileMapBeingEdited->tileHeight) - camera.bounds.y;
-		// sprite.boundingBox.x = x - camera->x;
-		// sprite.boundingBox.y = y - camera->y;
+		// boundingBox.x = x - camera->x;
+		// boundingBox.y = y - camera->y;
 
 		SDL_RenderCopy(renderer, tileSelectionSection.selectionSquare, nullptr, &tileSelectionSection.selectionSquareBox);
 	}
@@ -218,8 +218,8 @@ void LevelEditor::drawSampleSelectionSquare(){
 		int yTile = (mouseY - tileSelectionSection.offset) / tileSelectionSection.editorTileSize;
 		tileSelectionSection.sampleSelectionSquareBox.x = tileSelectionSection.offset + (xTile * tileSelectionSection.editorTileSize);
 		tileSelectionSection.sampleSelectionSquareBox.y = tileSelectionSection.offset + (yTile * tileSelectionSection.editorTileSize);
-		// sprite.boundingBox.x = x - camera->x;
-		// sprite.boundingBox.y = y - camera->y;
+		// boundingBox.x = x - camera->x;
+		// boundingBox.y = y - camera->y;
 		// COMENTARIO DE PRUEBA
 		SDL_RenderCopy(renderer, tileSelectionSection.sampleSelectionSquare, nullptr, &tileSelectionSection.sampleSelectionSquareBox);
 	}
@@ -236,8 +236,8 @@ void LevelEditor::drawEditorWindow(){
 static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
 	d->position.x = tileEntity->position.x;
 	d->position.y = tileEntity->position.y;
-	// d->x = tileEntity->sprite.boundingBox.x;
-	// d->y = tileEntity->sprite.boundingBox.y;
+	// d->boundingBox.x = d->position.x - CAMERA.bounds.x;
+	// d->boundingBox.y = d->position.y - CAMERA.bounds.y;
 }
 
 void LevelEditor::loadEntitiesToScene(){
@@ -271,6 +271,8 @@ void LevelEditor::loadEntitiesToScene(){
 				if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::PLAYER){
 					Player *p = new Player();
 					setDynamicEntityPosition(editorLayer2.entities[i][j], p);
+					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
+
 					level->layer2.dynamicEntities.push_back(p);
 				}
 			}

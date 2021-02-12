@@ -56,6 +56,8 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 	for(unsigned int k = 0; k < collisionLayer->dynamicEntities.size(); k++){
 		if(collisionLayer->dynamicEntities[k] != nullptr){
 			Entity *e = collisionLayer->dynamicEntities[k];
+			// std::cout << e->boundingBox.x << " , " << e->boundingBox.x << std::endl;
+
 			// std::cout << "mario" << std::endl;
 			// std::cout << collisionLayer->getXTile(e->position.x) << " , " << collisionLayer->getYTile(e->position.y) << std::endl;
 			tiles[0].x = collisionLayer->getXTile(e->position.x - collisionLayer->tileWidth);
@@ -139,6 +141,7 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 				}
 			}
 
+
 			// for(unsigned int i = 0; i < tiles.size(); i++){
 			// 	std::cout << tiles[i].x << " , " << tiles[i].y << " : " << distances[i].x << " , " << distances[i].y << std::endl;
 			// }
@@ -146,7 +149,7 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 			for(unsigned int i = 0; i < tiles.size();i++){
 				Vector2df penetrationVector;
 				if(collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y] != nullptr){
-					if(CollisionManager::minkowskiDifference(e->sprite.boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->sprite.boundingBox, &penetrationVector)){
+					if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->boundingBox, &penetrationVector)){
 						e->onCollision(penetrationVector);
 					}
 				}

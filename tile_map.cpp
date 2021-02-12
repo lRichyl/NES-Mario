@@ -37,7 +37,10 @@ void TileMap::draw(){
 void TileMap::update(float deltaT, SDL_Rect *camera){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
+
 			dynamicEntities[i]->update(deltaT, camera);
+			// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
+
 			// std::cout << "Mario" << std::endl;
 		}
 	}

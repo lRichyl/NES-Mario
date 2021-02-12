@@ -66,13 +66,15 @@ int main(int argc, char* argv[]) {
 	SDL_Event e;
 	bool quit = false;
 
+
+
 	while( !quit )
 	{
 		// auto startingTime = std::chrono::system_clock::now();
 		float startingTime = (float)SDL_GetTicks() / 1000.f;
 		float FPS = 1.0f / deltaT;
 		// std::cout << "ms: " << deltaTime * 1000.f << std::endl;
-		std::cout << "FPS: " << FPS << std::endl;
+		// std::cout << "FPS: " << FPS << std::endl;
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
