@@ -4,44 +4,16 @@
 
 
 Scene::Scene(){
-	CAMERA.x = 0;
-	CAMERA.y = 0;
-	CAMERA.w = 1280;
-	CAMERA.h = 720;
+	CAMERA.resetCamera();
 }
 static float x = 0;// This variables are temporary. Should be in the camera class
 static float y = 0;
 void Scene::updateScene(float deltaTime){
-	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-
-	if( currentKeyStates[ SDL_SCANCODE_W ] )
-	{
-		y -= 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_S ] )
-	{
-		y += 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_A ] )
-	{
-		x -= 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_D ] )
-	{
-		x += 60 * deltaT;
-	}
-	CAMERA.x = x;
-	CAMERA.y = y;
-	if(CAMERA.x < 0) {
-		CAMERA.x = 0;
-	}
-	if(CAMERA.y < 0) {
-		CAMERA.y = 0;
-	}
-	layer0.update(deltaT, &CAMERA);
-	layer1.update(deltaT, &CAMERA);
-	layer2.update(deltaT, &CAMERA);
-	layer3.update(deltaT, &CAMERA);
+	CAMERA.updatePosition();
+	layer0.update(deltaT, &CAMERA.bounds);
+	layer1.update(deltaT, &CAMERA.bounds);
+	layer2.update(deltaT, &CAMERA.bounds);
+	layer3.update(deltaT, &CAMERA.bounds);
 }
 
 void Scene::checkCollisions(){
@@ -64,8 +36,5 @@ void Scene::unloadEntities(){
 }
 
 void Scene::resetCamera(){
-	CAMERA.x = 0;
-	CAMERA.y = 0;
-	x = 0;
-	y = 0;
+	CAMERA.resetCamera();
 }

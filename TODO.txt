@@ -3,6 +3,7 @@ POR HACER
 
 *Agregar las camaras a sus propias clases
 *Implementar el sistema de animaciones, cada sprite tendrá un vector de texturas.
+*Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar la opción de cambiar la capa que está siendo editada
 *Implementar el guardado de niveles en archivos.

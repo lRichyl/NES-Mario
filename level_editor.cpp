@@ -24,10 +24,7 @@ TileSelectionSection::TileSelectionSection(){
 }
 
 LevelEditor::LevelEditor(){
-	camera.x = 0;
-	camera.y = 0;
-	camera.w = 1280;
-	camera.h = 720;
+	camera.resetCamera();
 	initializeSampleEntities();
 	selectedEntity = sampleEntities[0];
 	calculateSampleEntitiesPosition();
@@ -108,8 +105,8 @@ void LevelEditor::setTileOnClick(){
 	int mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) && isMouseInSceneLimits(mouseX, mouseY)){
-		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.x);
-		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.y);
+		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.bounds.x);
+		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 
 		selectedEntity->xTile = xTile;
 		selectedEntity->yTile = yTile;
@@ -142,8 +139,8 @@ void LevelEditor::deleteTileOnClick(){
 	int mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)) && isMouseInSceneLimits(mouseX, mouseY)){
-		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.x);
-		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.y);
+		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.bounds.x);
+		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 
 		delete tileMapBeingEdited->entities[xTile][yTile];
 		tileMapBeingEdited->entities[xTile][yTile] = nullptr;
@@ -169,36 +166,11 @@ float x = 0;
 float y = 0;
 
 void LevelEditor::udpateEditorLevel(){
-	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-
-	if( currentKeyStates[ SDL_SCANCODE_W ] )
-	{
-		y -= 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_S ] )
-	{
-		y += 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_A ] )
-	{
-		x -= 60 * deltaT;
-	}
-	if( currentKeyStates[ SDL_SCANCODE_D ] )
-	{
-		x += 60 * deltaT;
-	}
-	camera.x = x;
-	camera.y = y;
-	if(camera.x < 0) {
-		camera.x = 0;
-	}
-	if(camera.y < 0) {
-		camera.y = 0;
-	}
-	editorLayer0.update(deltaT, &camera);
-	editorLayer1.update(deltaT, &camera);
-	editorLayer2.update(deltaT, &camera);
-	editorLayer3.update(deltaT, &camera);
+	camera.updatePosition();
+	editorLayer0.update(deltaT, &camera.bounds);
+	editorLayer1.update(deltaT, &camera.bounds);
+	editorLayer2.update(deltaT, &camera.bounds);
+	editorLayer3.update(deltaT, &camera.bounds);
 }
 
 void LevelEditor::drawEditorLevel(){
@@ -226,10 +198,10 @@ void LevelEditor::drawSelectionSquare(){
 	int mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	if ((isMouseInSceneLimits(mouseX, mouseY))){
-		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.x);
-		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.y);
-		tileSelectionSection.selectionSquareBox.x = (xTile * tileMapBeingEdited->tileWidth) - camera.x;
-		tileSelectionSection.selectionSquareBox.y = (yTile * tileMapBeingEdited->tileHeight) - camera.y;
+		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.bounds.x);
+		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
+		tileSelectionSection.selectionSquareBox.x = (xTile * tileMapBeingEdited->tileWidth) - camera.bounds.x;
+		tileSelectionSection.selectionSquareBox.y = (yTile * tileMapBeingEdited->tileHeight) - camera.bounds.y;
 		// sprite.boundingBox.x = x - camera->x;
 		// sprite.boundingBox.y = y - camera->y;
 

@@ -47,8 +47,8 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 }
 
 void Player::updatePosition(){
-	sprite.boundingBox.x = position.x - CAMERA.x;
-	sprite.boundingBox.y = position.y - CAMERA.y;
+	sprite.boundingBox.x = position.x - CAMERA.bounds.x;
+	sprite.boundingBox.y = position.y - CAMERA.bounds.y;
 }
 
 void Player::draw(){

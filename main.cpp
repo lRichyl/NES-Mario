@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	// SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	// SDL_RenderSetLogicalSize(renderer, 1280, 480);
 	// int rendererX = getRendererWidth();
 	// int rendererY = getRendererHeight();
 	// int RENDERER_WIDTH = rendererX;

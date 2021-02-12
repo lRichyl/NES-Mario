@@ -4,6 +4,7 @@
 #include "scene.h"
 #include "tile.h"
 #include "entity.h"
+#include "camera.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();
@@ -37,7 +38,7 @@ struct LevelEditor{
 	TileMap editorLayer1;
 	TileMap editorLayer2;
 	TileMap editorLayer3;
-	SDL_Rect camera;
+	Camera camera;
 
 	TileSelectionSection tileSelectionSection;
 	int layerBeingEdited = 2;
