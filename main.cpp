@@ -30,10 +30,13 @@ int main(int argc, char* argv[]) {
         SDL_WINDOW_OPENGL                  // flags - see below
     );
 
-	// SDL_SetWindowSize(window, 1280, 720);
+
+	// SDL_SetWindowSize(window, 1440, 900);
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	// SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	// SDL_MaximizeWindow(window);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
 	// SDL_RenderSetLogicalSize(renderer, 1280, 480);
 	// int rendererX = getRendererWidth();
 	// int rendererY = getRendererHeight();
@@ -73,8 +76,7 @@ int main(int argc, char* argv[]) {
 		// auto startingTime = std::chrono::system_clock::now();
 		float startingTime = (float)SDL_GetTicks() / 1000.f;
 		float FPS = 1.0f / deltaT;
-		// std::cout << "ms: " << deltaTime * 1000.f << std::endl;
-		// std::cout << "FPS: " << FPS << std::endl;
+		std::cout << "FPS: " << FPS << std::endl;
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -127,16 +129,17 @@ int main(int argc, char* argv[]) {
 			SDL_RenderPresent( renderer );
 		}
 
+		// SDL_DestroyTexture(textTexture);
 		float finalTime = (float)SDL_GetTicks() / 1000.f;
 		deltaT = finalTime - startingTime;
 	}
 
     // Clean up
 	//Destroy window and renderer.
-	// SDL_DestroyTexture(texture);
     SDL_DestroyRenderer( renderer );
     SDL_DestroyWindow( window );
     SDL_DestroyTexture(Tile::texture);
+
     window = NULL;
     renderer = NULL;
 

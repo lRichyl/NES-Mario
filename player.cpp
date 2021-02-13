@@ -10,8 +10,8 @@ Player::Player(){
 	isStatic = false;
 	isActive = true;
 	// sprite.texture = loadTexture("assets/textures/mario_animations.png");
-	boundingBox.w = 64;
-	boundingBox.h = 64;
+	boundingBox.w = Tile::tileSize;
+	boundingBox.h = Tile::tileSize;
 	setClippingBox(98, 32, 12, 16); // This is not used when doing animated sprites
 	initializeAnimationFrames();
 	currentAnimation = &idleAnimation;

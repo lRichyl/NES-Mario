@@ -49,6 +49,7 @@ void TileSelectionSection::draw(){
 void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PlayerTile());
 	sampleEntities.push_back(new Ground());
+	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
 	sampleEntities.push_back(new QuestionMark());
 	sampleEntities.push_back(new CloudLeftTop());
@@ -59,6 +60,12 @@ void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PipeRightTop());
 	sampleEntities.push_back(new PipeLeftDown());
 	sampleEntities.push_back(new PipeRightDown());
+	sampleEntities.push_back(new MountTopLeft());
+	sampleEntities.push_back(new MountTopRight());
+	sampleEntities.push_back(new MountDownLeft());
+	sampleEntities.push_back(new MountDownRight());
+	sampleEntities.push_back(new MountTop());
+	sampleEntities.push_back(new MountDown());
 
 	// resizeSampleEntities();
 }
