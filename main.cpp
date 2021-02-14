@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include <stdio.h>
 #include <chrono>
 #include "SDL2/SDL.h"
@@ -14,7 +15,13 @@
 #include "scene.h"
 #include "level_editor.h"
 #include "renderer.h"
+#include "text.h"
 
+static void printFPS(float FPS, Text fpsText){
+	std::string fps = std::to_string(FPS);
+	std::cout << fps << std::endl;
+	fpsText.renderText(fps);
+}
 
 int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
@@ -76,7 +83,7 @@ int main(int argc, char* argv[]) {
 		// auto startingTime = std::chrono::system_clock::now();
 		float startingTime = (float)SDL_GetTicks() / 1000.f;
 		float FPS = 1.0f / deltaT;
-		std::cout << "FPS: " << FPS << std::endl;
+		// std::cout << "FPS: " << FPS << std::endl;
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -104,6 +111,10 @@ int main(int argc, char* argv[]) {
 	        }
 
 		}
+		Text fpsText;
+		fpsText.x = 0;
+		fpsText.y = 0;
+		fpsText.size = 16;
 
 		if(!testingLevel){
 			editor.setSelectedEntity();
@@ -115,6 +126,9 @@ int main(int argc, char* argv[]) {
 			SDL_RenderClear( renderer );
 			editor.drawEditorLevel();
 			editor.drawEditorWindow();
+
+			printFPS(FPS, fpsText);
+
 			SDL_RenderPresent( renderer );
 
 		}
@@ -126,8 +140,10 @@ int main(int argc, char* argv[]) {
 			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
 			SDL_RenderClear( renderer );
 			editedLevel.drawScene();
+			printFPS(FPS, fpsText );
 			SDL_RenderPresent( renderer );
 		}
+
 
 		// SDL_DestroyTexture(textTexture);
 		float finalTime = (float)SDL_GetTicks() / 1000.f;

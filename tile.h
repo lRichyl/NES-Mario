@@ -12,10 +12,9 @@ struct Tile : public Entity{
 	void setTileSize(int newTileSize);
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
-
 	// THIS IS CREATING A COPY FOR EVERY TILE
 	static SDL_Texture *texture;
-	static const int tileSize = 64;
+	static int tileSize;
 
 	Entity *clone()override{
 		Entity::IDcount++;

@@ -7,10 +7,13 @@
 	// y = startingY;
 // }
 SDL_Texture* Tile::texture = nullptr;
+int Tile::tileSize = 64;
 
 void Tile::setTileSize(int newTileSize){
 	isActive = true;
-	if(Tile::texture == nullptr) Tile::texture = loadTexture("assets/textures/mario_blocks.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
+	if(Tile::texture == nullptr){
+		Tile::texture = loadTexture("assets/textures/mario_blocks.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
+	}
 	sprite.texture = Tile::texture;
 	boundingBox.w = tileSize;
 	boundingBox.h = tileSize;
