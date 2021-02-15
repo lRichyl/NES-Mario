@@ -5,6 +5,8 @@
 
 Scene::Scene(){
 	CAMERA.resetCamera();
+	// CAMERA.xOffset = 3 * Tile::tileSize;
+	// CAMERA.yOffset = 3 * Tile::tileSize;
 }
 
 void Scene::updateScene(float deltaTime){

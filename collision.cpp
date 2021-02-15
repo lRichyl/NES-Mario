@@ -129,7 +129,7 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 				float dist1;
 				dist0 = sqrt((pow(distances[i].x,2) + pow(distances[i].y,2)));
 				dist1 = sqrt((pow(distances[i + 1].x,2) + pow(distances[i + 1].y,2)));
-				if(i < distances.size() + -1){
+				if(i < distances.size()  - 1){
 					if(dist0 > dist1){
 						tempTile = tiles[i];
 						tiles[i] = tiles[i + 1];
@@ -148,9 +148,11 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 			// system("cls");
 			for(unsigned int i = 0; i < tiles.size();i++){
 				Vector2df penetrationVector;
-				if(collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y] != nullptr){
-					if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->boundingBox, &penetrationVector)){
-						e->onCollision(penetrationVector);
+				if(tiles[i].x > 0 && tiles[i].y > 0){
+					if(collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y] != nullptr){
+						if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->boundingBox, &penetrationVector)){
+							e->onCollision(penetrationVector);
+						}
 					}
 				}
 			}

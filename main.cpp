@@ -19,7 +19,6 @@
 
 static void printFPS(float FPS, Text fpsText){
 	std::string fps = std::to_string(FPS);
-	std::cout << fps << std::endl;
 	fpsText.renderText(fps);
 }
 
@@ -76,7 +75,11 @@ int main(int argc, char* argv[]) {
 	SDL_Event e;
 	bool quit = false;
 
-
+	GlyphsMap font;
+	Text fpsText(&font);
+	fpsText.x = 0;
+	fpsText.y = 0;
+	fpsText.size = 16;
 
 	while( !quit )
 	{
@@ -111,10 +114,7 @@ int main(int argc, char* argv[]) {
 	        }
 
 		}
-		Text fpsText;
-		fpsText.x = 0;
-		fpsText.y = 0;
-		fpsText.size = 16;
+
 
 		if(!testingLevel){
 			editor.setSelectedEntity();
@@ -134,6 +134,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		if(testingLevel){
+			std::cout << CAMERA.bounds.x << " , " << CAMERA.bounds.y << std::endl;
 			editedLevel.updateScene(deltaT);
 			editedLevel.checkCollisions();
 

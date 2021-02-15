@@ -3,30 +3,36 @@
 #include "texture.h"
 #include "global_variables.h"
 
-Text::Text(){
+GlyphsMap::GlyphsMap(){
      texture = loadTexture("assets/textures/nesfont_white.png");
      initializeMapofGlyphs();
+}
+
+Text::Text(GlyphsMap *glyphsMap){
+     this->glyphsMap = glyphsMap;
 }
 
 void Text::renderText(std::string text){
      if(currentText != text){
           currentText = text;
+          glyphsToRender.clear();
+          glyphsPositions.clear();
           setGlyphs();
      }
      for(unsigned int i = 0;i < glyphsToRender.size(); i++){
-          SDL_RenderCopy(renderer, texture, &glyphsToRender[i], &glyphsPositions[i]);
+          SDL_RenderCopy(renderer, glyphsMap->texture, &glyphsToRender[i], &glyphsPositions[i]);
      }
 }
 void Text::setGlyphs(){
      for(int i = 0; i < currentText.size();i++ ){
           std::string t = currentText.substr(i,1);
-          glyphsToRender.push_back(stringToGlyphMap[t]);
+          glyphsToRender.push_back(glyphsMap->stringToGlyphMap[t]);
           int xFinalPos = (i * size) + x;
           int yFinalPos = y;
           glyphsPositions.push_back(SDL_Rect {xFinalPos, yFinalPos, size, size});
      }
 }
-void Text::initializeMapofGlyphs(){
+void GlyphsMap::initializeMapofGlyphs(){
      stringToGlyphMap.insert(
      {{"A", SDL_Rect {15, 31, 16, 16}},
       {"B", SDL_Rect {31, 31, 16, 16}},

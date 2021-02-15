@@ -115,28 +115,30 @@ void LevelEditor::setTileOnClick(){
 		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.bounds.x);
 		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 
-		selectedEntity->xTile = xTile;
-		selectedEntity->yTile = yTile;
-		selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
-		selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
-		// }
-
-		if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
-			Entity *newEntity = selectedEntity->clone();
-			// if(!selectedEntity->isStatic){
-				// newEntity->boundingBox.x = selectedEntity->x;
-				// newEntity->boundingBox.y = selectedEntity->y;// selectedEntity->ystd::cout << xTile << ", " << yTile << std::endl;
+		if(xTile > 0 && yTile > 0){
+			selectedEntity->xTile = xTile;
+			selectedEntity->yTile = yTile;
+			selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
+			selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
 			// }
-			// int count = 0;
-		// for(unsigned int i = 0; i < tileMapBeingEdited.entities.size() ; i++){
-			// for(unsigned int j = 0; j < tileMapBeingEdited.entities[i].size(); j++){
-				// if(tileMapBeingEdited.entities[i][j] != nullptr){
-					// count++;
+
+			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
+				Entity *newEntity = selectedEntity->clone();
+				// if(!selectedEntity->isStatic){
+					// newEntity->boundingBox.x = selectedEntity->x;
+					// newEntity->boundingBox.y = selectedEntity->y;// selectedEntity->ystd::cout << xTile << ", " << yTile << std::endl;
+				// }
+				// int count = 0;
+			// for(unsigned int i = 0; i < tileMapBeingEdited.entities.size() ; i++){
+				// for(unsigned int j = 0; j < tileMapBeingEdited.entities[i].size(); j++){
+					// if(tileMapBeingEdited.entities[i][j] != nullptr){
+						// count++;
+					// }
 				// }
 			// }
-		// }
-			// std::cout << count << std::endl;
-			tileMapBeingEdited->addEntityOnTile(xTile, yTile, newEntity);
+				// std::cout << count << std::endl;
+				tileMapBeingEdited->addEntityOnTile(xTile, yTile, newEntity);
+			}
 		}
 	}
 }
@@ -165,7 +167,9 @@ void LevelEditor::setSelectedEntity(){
 
 		int entityInMouseID = xTile + (yTile * tileSelectionSection.tilesPerRow);
 
-		selectedEntity = sampleEntities[entityInMouseID];
+		if(entityInMouseID < sampleEntities.size()){
+			selectedEntity = sampleEntities[entityInMouseID];
+		}
 
 	}
 }
@@ -248,6 +252,8 @@ static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
 }
 
 void LevelEditor::loadEntitiesToScene(){
+	// CAMERA.bounds.x =  100;
+	// CAMERA.bounds.y += 100;
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
