@@ -28,7 +28,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-	position.y += 120 * deltaT;
+
 	// if(updatePosition){
 	// 	sprite.boundingBox.x = position.x - camera->x;
 	// 	sprite.boundingBox.y = position.y - camera->y;
@@ -36,31 +36,92 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 	if( currentKeyStates[ SDL_SCANCODE_UP ] )
 	{
-		position.y -= velocity.y * ydirection * deltaTime;
+		// position.y -= velocity.y * ydirection * deltaTime;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
 	{
-		position.y += velocity.y * ydirection * deltaTime;
+		// position.y += velocity.y * ydirection * deltaTime;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 	{
 		currentAnimation = &walkingAnimation;
-		position.x -= velocity.x * xdirection * deltaTime;
+		velocity.x  -= acceleration.x * deltaTime;
+		if(velocity.x < -maxVelocity){
+			velocity.x = -maxVelocity;
+		}
+		// acceleration.x += 3 * deltaTime;
+		// position.x -= velocity.x * xdirection * deltaTime;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 	{
-		// currentAnimation = &walkingAnimation;
-		position.x += velocity.x * xdirection * deltaTime;
+		currentAnimation = &walkingAnimation;
+		velocity.x  += acceleration.x * deltaTime;
+		if(velocity.x > maxVelocity){
+			velocity.x = maxVelocity;
+		}
+		// acceleration.x += 3 * deltaTime;
+		// position.x += velocity.x * xdirection * deltaTime;
 	}
-	if( currentKeyStates[ SDL_SCANCODE_B ] )
-	{
-		position.y += velocity.x * -3 * deltaTime;
+	if(canJump){
+		if( currentKeyStates[ SDL_SCANCODE_B ] )
+		{
+			acceleration.y -= .8;
+			if(acceleration.y > -8) acceleration.y = -8;
+			// if(acceleration.y < -80 )deaccel -= .1;
+			velocity.y += acceleration.y * deltaTime;
+			distanceTraveled += velocity.y * deltaTime;
+			if(velocity.y <= -2) velocity.y = -2;
+			if(distanceTraveled < -250 * deltaTime)
+				canJump = false;
+
+			// if(velocity.y < -maxVelocity){
+				// 	velocity.y = -maxVelocity;
+				// }
+
+
+		}
+		// if(velocity.y < -5){
+		// 	// velocity.y = 0;
+		// 	// acceleration.y = 0;
+		// 	isFalling = true;
+		// 	canJump = false;
+		// }else{
+		// 	velocity.y += acceleration.y * deltaTime;
+		// }
+	}else{
+		acceleration.y = 0;
+		distanceTraveled = 0;
+		// deaccel = 2.5;
 	}
+	velocity.y += gravity * deltaTime;
+
+
+
+
+
+	if(velocity.x > 0){
+		velocity.x -= 30* deltaTime;
+		// if(velocity.x < 0.03 && velocity.x > 0 ) velocity.x = 0;
+	}
+
+	if(velocity.x < 0){
+		velocity.x += 30* deltaTime;
+		// if(velocity.x > -0.03 && velocity.x < 0) velocity.x = 0;
+	}
+
+	if((int)velocity.x == 0){
+		currentAnimation =  &idleAnimation;
+	}
+
+	std::cout << distanceTraveled << std::endl;
+	// if(acceleration.x > 3) acceleration.x =3;
+
+	// acceleration.x -= 1;
+	position.x += (int)velocity.x;
+	position.y += velocity.y;
 	xdirection = 1;
 	ydirection = 1;
-	// position.y += (velocity.y * ydirection) * deltaTime;
-	// position.x += (velocity.x * xdirection) * deltaTime;
-	// std::cout << boundingBox.x << " , " << boundingBox.x << std::endl;
+
 	updatePosition();
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
@@ -84,6 +145,14 @@ void Player::draw(){
 void Player::onCollision(Vector2df penetration){
 		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
 		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
+	if(penetration.y > 0 && canJump == false){
+		canJump = true;
+		isFalling = false;
+		velocity.y = 0;
+	}
+	if(penetration.y > 0){
+		velocity.y = 0;
+	}
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);

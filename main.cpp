@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		if(testingLevel){
-			std::cout << CAMERA.bounds.x << " , " << CAMERA.bounds.y << std::endl;
+			// std::cout << CAMERA.bounds.x << " , " << CAMERA.bounds.y << std::endl;
 			editedLevel.updateScene(deltaT);
 			editedLevel.checkCollisions();
 

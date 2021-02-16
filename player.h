@@ -10,9 +10,15 @@
 struct Player : public Entity{
 	Player();
 	~Player();
-	Vector2df velocity = Vector2df(150.0f, 100.0f);
+	Vector2df velocity = Vector2df(0, 0);
+	Vector2df acceleration = Vector2df(60, 0);
+	float gravity = 10;
+	float distanceTraveled = 0;
+	int maxVelocity = 2;
 	int xdirection = 1;
 	int ydirection = 1;
+	bool canJump = true;
+	bool isFalling = false;
 	// SDL_Rect boundingBox;
 	Sprite *currentAnimation = nullptr;
 	Sprite idleAnimation;
