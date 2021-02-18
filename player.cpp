@@ -44,83 +44,87 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	}
 	if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 	{
+		idleAnimation.flip = true;
 		currentAnimation = &walkingAnimation;
+		walkingAnimation.flip = true;
 		velocity.x  -= acceleration.x * deltaTime;
-		if(velocity.x < -maxVelocity){
-			velocity.x = -maxVelocity;
+		if(velocity.x < -maxXVelocity){
+			velocity.x = -maxXVelocity;
 		}
 		// acceleration.x += 3 * deltaTime;
 		// position.x -= velocity.x * xdirection * deltaTime;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 	{
+		idleAnimation.flip = false;
 		currentAnimation = &walkingAnimation;
+		walkingAnimation.flip = false;
 		velocity.x  += acceleration.x * deltaTime;
-		if(velocity.x > maxVelocity){
-			velocity.x = maxVelocity;
+		if(velocity.x > maxXVelocity){
+			velocity.x = maxXVelocity;
 		}
 		// acceleration.x += 3 * deltaTime;
 		// position.x += velocity.x * xdirection * deltaTime;
 	}
-	if(canJump){
-		if( currentKeyStates[ SDL_SCANCODE_B ] )
-		{
-			acceleration.y -= .8;
-			if(acceleration.y > -8) acceleration.y = -8;
-			// if(acceleration.y < -80 )deaccel -= .1;
-			velocity.y += acceleration.y * deltaTime;
-			distanceTraveled += velocity.y * deltaTime;
-			if(velocity.y <= -2) velocity.y = -2;
-			if(distanceTraveled < -250 * deltaTime)
-				canJump = false;
 
-			// if(velocity.y < -maxVelocity){
-				// 	velocity.y = -maxVelocity;
-				// }
+	//if the velocity is close to zero we make it zero so that the player stands still
+	if( !currentKeyStates[ SDL_SCANCODE_LEFT ]&& !currentKeyStates[ SDL_SCANCODE_RIGHT ]){
+		currentAnimation = &idleAnimation;
+		if(velocity.x > -0.2 && velocity.x < 0.2){
+			velocity.x = 0;
+		}
+	}
 
+//////////////////// JUMPING////////////////////////////
+	if( currentKeyStates[ SDL_SCANCODE_B ] && !wasBReleased)
+	{
+
+		if(canJump){
+			if(canSetJumpingSpeed){
+				velocity.y += acceleration.y*deltaTime;
+				if(acceleration.y < 0)
+					acceleration.y += 450 * deltaTime;
+				if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
+				// velocity.y = -3 ;
+				// canSetJumpingSpeed = false;
+				// canJump = false;
+			}
+		}else{
+			distanceTraveled = 0;
 
 		}
-		// if(velocity.y < -5){
-		// 	// velocity.y = 0;
-		// 	// acceleration.y = 0;
-		// 	isFalling = true;
-		// 	canJump = false;
-		// }else{
-		// 	velocity.y += acceleration.y * deltaTime;
-		// }
+
+
+		// velocity.y += 10 * deltaTime;
+		distanceTraveled += abs(velocity.y * deltaTime);
 	}else{
-		acceleration.y = 0;
-		distanceTraveled = 0;
-		// deaccel = 2.5;
+		wasBReleased = true;
+		// std::cout << "b release" << std::endl;
+
 	}
+
+////////////////////////////////////////////////////////
 	velocity.y += gravity * deltaTime;
 
 
 
 
-
+/////////////////// FRICTION/////////////////
 	if(velocity.x > 0){
-		velocity.x -= 30* deltaTime;
+		velocity.x -= friction* deltaTime;
 		// if(velocity.x < 0.03 && velocity.x > 0 ) velocity.x = 0;
 	}
 
 	if(velocity.x < 0){
-		velocity.x += 30* deltaTime;
+		velocity.x += friction* deltaTime;
 		// if(velocity.x > -0.03 && velocity.x < 0) velocity.x = 0;
 	}
+/////////////////////////////////////////////
 
-	if((int)velocity.x == 0){
-		currentAnimation =  &idleAnimation;
-	}
 
-	std::cout << distanceTraveled << std::endl;
-	// if(acceleration.x > 3) acceleration.x =3;
-
-	// acceleration.x -= 1;
-	position.x += (int)velocity.x;
+	std::cout << walkingAnimation.frameIndex << std::endl;
+	position.x += velocity.x;
 	position.y += velocity.y;
-	xdirection = 1;
-	ydirection = 1;
 
 	updatePosition();
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
@@ -146,11 +150,14 @@ void Player::onCollision(Vector2df penetration){
 		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
 		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 	if(penetration.y > 0 && canJump == false){
-		canJump = true;
-		isFalling = false;
 		velocity.y = 0;
 	}
+
 	if(penetration.y > 0){
+		acceleration.y = -100;
+		wasBReleased = false;
+		canJump = true;
+		canSetJumpingSpeed = true;
 		velocity.y = 0;
 	}
 

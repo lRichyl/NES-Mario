@@ -6,7 +6,7 @@ TileMap::TileMap(){
 	for(unsigned int i = 0; i < entities.size(); i++){
 		entities[i].resize(levelHeight/tileHeight, nullptr);
 	}
-	// dynamicEntities.resize(100, nullptr);
+	// dynamicEntities.clear();
 }
 
 bool TileMap::addEntityOnTile(int xTile, int yTile, Entity *e){
