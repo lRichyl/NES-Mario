@@ -122,7 +122,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 /////////////////////////////////////////////
 
 
-	std::cout << walkingAnimation.frameIndex << std::endl;
+	// std::cout << walkingAnimation.frameIndex << std::endl;
 	position.x += velocity.x;
 	position.y += velocity.y;
 
@@ -153,6 +153,7 @@ void Player::onCollision(Vector2df penetration){
 		velocity.y = 0;
 	}
 
+	if(penetration.y < 0) velocity.y = 0;
 	if(penetration.y > 0){
 		acceleration.y = -100;
 		wasBReleased = false;

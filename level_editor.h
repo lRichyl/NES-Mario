@@ -5,6 +5,7 @@
 #include "tile.h"
 #include "entity.h"
 #include "camera.h"
+#include "text.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();
@@ -40,8 +41,11 @@ struct LevelEditor{
 	TileMap editorLayer3;
 	Camera camera;
 
+	GlyphsMap font;
+	Text layerText = Text(&font);
+
 	TileSelectionSection tileSelectionSection;
-	int layerBeingEdited = 2;
+	int layerBeingEdited;
 	// bool playScene = false;
 
 	void udpateEditorLevel();
@@ -51,6 +55,9 @@ struct LevelEditor{
 	void drawSampleEntities();
 	void drawSelectionSquare();
 	void drawSampleSelectionSquare();
+
+	void drawLayerText();
+	void setLayerBeingEdited();
 
 	void setTileMapBeingEdited();
 	void setSelectedEntity();

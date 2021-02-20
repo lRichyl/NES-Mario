@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
 	Scene editedLevel;
 	LevelEditor editor;
 	editor.level = &editedLevel;
-	editor.setTileMapBeingEdited();
+	// editor.setTileMapBeingEdited();
 
 	SDL_Event e;
 	bool quit = false;
@@ -99,9 +99,9 @@ int main(int argc, char* argv[]) {
 			}
 			switch( e.type ){
 	            /* Look for a keypress */
-	            case SDL_KEYDOWN:
+	          	case SDL_KEYDOWN:
 	                /* Check the SDLKey values and move change the coords */
-	                switch( e.key.keysym.sym ){
+	               switch( e.key.keysym.sym ){
 	                    case SDLK_SPACE:
 	                        testingLevel = !testingLevel;
 					    if(testingLevel){
@@ -110,7 +110,19 @@ int main(int argc, char* argv[]) {
 						}
 					    else editedLevel.unloadEntities();
 	                        break;
-	            }
+				}
+				break;
+				case SDL_MOUSEWHEEL:
+					// std::cout << "moving" << std::endl;
+					if(e.wheel.y > 0){
+						editor.layerBeingEdited += 1;
+						editor.setLayerBeingEdited();
+   					}
+					else if(e.wheel.y < 0){
+						editor.layerBeingEdited -= 1;
+						editor.setLayerBeingEdited();
+					}
+					break;
 	        }
 
 		}
@@ -126,6 +138,7 @@ int main(int argc, char* argv[]) {
 			SDL_RenderClear( renderer );
 			editor.drawEditorLevel();
 			editor.drawEditorWindow();
+			editor.drawLayerText();
 
 			printFPS(FPS, fpsText);
 

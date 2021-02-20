@@ -28,6 +28,10 @@ LevelEditor::LevelEditor(){
 	initializeSampleEntities();
 	selectedEntity = sampleEntities[0];
 	calculateSampleEntitiesPosition();
+	layerBeingEdited = 0;
+	layerText.size = 16;
+	layerText.x = WINDOW_WIDTH - layerText.size;
+	layerText.y = 0;
 }
 
 void TileSelectionSection::draw(){
@@ -98,7 +102,16 @@ void LevelEditor::setTileMapBeingEdited(){
 		break;
 		case 3: tileMapBeingEdited = &editorLayer3;
 		break;
+		default:
+		tileMapBeingEdited = &editorLayer0;
+		break;
 	}
+}
+
+void LevelEditor::setLayerBeingEdited(){
+	if(layerBeingEdited > 3) layerBeingEdited = 0;
+	else if(layerBeingEdited < 0 )layerBeingEdited = 3;
+	setTileMapBeingEdited();
 }
 
 bool LevelEditor::isMouseInSceneLimits(int xMousePos, int yMousePos){
@@ -242,6 +255,10 @@ void LevelEditor::drawEditorWindow(){
 	tileSelectionSection.draw();
 	drawSampleEntities();
 	drawSampleSelectionSquare();
+}
+
+void LevelEditor::drawLayerText(){
+	layerText.renderText(std::to_string(layerBeingEdited));
 }
 
 static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){

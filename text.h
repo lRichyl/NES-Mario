@@ -29,6 +29,7 @@ struct Text{
      int size;
 
      void renderText(std::string text);
+
      void setGlyphs();
 
 };
