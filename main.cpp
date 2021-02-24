@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
 	Scene editedLevel;
 	LevelEditor editor;
 	editor.level = &editedLevel;
-	// editor.setTileMapBeingEdited();
+	editor.setTileMapBeingEdited();
 
 	SDL_Event e;
 	bool quit = false;

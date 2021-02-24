@@ -12,13 +12,14 @@ struct Player : public Entity{
 	~Player();
 	Vector2df velocity = Vector2df(0, 0);
 	Vector2df acceleration = Vector2df(1000, -100);
-	float friction = 6;
+	float friction = 4;
 	float gravity = 8;
 	float distanceTraveled = 0;
 	int maxXVelocity = 1;
 	int maxYVelocity = 2;
 	// int xdirection = 1;
 	// int ydirection = 1;
+	bool isAirborne = false;
 	bool canJump = true;
 	bool wasBReleased = false;
 	bool canSetJumpingSpeed = true;
@@ -26,6 +27,7 @@ struct Player : public Entity{
 	Sprite *currentAnimation = nullptr;
 	Sprite idleAnimation;
 	Sprite walkingAnimation;
+	Sprite jumpingAnimation;
 
 
 	void update(float deltaTime, SDL_Rect *camera) override;

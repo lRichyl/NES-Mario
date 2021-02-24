@@ -45,8 +45,9 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 	{
 		idleAnimation.flip = true;
-		currentAnimation = &walkingAnimation;
 		walkingAnimation.flip = true;
+		jumpingAnimation.flip = true;
+		currentAnimation = &walkingAnimation;
 		velocity.x  -= acceleration.x * deltaTime;
 		if(velocity.x < -maxXVelocity){
 			velocity.x = -maxXVelocity;
@@ -57,8 +58,9 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 	{
 		idleAnimation.flip = false;
-		currentAnimation = &walkingAnimation;
 		walkingAnimation.flip = false;
+		jumpingAnimation.flip = false;
+		currentAnimation = &walkingAnimation;
 		velocity.x  += acceleration.x * deltaTime;
 		if(velocity.x > maxXVelocity){
 			velocity.x = maxXVelocity;
@@ -80,7 +82,9 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	{
 
 		if(canJump){
+			// currentAnimation = &jumpingAnimation;
 			if(canSetJumpingSpeed){
+				isAirborne = true;
 				velocity.y += acceleration.y*deltaTime;
 				if(acceleration.y < 0)
 					acceleration.y += 450 * deltaTime;
@@ -102,6 +106,8 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		// std::cout << "b release" << std::endl;
 
 	}
+
+	if(isAirborne) currentAnimation = &jumpingAnimation;
 
 ////////////////////////////////////////////////////////
 	velocity.y += gravity * deltaTime;
@@ -154,9 +160,11 @@ void Player::onCollision(Vector2df penetration){
 	}
 
 	if(penetration.y < 0) velocity.y = 0;
+	// if(penetration.y == 0 || penetration.y < 0) isFalling = true;
 	if(penetration.y > 0){
 		acceleration.y = -100;
 		wasBReleased = false;
+		isAirborne = false;
 		canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
@@ -179,4 +187,8 @@ void Player::initializeAnimationFrames(){
 	walkingAnimation.frames.push_back(SDL_Rect {0, 32, 15, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {34, 32, 13, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {19, 32, 12, 16});
+	///////// JUMPING ANIMATION ///////////
+	jumpingAnimation.texture = loadTexture("assets/textures/mario_animations.png");
+	jumpingAnimation.bBox = &boundingBox;
+	jumpingAnimation.frames.push_back(SDL_Rect {64, 32, 16, 16});
 }

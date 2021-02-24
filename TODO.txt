@@ -1,7 +1,6 @@
 POR HACER
 
 
-*Agregar la animación de salto
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
@@ -11,6 +10,7 @@ POR HACER
 
 
 HECHO
+*Agregar la animación de salto
 *Implementar la opción de cambiar la capa que está siendo editada
 *Cuando mario choca su cabeza con bloque se debe cancelar el salto
 *Implementado el movimiento del jugador

@@ -45,7 +45,7 @@ struct LevelEditor{
 	Text layerText = Text(&font);
 
 	TileSelectionSection tileSelectionSection;
-	int layerBeingEdited;
+	int layerBeingEdited = 0;
 	// bool playScene = false;
 
 	void udpateEditorLevel();
