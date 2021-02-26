@@ -84,11 +84,12 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 		// currentAnimation = &jumpingAnimation;
 		if(canSetJumpingSpeed){
-			if(!isAirborne) velocity.y = 0;
+			// if(!isAirborne) velocity.y = 0;
 			isAirborne = true;
-			velocity.y += acceleration.y*deltaTime;
 			if(acceleration.y < 0)
-				acceleration.y += 300000 * deltaTime;
+			acceleration.y += 300000* deltaTime;
+			if(acceleration.y > 0) acceleration.y = 0;
+			velocity.y += acceleration.y*deltaTime;
 			if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
 			// velocity.y = -3 ;
 			// canSetJumpingSpeed = false;
@@ -104,13 +105,15 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		// std::cout << "b release" << std::endl;
 
 	}
-	std::cout << "velocity: " << velocity.y << "accel: " << acceleration.y << std::endl;
+	// std::cout << "velocity: " << velocity.y << "accel: " << acceleration.y << std::endl;
 
 
 	if(isAirborne) currentAnimation = &jumpingAnimation;
 
 ////////////////////////////////////////////////////////
-	velocity.y += gravity * deltaTime;
+	if(velocity.y < 20){
+		velocity.y += gravity * deltaTime;
+	}
 
 
 
@@ -159,7 +162,7 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		// canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
-		acceleration.y = -3000;
+		acceleration.y = -6000;
 	}
 }
 
@@ -167,6 +170,8 @@ void Player::onCollision(Vector2df penetration){
 		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
 		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 	if(penetration.y < 0) velocity.y = 0;
+
+	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
 	// if(penetration.y == 0 || penetration.y < 0) isFalling = true;
 
 

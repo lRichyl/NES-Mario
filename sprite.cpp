@@ -11,6 +11,7 @@ void Sprite::animateSprite(float wishedTimePerFrame){
 	startingTime = (float)SDL_GetTicks() / 1000.f;
 	timeSum += startingTime - finalTime;
 	// std::cout << timeSum << std::endl;
+	finalTime = startingTime;
 	if(timeSum >= wishedTimePerFrame){
 		timeSum = 0;
 		frameIndex++;
@@ -27,7 +28,7 @@ void Sprite::animateSprite(float wishedTimePerFrame){
 		// SDL_RenderCopy(renderer, texture, &frames[frameIndex],bBox);
 	}
 
-	finalTime = (float)SDL_GetTicks() / 1000.f;
+	// finalTime = (float)SDL_GetTicks() / 1000.f;
 
 
 }

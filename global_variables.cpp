@@ -11,6 +11,6 @@ Camera CAMERA;
 // int RENDERER_HEIGHT = getRendererHeight();
 RendererInformation rendererInfo;
 float deltaT = 0;
-float deltaTfixed = 1.f/60.f;
+double deltaTfixed = 1.f/60.f;
 
 SDL_Window *editorWindow = nullptr;

@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
 				editor.drawEditorWindow();
 				editor.drawLayerText();
 
-				printFPS(FPS, fpsText);
+				// printFPS(FPS, fpsText);
 
 				SDL_RenderPresent( renderer );
 
@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
 				SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
 				SDL_RenderClear( renderer );
 				editedLevel.drawScene();
-				printFPS(FPS, fpsText );
+				// printFPS(FPS, fpsText );
 				SDL_RenderPresent( renderer );
 			}
 

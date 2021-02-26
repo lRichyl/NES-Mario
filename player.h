@@ -11,12 +11,12 @@ struct Player : public Entity{
 	Player();
 	~Player();
 	Vector2df velocity = Vector2df(0, 0);
-	Vector2df acceleration = Vector2df(100, 0);
-	float friction = 10;
-	float gravity = 100;
+	Vector2df acceleration = Vector2df(400, 0);
+	float friction = 260;
+	float gravity = 800;
 	float distanceTraveled = 0;
-	float maxXVelocity = 2;
-	float maxYVelocity = 2;
+	float maxXVelocity = 8;
+	float maxYVelocity = 10;
 	// int xdirection = 1;
 	// int ydirection = 1;
 	bool isAirborne = true;
