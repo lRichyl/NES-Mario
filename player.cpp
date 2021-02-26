@@ -81,22 +81,20 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	if( currentKeyStates[ SDL_SCANCODE_B ] && !wasBReleased)
 	{
 
-		if(canJump){
-			// currentAnimation = &jumpingAnimation;
-			if(canSetJumpingSpeed){
-				isAirborne = true;
-				velocity.y += acceleration.y*deltaTime;
-				if(acceleration.y < 0)
-					acceleration.y += 450 * deltaTime;
-				if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
-				// velocity.y = -3 ;
-				// canSetJumpingSpeed = false;
-				// canJump = false;
-			}
-		}else{
-			distanceTraveled = 0;
 
+		// currentAnimation = &jumpingAnimation;
+		if(canSetJumpingSpeed){
+			if(!isAirborne) velocity.y = 0;
+			isAirborne = true;
+			velocity.y += acceleration.y*deltaTime;
+			if(acceleration.y < 0)
+				acceleration.y += 300000 * deltaTime;
+			if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
+			// velocity.y = -3 ;
+			// canSetJumpingSpeed = false;
+			// canJump = false;
 		}
+
 
 
 		// velocity.y += 10 * deltaTime;
@@ -106,6 +104,8 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		// std::cout << "b release" << std::endl;
 
 	}
+	std::cout << "velocity: " << velocity.y << "accel: " << acceleration.y << std::endl;
+
 
 	if(isAirborne) currentAnimation = &jumpingAnimation;
 
@@ -132,6 +132,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	position.x += velocity.x;
 	position.y += velocity.y;
 
+
 	updatePosition();
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
@@ -151,24 +152,25 @@ void Player::draw(){
 	currentAnimation->animateSprite(0.08);
 }
 
+void Player::collidingWithTheFloor(Vector2df penetration){
+	if(penetration.y > 0){
+		wasBReleased = false;
+		isAirborne = false;
+		// canJump = true;
+		canSetJumpingSpeed = true;
+		velocity.y = 0;
+		acceleration.y = -3000;
+	}
+}
 
 void Player::onCollision(Vector2df penetration){
 		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
 		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
-	if(penetration.y > 0 && canJump == false){
-		velocity.y = 0;
-	}
-
 	if(penetration.y < 0) velocity.y = 0;
 	// if(penetration.y == 0 || penetration.y < 0) isFalling = true;
-	if(penetration.y > 0){
-		acceleration.y = -100;
-		wasBReleased = false;
-		isAirborne = false;
-		canJump = true;
-		canSetJumpingSpeed = true;
-		velocity.y = 0;
-	}
+
+
+	collidingWithTheFloor(penetration);
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);

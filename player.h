@@ -11,15 +11,15 @@ struct Player : public Entity{
 	Player();
 	~Player();
 	Vector2df velocity = Vector2df(0, 0);
-	Vector2df acceleration = Vector2df(1000, -100);
-	float friction = 4;
-	float gravity = 8;
+	Vector2df acceleration = Vector2df(100, 0);
+	float friction = 10;
+	float gravity = 100;
 	float distanceTraveled = 0;
-	int maxXVelocity = 1;
-	int maxYVelocity = 2;
+	float maxXVelocity = 2;
+	float maxYVelocity = 2;
 	// int xdirection = 1;
 	// int ydirection = 1;
-	bool isAirborne = false;
+	bool isAirborne = true;
 	bool canJump = true;
 	bool wasBReleased = false;
 	bool canSetJumpingSpeed = true;
@@ -35,6 +35,7 @@ struct Player : public Entity{
 	void draw()override;
 	void initializeAnimationFrames();
 	void onCollision(Vector2df penetration) override;
+	void collidingWithTheFloor(Vector2df penetration);
 	Entity *clone()override{
 		Entity::IDcount++;
 		ID = Entity::IDcount;

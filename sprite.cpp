@@ -9,7 +9,7 @@ void Sprite::setTexture(std::string path){
 
 void Sprite::animateSprite(float wishedTimePerFrame){
 	startingTime = (float)SDL_GetTicks() / 1000.f;
-	timeSum += startingTime -= finalTime;
+	timeSum += startingTime - finalTime;
 	// std::cout << timeSum << std::endl;
 	if(timeSum >= wishedTimePerFrame){
 		timeSum = 0;

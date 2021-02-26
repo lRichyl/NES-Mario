@@ -81,14 +81,13 @@ int main(int argc, char* argv[]) {
 	fpsText.y = 0;
 	fpsText.size = 16;
 
+	double startingTime = 0;
+	double finalTime = 0;
+ 	double timePerFrameSum = 0;
+	double FPS = 0;
+
 	while( !quit )
 	{
-		// auto startingTime = std::chrono::system_clock::now();
-		float startingTime = (float)SDL_GetTicks() / 1000.f;
-		float FPS = 1.0f / deltaT;
-		// std::cout << "FPS: " << FPS << std::endl;
-
-		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
 			//User requests quit
@@ -104,6 +103,7 @@ int main(int argc, char* argv[]) {
 	               switch( e.key.keysym.sym ){
 	                    case SDLK_SPACE:
 	                        testingLevel = !testingLevel;
+					    // timePerFrameSum = 0;
 					    if(testingLevel){
 						     editor.loadEntitiesToScene();
 							editedLevel.resetCamera();
@@ -127,41 +127,48 @@ int main(int argc, char* argv[]) {
 
 		}
 
+		//Here begins draw and update loop
+		startingTime = (float)SDL_GetTicks() / 1000.f; // We should get the time with a method that brings us better precision
+		deltaT = startingTime - finalTime;
+		timePerFrameSum += deltaT;
+		finalTime = startingTime;
+		// Execute the main gameloop every 16ms
+		if(timePerFrameSum >= deltaTfixed){
+			FPS = 1/timePerFrameSum;
+			timePerFrameSum -= deltaTfixed;
 
-		if(!testingLevel){
-			editor.setSelectedEntity();
-			editor.setTileOnClick();
-			editor.deleteTileOnClick();
-			editor.udpateEditorLevel();
 
-			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
-			SDL_RenderClear( renderer );
-			editor.drawEditorLevel();
-			editor.drawEditorWindow();
-			editor.drawLayerText();
+			if(!testingLevel){
+				editor.setSelectedEntity();
+				editor.setTileOnClick();
+				editor.deleteTileOnClick();
+				editor.udpateEditorLevel();
 
-			printFPS(FPS, fpsText);
+				SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+				SDL_RenderClear( renderer );
+				editor.drawEditorLevel();
+				editor.drawEditorWindow();
+				editor.drawLayerText();
 
-			SDL_RenderPresent( renderer );
+				printFPS(FPS, fpsText);
+
+				SDL_RenderPresent( renderer );
+
+			}
+
+			if(testingLevel){
+				editedLevel.updateScene(deltaTfixed);
+				editedLevel.checkCollisions();
+				SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+				SDL_RenderClear( renderer );
+				editedLevel.drawScene();
+				printFPS(FPS, fpsText );
+				SDL_RenderPresent( renderer );
+			}
+
 
 		}
 
-		if(testingLevel){
-			// std::cout << CAMERA.bounds.x << " , " << CAMERA.bounds.y << std::endl;
-			editedLevel.updateScene(deltaT);
-			editedLevel.checkCollisions();
-
-			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
-			SDL_RenderClear( renderer );
-			editedLevel.drawScene();
-			printFPS(FPS, fpsText );
-			SDL_RenderPresent( renderer );
-		}
-
-
-		// SDL_DestroyTexture(textTexture);
-		float finalTime = (float)SDL_GetTicks() / 1000.f;
-		deltaT = finalTime - startingTime;
 	}
 
     // Clean up

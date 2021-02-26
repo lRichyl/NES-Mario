@@ -15,6 +15,7 @@ extern Camera CAMERA;
 // extern int RENDERER_HEIGHT;
 extern RendererInformation rendererInfo;
 extern float deltaT;
+extern float deltaTfixed;
 
 extern SDL_Window *editorWindow;
 
