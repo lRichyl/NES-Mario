@@ -22,6 +22,7 @@ Player::~Player(){
 	//This will be done in the future in a texture manager.
 	SDL_DestroyTexture(idleAnimation.texture);
 	SDL_DestroyTexture(walkingAnimation.texture);
+	SDL_DestroyTexture(jumpingAnimation.texture);
 }
 // bool updatePosition = false;
 void Player::update(float deltaTime, SDL_Rect *camera){
@@ -111,10 +112,10 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	if(isAirborne) currentAnimation = &jumpingAnimation;
 
 ////////////////////////////////////////////////////////
+
 	if(velocity.y < 20){
 		velocity.y += gravity * deltaTime;
 	}
-
 
 
 
@@ -163,6 +164,9 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
 		acceleration.y = -6000;
+		gravity = 0;
+	}else{
+		gravity = 800;
 	}
 }
 

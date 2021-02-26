@@ -40,7 +40,7 @@ bool CollisionManager::minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *
 		// std::cout << "collision" << std::endl;
 		return true;
 	}
-	// penetration->x = 0;
+	penetration->x = 0;
 	penetration->y = 0;
 	return false;
 
@@ -142,10 +142,6 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 			}
 
 
-			// for(unsigned int i = 0; i < tiles.size(); i++){
-			// 	std::cout << tiles[i].x << " , " << tiles[i].y << " : " << distances[i].x << " , " << distances[i].y << std::endl;
-			// }
-			// system("cls");
 			for(unsigned int i = 0; i < tiles.size();i++){
 				Vector2df penetrationVector;
 				if(tiles[i].x > 0 && tiles[i].y > 0){

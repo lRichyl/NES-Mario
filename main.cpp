@@ -85,6 +85,7 @@ int main(int argc, char* argv[]) {
 	double finalTime = 0;
  	double timePerFrameSum = 0;
 	double FPS = 0;
+	Uint32 windowID = SDL_GetWindowID(window);
 
 	while( !quit )
 	{
@@ -123,6 +124,20 @@ int main(int argc, char* argv[]) {
 						editor.setLayerBeingEdited();
 					}
 					break;
+			// 		case SDL_WINDOWEVENT:  {
+	          // if (e.window.windowID == windowID)  {
+	          //   			switch (e.window.event)  {
+			// 	              case SDL_WINDOWEVENT_MOVED:  {
+			// 				    timePerFrameSum = 0;
+			// 				    startingTime = 0;
+			// 				    finalTime = 0;
+			// 				    deltaT = 0;
+			// 				    break;
+			// 				}
+	          // 			}
+	          // 			break;
+	        	// 		}
+			// }
 	        }
 
 		}
@@ -132,10 +147,19 @@ int main(int argc, char* argv[]) {
 		deltaT = startingTime - finalTime;
 		timePerFrameSum += deltaT;
 		finalTime = startingTime;
+
+		//We do this because while we are moving the window the time counter keeps counting and it keeps going till you reac seconds
+		//and it causes the player to get updated by a big amount of deltaT causing it to skip collisions
+		//There should be a better way of doing this by detecting when the window is being moved
+		if(timePerFrameSum > .018) timePerFrameSum = 0;
+
 		// Execute the main gameloop every 16ms
 		if(timePerFrameSum >= deltaTfixed){
 			FPS = 1/timePerFrameSum;
-			timePerFrameSum -= deltaTfixed;
+			std::cout << timePerFrameSum << std::endl;
+
+			timePerFrameSum = 0;
+
 
 
 			if(!testingLevel){
