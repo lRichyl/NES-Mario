@@ -13,7 +13,7 @@ struct Tile : public Entity{
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
 	// THIS IS CREATING A COPY FOR EVERY TILE
-	static SDL_Texture *texture;
+	SDL_Texture *texture;
 	static int tileSize;
 
 	Entity *clone()override{
@@ -24,7 +24,7 @@ struct Tile : public Entity{
 
 struct PlayerTile : public Tile{
 	PlayerTile(){
-	sprite.texture = loadTexture("assets/textures/mario_animations.png");
+	sprite.texture = textures.marioAnimations;
 	// isStatic = false;
 	setClippingBox(98, 32, 12, 16);
 	entityType = ENTITY_TYPE::PLAYER;

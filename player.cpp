@@ -20,9 +20,9 @@ Player::Player(){
 Player::~Player(){
 	//Remember to always destroy the textures or it can cause a memory leak.
 	//This will be done in the future in a texture manager.
-	SDL_DestroyTexture(idleAnimation.texture);
-	SDL_DestroyTexture(walkingAnimation.texture);
-	SDL_DestroyTexture(jumpingAnimation.texture);
+	// SDL_DestroyTexture(idleAnimation.texture);
+	// SDL_DestroyTexture(walkingAnimation.texture);
+	// SDL_DestroyTexture(jumpingAnimation.texture);
 }
 // bool updatePosition = false;
 void Player::update(float deltaTime, SDL_Rect *camera){
@@ -163,10 +163,7 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		// canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
-		acceleration.y = -6000;
-		gravity = 0;
-	}else{
-		gravity = 800;
+		acceleration.y = -6000;		
 	}
 }
 
@@ -189,17 +186,17 @@ void Player::onCollision(Vector2df penetration){
 
 void Player::initializeAnimationFrames(){
 	/////IDLE ANIMATION///
-	idleAnimation.texture    =  loadTexture("assets/textures/mario_animations.png");
+	idleAnimation.texture    =  textures.marioAnimations;
 	idleAnimation.bBox = &boundingBox;
 	idleAnimation.frames.push_back(SDL_Rect {98, 32, 12, 16});
 	/////WALKING ANIMATION///
-	walkingAnimation.texture =  loadTexture("assets/textures/mario_animations.png");
+	walkingAnimation.texture =  textures.marioAnimations;
 	walkingAnimation.bBox = &boundingBox;
 	walkingAnimation.frames.push_back(SDL_Rect {0, 32, 15, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {34, 32, 13, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {19, 32, 12, 16});
 	///////// JUMPING ANIMATION ///////////
-	jumpingAnimation.texture = loadTexture("assets/textures/mario_animations.png");
+	jumpingAnimation.texture = textures.marioAnimations;
 	jumpingAnimation.bBox = &boundingBox;
 	jumpingAnimation.frames.push_back(SDL_Rect {64, 32, 16, 16});
 }

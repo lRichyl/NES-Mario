@@ -14,6 +14,7 @@ POR HACER
 
 
 HECHO
+*Crear una clase que se encargue de cargar y eliminar las texturas.
 *Se limito el timestep a 16ms para toda la aplcación
 *Agregar la animación de salto
 *Implementar la opción de cambiar la capa que está siendo editada

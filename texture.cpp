@@ -1,6 +1,9 @@
 #include "texture.h"
 #include "global_variables.h"
 
+
+
+
 SDL_Texture* loadTexture( std::string path)
 {
     //The final texture
@@ -26,4 +29,13 @@ SDL_Texture* loadTexture( std::string path)
     }
 
     return newTexture;
+}
+
+// SDL_Texture *TextureContainer::marioAnimations = nullptr;
+// SDL_Texture *TextureContainer::marioBlocks = nullptr;
+
+
+void TextureContainer::initTextureContainer(){
+     marioAnimations =  loadTexture("assets/textures/mario_animations.png");
+     marioBlocks     =  loadTexture("assets/textures/mario_blocks.png");
 }

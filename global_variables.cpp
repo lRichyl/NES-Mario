@@ -13,4 +13,4 @@ RendererInformation rendererInfo;
 float deltaT = 0;
 double deltaTfixed = 1.f/60.f;
 
-SDL_Window *editorWindow = nullptr;
+TextureContainer textures;

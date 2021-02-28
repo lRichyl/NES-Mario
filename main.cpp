@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
 	// SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	// SDL_MaximizeWindow(window);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	textures.initTextureContainer();
 
 	// SDL_RenderSetLogicalSize(renderer, 1280, 480);
 	// int rendererX = getRendererWidth();
@@ -156,7 +157,7 @@ int main(int argc, char* argv[]) {
 		// Execute the main gameloop every 16ms
 		if(timePerFrameSum >= deltaTfixed){
 			FPS = 1/timePerFrameSum;
-			std::cout << timePerFrameSum << std::endl;
+			// std::cout << timePerFrameSum << std::endl;
 
 			timePerFrameSum = 0;
 
@@ -199,7 +200,7 @@ int main(int argc, char* argv[]) {
 	//Destroy window and renderer.
     SDL_DestroyRenderer( renderer );
     SDL_DestroyWindow( window );
-    SDL_DestroyTexture(Tile::texture);
+    // SDL_DestroyTexture(Tile::texture);
 
     window = NULL;
     renderer = NULL;

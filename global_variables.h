@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "renderer.h"
 #include "camera.h"
+#include "texture.h"
 
 
 extern SDL_Renderer *renderer;
@@ -17,7 +18,7 @@ extern RendererInformation rendererInfo;
 extern float deltaT;
 extern double deltaTfixed;
 
-extern SDL_Window *editorWindow;
+extern TextureContainer textures;
 
 
 #endif
