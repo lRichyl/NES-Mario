@@ -1,5 +1,6 @@
 #include "level_editor.h"
 #include "player.h"
+// #include "dynamic_entities.h"
 #include "global_variables.h"
 #include "renderer.h"
 #include <iostream>
@@ -128,11 +129,12 @@ void LevelEditor::setTileOnClick(){
 		int xTile = tileMapBeingEdited->getXTile(mouseX + camera.bounds.x);
 		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 
-		if(xTile > 0 && yTile > 0){
+		if(xTile >= 0 && yTile >= 0){
 			selectedEntity->xTile = xTile;
 			selectedEntity->yTile = yTile;
 			selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
 			selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
+			
 			// }
 
 			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
@@ -186,8 +188,8 @@ void LevelEditor::setSelectedEntity(){
 
 	}
 }
-float x = 0;
-float y = 0;
+// float x = 0;
+// float y = 0;
 
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
@@ -274,9 +276,9 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
-				if(editorLayer0.entities[i][j]->isStatic){
+				// if(editorLayer0.entities[i][j]->isStatic){
 					level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
-				}
+				// }
 			}
 		}
 	}
@@ -284,9 +286,9 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer1.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer1.entities[i].size(); j++){
 			if(editorLayer1.entities[i][j] != nullptr){
-				if(editorLayer1.entities[i][j]->isStatic){
+				// if(editorLayer1.entities[i][j]->isStatic){
 					level->layer1.entities[i][j] = editorLayer1.entities[i][j]->clone();
-				}
+				// }
 			}
 		}
 	}
@@ -294,7 +296,7 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer2.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer2.entities[i].size(); j++){
 			if(editorLayer2.entities[i][j] != nullptr){
-				if(editorLayer2.entities[i][j]->isStatic && editorLayer2.entities[i][j]->entityType != ENTITY_TYPE::PLAYER ){
+				if(editorLayer2.entities[i][j]->isStatic ){
 					level->layer2.entities[i][j] = editorLayer2.entities[i][j]->clone();
 					// std::cout << "mario" << std::endl;
 				}
@@ -304,7 +306,15 @@ void LevelEditor::loadEntitiesToScene(){
 					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
 
 					level->layer2.dynamicEntities.push_back(p);
-				}
+				} //else if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::QUESTIONMARK){
+				// 	QuestionMark *q = new QuestionMark();
+				// 	setDynamicEntityPosition(editorLayer2.entities[i][j], q);
+				// 	// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
+				//
+				// 	level->layer2.entities[i][j] = q;
+				// 	// level->layer2.dynamicEntities.push_back(q);
+				// 	std::cout << "test" << std::endl;
+				// }
 			}
 		}
 	}
@@ -313,9 +323,9 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer3.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer3.entities[i].size(); j++){
 			if(editorLayer3.entities[i][j] != nullptr){
-				if(editorLayer3.entities[i][j]->isStatic){
+				// if(editorLayer3.entities[i][j]->isStatic){
 					level->layer3.entities[i][j] = editorLayer3.entities[i][j]->clone();
-				}
+				// }
 			}
 		}
 	}

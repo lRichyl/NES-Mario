@@ -12,7 +12,7 @@ struct Tile : public Entity{
 	void setTileSize(int newTileSize);
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
-	// THIS IS CREATING A COPY FOR EVERY TILE
+	Sprite sprite;
 	SDL_Texture *texture;
 	static int tileSize;
 
@@ -25,13 +25,13 @@ struct Tile : public Entity{
 struct PlayerTile : public Tile{
 	PlayerTile(){
 	sprite.texture = textures.marioAnimations;
-	// isStatic = false;
+	isStatic = false;
 	setClippingBox(98, 32, 12, 16);
 	entityType = ENTITY_TYPE::PLAYER;
 	}
-	~PlayerTile(){
-		SDL_DestroyTexture(sprite.texture);
-	}
+	// ~PlayerTile(){
+	// 	SDL_DestroyTexture(sprite.texture);
+	// }
 };
 struct Ground : public Tile{
 	Ground(){
@@ -52,33 +52,43 @@ struct Brick : public Tile{
 	}
 };
 struct QuestionMark : public Tile{
-	QuestionMark(){
-	setClippingBox(384, 0, 16, 16 );
-	entityType = ENTITY_TYPE::QUESTIONMARK;
-	}
+	QuestionMark();
+	Sprite blockUnused;
+     Sprite blockUsed;
+	// setClippingBox(400, 0, 16, 16);
+     void initAnimation();
+	void update(float deltaTime, SDL_Rect *camera) override;
+     void draw()override;
+	Entity *clone()override{
+		Entity::IDcount++;
+		ID = Entity::IDcount;
+		QuestionMark *q = new QuestionMark(*this);
+		q->blockUnused.bBox = &q->boundingBox;
+		q->blockUsed.bBox = &q->boundingBox;
+		return q;}
 };
 struct CloudLeftTop : public Tile{
 	CloudLeftTop(){
 	setClippingBox(8, 320, 16, 16 );
-	entityType = ENTITY_TYPE::CLOUDLEFTTOP;
+	entityType = ENTITY_TYPE::CLOUD;
 	}
 };
 struct CloudLeftDown : public Tile{
 	CloudLeftDown(){
 	setClippingBox(8, 336, 16, 16 );
-	entityType = ENTITY_TYPE::CLOUDLEFTDOWN;
+	entityType = ENTITY_TYPE::CLOUD;
 	}
 };
 struct CloudRightTop : public Tile{
 	CloudRightTop(){
 	setClippingBox(24, 320, 16, 16 );
-	entityType = ENTITY_TYPE::CLOUDRIGHTTOP;
+	entityType = ENTITY_TYPE::CLOUD;
 	}
 };
 struct CloudRightDown : public Tile{
 	CloudRightDown(){
 	setClippingBox(24, 336, 16, 16 );
-	entityType = ENTITY_TYPE::CLOUDRIGHTDOWN;
+	entityType = ENTITY_TYPE::CLOUD;
 	}
 };
 struct PipeLeftTop : public Tile{
@@ -108,37 +118,37 @@ struct PipeRightDown : public Tile{
 struct MountTopLeft : public Tile{
 	MountTopLeft(){
 	setClippingBox(128, 128, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTTOPLEFT;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 struct MountTopRight : public Tile{
 	MountTopRight(){
 	setClippingBox(160, 128, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTTOPRIGHT;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 struct MountDownLeft : public Tile{
 	MountDownLeft(){
 	setClippingBox(128, 144, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTDOWNLEFT;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 struct MountDownRight : public Tile{
 	MountDownRight(){
 	setClippingBox(160, 144, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTDOWNRIGHT;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 struct MountTop : public Tile{
 	MountTop(){
 	setClippingBox(144, 128, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTTOP;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 struct MountDown : public Tile{
 	MountDown(){
 	setClippingBox(144, 144, 16, 16 );
-	entityType = ENTITY_TYPE::MOUNTDOWN;
+	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
 

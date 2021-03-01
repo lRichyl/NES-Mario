@@ -141,7 +141,7 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 				}
 			}
 
-
+			//Checking collisions against static blocks
 			for(unsigned int i = 0; i < tiles.size();i++){
 				Vector2df penetrationVector;
 				if(tiles[i].x > 0 && tiles[i].y > 0){
@@ -152,6 +152,17 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 					}
 				}
 			}
+
+
+			//The dynamic entities should also be sorted by the distance they have to the player
+			for(unsigned int i = 0; i < collisionLayer->dynamicEntities.size();i++){
+				Vector2df penetrationVector;
+				if(collisionLayer->dynamicEntities[i]->ID != e->ID)
+				if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->dynamicEntities[i]->boundingBox, &penetrationVector)){
+					e->onCollision(penetrationVector);
+				}
+			}
+
 		}
 	}
 }

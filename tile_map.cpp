@@ -49,6 +49,8 @@ void TileMap::update(float deltaT, SDL_Rect *camera){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
 				entities[i][j]->update(deltaT, camera);
+				// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
+
 			}
 		}
 	}

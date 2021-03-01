@@ -8,7 +8,7 @@
 struct Sprite{
 	~Sprite();
 	// SDL_Rect boundingBox {}; // Remove this
-	SDL_Rect *bBox;
+	SDL_Rect *bBox = nullptr;
 	bool flip = false;
 	std::vector<SDL_Rect> frames;
 	float timeCount = 0;

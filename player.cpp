@@ -12,7 +12,7 @@ Player::Player(){
 	// sprite.texture = loadTexture("assets/textures/mario_animations.png");
 	boundingBox.w = Tile::tileSize;
 	boundingBox.h = Tile::tileSize;
-	setClippingBox(98, 32, 12, 16); // This is not used when doing animated sprites
+	// setClippingBox(98, 32, 12, 16); // This is not used when doing animated sprites
 	initializeAnimationFrames();
 	currentAnimation = &idleAnimation;
 }
@@ -163,7 +163,7 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		// canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
-		acceleration.y = -6000;		
+		acceleration.y = -6000;
 	}
 }
 

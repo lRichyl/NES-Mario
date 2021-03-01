@@ -27,6 +27,7 @@ void Sprite::animateSprite(float wishedTimePerFrame){
 
 		// SDL_RenderCopy(renderer, texture, &frames[frameIndex],bBox);
 	}
+	// std::cout << bBox->x << ", " << bBox->y << std::endl;
 
 	// finalTime = (float)SDL_GetTicks() / 1000.f;
 
