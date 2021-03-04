@@ -9,6 +9,7 @@ struct Goomba : public Entity{
      Goomba();
 
      float speed = 1000;
+     float gravity = 800;
      int direction = -1;
 
      Sprite *currentAnimation;
@@ -21,7 +22,7 @@ struct Goomba : public Entity{
 	void initializeAnimationFrames();
 	void onCollision(Vector2df penetration) override;
      Entity *clone()override{
+          ID = Entity::IDcount;
 		Entity::IDcount++;
-		ID = Entity::IDcount;
 		return new Goomba(*this);}
 };

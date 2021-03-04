@@ -16,10 +16,9 @@ Goomba::Goomba(){
 
 void Goomba::update(float deltaTime, SDL_Rect *camera){
      position.x += direction * speed * deltaTime;
-     position.y += 800 * deltaTime;
+     position.y += gravity * deltaTime;
      // std::cout << "goomba test" << std::endl;
-     boundingBox.x = position.x - CAMERA.bounds.x;
-	boundingBox.y = position.y - CAMERA.bounds.y;
+     updatePosition();
 }
 void Goomba::updatePosition(){
 	boundingBox.x = position.x - CAMERA.bounds.x;
@@ -42,10 +41,19 @@ void Goomba::initializeAnimationFrames(){
 
 }
 void Goomba::onCollision(Vector2df penetration){
-     std::cout << "collision" << std::endl;
+     // if(penetration.y > 0){
+     //      gravity = 0;
+     // }else gravity = 800;
 
-     if(penetration.x < 0) direction = 1;
-     else if (penetration.x > 0) direction = -1;
+     if (penetration.x > 0) {
+          direction = -1;
+          // std::cout << ID << " : " << penetration.x  <<std::endl;
+     }
+     if(penetration.x < 0){
+          direction = 1;
+          // std::cout << ID << " : " << penetration.x  <<std::endl;
+     }
+
 
      position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);

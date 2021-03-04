@@ -17,8 +17,8 @@ struct Tile : public Entity{
 	static int tileSize;
 
 	Entity *clone()override{
-		Entity::IDcount++;
 		ID = Entity::IDcount;
+		Entity::IDcount++;
 		return new Tile(*this);}
 };
 

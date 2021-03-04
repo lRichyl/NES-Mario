@@ -48,13 +48,15 @@ bool CollisionManager::minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *
 }
 
 void CollisionManager::checkCollisions(TileMap *collisionLayer){
-	std::vector<Vector2df> tiles {};
-	std::vector<Vector2df> distances{};
-	distances.resize(9);
-	tiles.resize(9);
+
 
 	for(unsigned int k = 0; k < collisionLayer->dynamicEntities.size(); k++){
 		if(collisionLayer->dynamicEntities[k] != nullptr){
+			std::vector<Vector2df> tiles {};
+			std::vector<Vector2df> distances{};
+			Vector2df penetrationVector;
+			distances.resize(9, Vector2df {0, 0});
+			tiles.resize(9, Vector2df {0, 0});
 			Entity *e = collisionLayer->dynamicEntities[k];
 			// std::cout << e->boundingBox.x << " , " << e->boundingBox.x << std::endl;
 
@@ -141,12 +143,14 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 				}
 			}
 
+
+
 			//Checking collisions against static blocks
 			for(unsigned int i = 0; i < tiles.size();i++){
-				Vector2df penetrationVector;
 				if(tiles[i].x > 0 && tiles[i].y > 0){//We do this so that we don't check collisions outside the world
 					if(collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y] != nullptr){
 						if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->boundingBox, &penetrationVector)){
+							// std::cout << &penetrationVector << std::endl;
 							e->onCollision(penetrationVector);
 						}
 					}

@@ -177,6 +177,7 @@ void Player::onCollision(Vector2df penetration){
 
 
 	collidingWithTheFloor(penetration);
+	// std::cout << ID << " : " << penetration.x  <<std::endl;
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);

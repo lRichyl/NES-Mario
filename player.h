@@ -37,8 +37,8 @@ struct Player : public Entity{
 	void onCollision(Vector2df penetration) override;
 	void collidingWithTheFloor(Vector2df penetration);
 	Entity *clone()override{
-		Entity::IDcount++;
 		ID = Entity::IDcount;
+		Entity::IDcount++;
 		return new Player(*this);}
 };
 #endif
