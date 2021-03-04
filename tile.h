@@ -29,9 +29,16 @@ struct PlayerTile : public Tile{
 	setClippingBox(98, 32, 12, 16);
 	entityType = ENTITY_TYPE::PLAYER;
 	}
-	// ~PlayerTile(){
-	// 	SDL_DestroyTexture(sprite.texture);
-	// }
+
+};
+struct GoombaTile : public Tile{
+	GoombaTile(){
+	sprite.texture = textures.enemiesAnimations;
+	isStatic = false;
+	setClippingBox(1, 28, 16, 16);
+	entityType = ENTITY_TYPE::GOOMBA;
+	}
+
 };
 struct Ground : public Tile{
 	Ground(){

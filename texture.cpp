@@ -36,6 +36,7 @@ SDL_Texture* loadTexture( std::string path)
 
 
 void TextureContainer::initTextureContainer(){
-     marioAnimations =  loadTexture("assets/textures/mario_animations.png");
-     marioBlocks     =  loadTexture("assets/textures/mario_blocks.png");
+     marioAnimations =   loadTexture("assets/textures/mario_animations.png");
+     marioBlocks     =   loadTexture("assets/textures/mario_blocks.png");
+     enemiesAnimations = loadTexture("assets/textures/enemies.png");
 }

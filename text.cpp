@@ -24,7 +24,7 @@ void Text::renderText(std::string text){
      }
 }
 void Text::setGlyphs(){
-     for(int i = 0; i < currentText.size();i++ ){
+     for(unsigned int i = 0; i < currentText.size();i++ ){
           std::string t = currentText.substr(i,1);
           glyphsToRender.push_back(glyphsMap->stringToGlyphMap[t]);
           int xFinalPos = (i * size) + x;

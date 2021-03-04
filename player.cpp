@@ -73,7 +73,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	//if the velocity is close to zero we make it zero so that the player stands still
 	if( !currentKeyStates[ SDL_SCANCODE_LEFT ]&& !currentKeyStates[ SDL_SCANCODE_RIGHT ]){
 		currentAnimation = &idleAnimation;
-		if(velocity.x > -0.2 && velocity.x < 0.2){
+		if(velocity.x > -0.5 && velocity.x < 0.5){
 			velocity.x = 0;
 		}
 	}

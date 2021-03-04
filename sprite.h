@@ -12,7 +12,7 @@ struct Sprite{
 	bool flip = false;
 	std::vector<SDL_Rect> frames;
 	float timeCount = 0;
-	int frameIndex = 0;
+	unsigned int frameIndex = 0;
 	float timeSum = 0;
 	float startingTime;
 	float finalTime;

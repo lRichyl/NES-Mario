@@ -85,8 +85,7 @@ int main(int argc, char* argv[]) {
 	double startingTime = 0;
 	double finalTime = 0;
  	double timePerFrameSum = 0;
-	double FPS = 0;
-	Uint32 windowID = SDL_GetWindowID(window);
+	// double FPS = 0;
 
 	while( !quit )
 	{
@@ -156,7 +155,7 @@ int main(int argc, char* argv[]) {
 
 		// Execute the main gameloop every 16ms
 		if(timePerFrameSum >= deltaTfixed){
-			FPS = 1/timePerFrameSum;
+			// FPS = 1/timePerFrameSum;
 			// std::cout << timePerFrameSum << std::endl;
 
 			timePerFrameSum = 0;

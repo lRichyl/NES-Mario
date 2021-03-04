@@ -1,6 +1,6 @@
 #include "level_editor.h"
 #include "player.h"
-// #include "dynamic_entities.h"
+#include "dynamic_entities.h"
 #include "global_variables.h"
 #include "renderer.h"
 #include <iostream>
@@ -53,6 +53,7 @@ void TileSelectionSection::draw(){
 
 void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PlayerTile());
+	sampleEntities.push_back(new GoombaTile());
 	sampleEntities.push_back(new Ground());
 	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
@@ -134,7 +135,7 @@ void LevelEditor::setTileOnClick(){
 			selectedEntity->yTile = yTile;
 			selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
 			selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
-			
+
 			// }
 
 			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
@@ -180,7 +181,7 @@ void LevelEditor::setSelectedEntity(){
 		int yTile = (mouseY - tileSelectionSection.offset) / tileSelectionSection.editorTileSize;
 
 
-		int entityInMouseID = xTile + (yTile * tileSelectionSection.tilesPerRow);
+		unsigned int entityInMouseID = xTile + (yTile * tileSelectionSection.tilesPerRow);
 
 		if(entityInMouseID < sampleEntities.size()){
 			selectedEntity = sampleEntities[entityInMouseID];
@@ -306,15 +307,14 @@ void LevelEditor::loadEntitiesToScene(){
 					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
 
 					level->layer2.dynamicEntities.push_back(p);
-				} //else if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::QUESTIONMARK){
-				// 	QuestionMark *q = new QuestionMark();
-				// 	setDynamicEntityPosition(editorLayer2.entities[i][j], q);
-				// 	// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
-				//
-				// 	level->layer2.entities[i][j] = q;
-				// 	// level->layer2.dynamicEntities.push_back(q);
-				// 	std::cout << "test" << std::endl;
-				// }
+				} else if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::GOOMBA){
+					Goomba *g = new Goomba();
+					setDynamicEntityPosition(editorLayer2.entities[i][j], g);
+					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
+
+					level->layer2.dynamicEntities.push_back(g);
+					// std::cout << "test" << std::endl;
+				}
 			}
 		}
 	}

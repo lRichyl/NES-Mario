@@ -1,9 +1,7 @@
 POR HACER
 
 
-*Agregar animación a los bloques de interrogación (crear un objeto dinamico para este bloque)
-     siguiendo un patrón similar al de mario
-*Agregar el primer enemigo
+*Modificar la velocidad de la cámara
 *Agregar audio para el salto de mario
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
@@ -14,6 +12,9 @@ POR HACER
 
 
 HECHO
+*Agregar el primer enemigo
+*Arreglado un bug en el queal copiar una clase con punteros, todos los punteros apuntaban a la entidad de muestra
+*Agregar animación a los bloques de interrogación
 *Crear una clase que se encargue de cargar y eliminar las texturas.
 *Se limito el timestep a 16ms para toda la aplcación
 *Agregar la animación de salto
