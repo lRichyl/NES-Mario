@@ -167,7 +167,7 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 	}
 }
 
-void Player::onCollision(Vector2df penetration){
+void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
 		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
 		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 	if(penetration.y < 0) velocity.y = 0;
@@ -184,6 +184,20 @@ void Player::onCollision(Vector2df penetration){
 	updatePosition();
 
 }
+
+void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
+	if(e->entityType == ENTITY_TYPE::GOOMBA){
+		if(penetration.x > 0 || penetration.x < 0){
+		// std::cout << "player hit" << std::endl;
+		}
+		if(penetration.y > 0 && velocity.y >= 0){
+			// std::cout << "collision" << std::endl;
+			e->isActive = false;
+			velocity.y = -12;
+		}
+	}
+}
+
 
 void Player::initializeAnimationFrames(){
 	/////IDLE ANIMATION///

@@ -10,7 +10,6 @@
 struct Player : public Entity{
 	Player();
 	~Player();
-	Vector2df velocity = Vector2df(0, 0);
 	Vector2df acceleration = Vector2df(400, 0);
 	float friction = 260;
 	float gravity = 800;
@@ -34,7 +33,8 @@ struct Player : public Entity{
 	void updatePosition();
 	void draw()override;
 	void initializeAnimationFrames();
-	void onCollision(Vector2df penetration) override;
+	void onStaticEntityCollision(Vector2df penetration,Entity *entity) override;
+	void onDynamicEntityCollision(Vector2df penetration,Entity *entity) override;
 	void collidingWithTheFloor(Vector2df penetration);
 	Entity *clone()override{
 		ID = Entity::IDcount;

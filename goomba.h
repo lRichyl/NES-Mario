@@ -20,7 +20,8 @@ struct Goomba : public Entity{
      void draw()override;
      void updatePosition();
 	void initializeAnimationFrames();
-	void onCollision(Vector2df penetration) override;
+	void onStaticEntityCollision(Vector2df penetration, Entity *e) override;
+     void onDynamicEntityCollision(Vector2df penetration, Entity *e) override;
      Entity *clone()override{
           ID = Entity::IDcount;
 		Entity::IDcount++;

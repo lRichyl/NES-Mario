@@ -15,10 +15,12 @@ Goomba::Goomba(){
 }
 
 void Goomba::update(float deltaTime, SDL_Rect *camera){
-     position.x += direction * speed * deltaTime;
-     position.y += gravity * deltaTime;
-     // std::cout << "goomba test" << std::endl;
-     updatePosition();
+     if(isActive){
+          position.x += direction * speed * deltaTime;
+          position.y += gravity * deltaTime;
+          // std::cout << "goomba test" << std::endl;
+          updatePosition();
+     }
 }
 void Goomba::updatePosition(){
 	boundingBox.x = position.x - CAMERA.bounds.x;
@@ -27,7 +29,9 @@ void Goomba::updatePosition(){
 
 }
 void Goomba::draw(){
-     currentAnimation->animateSprite(0.15);
+     if(isActive){
+          currentAnimation->animateSprite(0.15);
+     }
 }
 void Goomba::initializeAnimationFrames(){
      walkingAnimation.texture = textures.enemiesAnimations;
@@ -40,8 +44,8 @@ void Goomba::initializeAnimationFrames(){
      dyingAnimation.frames.push_back(SDL_Rect {39, 28, 16, 16});
 
 }
-void Goomba::onCollision(Vector2df penetration){
-     // if(penetration.y > 0){
+void Goomba::onStaticEntityCollision(Vector2df penetration, Entity *e){
+     // if(penetra  tion.y > 0){
      //      gravity = 0;
      // }else gravity = 800;
 
@@ -59,4 +63,10 @@ void Goomba::onCollision(Vector2df penetration){
 	position.y = position.y - (penetration.y);
 	updatePosition();
 
+}
+
+void Goomba::onDynamicEntityCollision(Vector2df penetration, Entity* e){
+     // if(e->entityType == ENTITY_TYPE::PLAYER){
+     //      // if(penetration.y < 0 && e->velocity.y >= 0) isActive = false;
+     // }
 }

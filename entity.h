@@ -22,8 +22,9 @@ enum ENTITY_TYPE {
 struct Entity{
 	static int IDcount;
 	int ID;
-	bool isActive;
+	bool isActive  = true;
 	Vector2df position;
+	Vector2df velocity;
 	int xTile;
 	int yTile;
 	bool isStatic = true;
@@ -37,7 +38,8 @@ struct Entity{
 	Entity();
 	virtual void update(float deltaTime, SDL_Rect *camera) = 0;
 	virtual void draw() = 0;
-	virtual void onCollision(Vector2df){};
+	virtual void onStaticEntityCollision(Vector2df,Entity*){};
+	virtual void onDynamicEntityCollision(Vector2df,Entity*){};
 	void setTileSize(int tileSize);
 	virtual Entity *clone() = 0;
 	virtual ~Entity() = default;

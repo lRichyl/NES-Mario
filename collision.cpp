@@ -147,11 +147,12 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 
 			//Checking collisions against static blocks
 			for(unsigned int i = 0; i < tiles.size();i++){
+				Entity *collidedStaticEntity = collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y];
 				if(tiles[i].x > 0 && tiles[i].y > 0){//We do this so that we don't check collisions outside the world
-					if(collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y] != nullptr){
-						if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->entities[(int)tiles[i].x][(int)tiles[i].y]->boundingBox, &penetrationVector)){
+					if( collidedStaticEntity != nullptr){
+						if(CollisionManager::minkowskiDifference(e->boundingBox,collidedStaticEntity->boundingBox, &penetrationVector)){
 							// std::cout << &penetrationVector << std::endl;
-							e->onCollision(penetrationVector);
+							e->onStaticEntityCollision(penetrationVector, collidedStaticEntity);
 						}
 					}
 				}
@@ -159,13 +160,14 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 
 
 			//The dynamic entities should also be sorted by the distance they have to the player
-			// for(unsigned int i = 0; i < collisionLayer->dynamicEntities.size();i++){
-			// 	Vector2df penetrationVector;
-			// 	if(collisionLayer->dynamicEntities[i]->ID != e->ID)
-			// 	if(CollisionManager::minkowskiDifference(e->boundingBox,collisionLayer->dynamicEntities[i]->boundingBox, &penetrationVector)){
-			// 		e->onCollision(penetrationVector);
-			// 	}
-			// }
+			for(unsigned int i = 0; i < collisionLayer->dynamicEntities.size();i++){
+				Vector2df penetrationVector;
+				Entity *collidedDynamicEntity = collisionLayer->dynamicEntities[i];
+				if(collidedDynamicEntity->ID != e->ID && collidedDynamicEntity->isActive)
+				if(CollisionManager::minkowskiDifference(e->boundingBox,collidedDynamicEntity->boundingBox, &penetrationVector)){
+					e->onDynamicEntityCollision(penetrationVector, collidedDynamicEntity);
+				}
+			}
 
 		}
 	}
