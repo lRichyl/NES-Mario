@@ -265,8 +265,8 @@ void LevelEditor::drawLayerText(){
 }
 
 static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
-	d->position.x = tileEntity->position.x;
-	d->position.y = tileEntity->position.y;
+	d->position.x = tileEntity->position.x - CAMERA.bounds.x;
+	d->position.y = tileEntity->position.y - CAMERA.bounds.y;
 	// d->boundingBox.x = d->position.x - CAMERA.bounds.x;
 	// d->boundingBox.y = d->position.y - CAMERA.bounds.y;
 }
@@ -277,7 +277,7 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
-				// if(editorLayer0.entities[i][j]->isStatic){
+				// if(editorLayer0.entities[i][j]->isStatic){					
 					level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
 				// }
 			}

@@ -106,10 +106,15 @@ int main(int argc, char* argv[]) {
 	                        testingLevel = !testingLevel;
 					    // timePerFrameSum = 0;
 					    if(testingLevel){
+						    std::cout << CAMERA.bounds.x << std::endl;
+						    	editedLevel.resetCamera();
 						     editor.loadEntitiesToScene();
-							editedLevel.resetCamera();
+							std::cout << CAMERA.bounds.x << std::endl;
 						}
-					    else editedLevel.unloadEntities();
+					    else {
+						    editedLevel.unloadEntities();
+						    // editor.camera.resetCamera();
+					    }
 	                        break;
 				}
 				break;
@@ -124,20 +129,6 @@ int main(int argc, char* argv[]) {
 						editor.setLayerBeingEdited();
 					}
 					break;
-			// 		case SDL_WINDOWEVENT:  {
-	          // if (e.window.windowID == windowID)  {
-	          //   			switch (e.window.event)  {
-			// 	              case SDL_WINDOWEVENT_MOVED:  {
-			// 				    timePerFrameSum = 0;
-			// 				    startingTime = 0;
-			// 				    finalTime = 0;
-			// 				    deltaT = 0;
-			// 				    break;
-			// 				}
-	          // 			}
-	          // 			break;
-	        	// 		}
-			// }
 	        }
 
 		}

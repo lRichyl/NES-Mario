@@ -5,10 +5,13 @@ Camera::Camera(){
      resetCamera();
      xOffset = 0;
      yOffset = 0;
+     scrollingSpeed = 500;
 }
 
 void Camera::resetCamera(){
      bounds.x = 0;
+     xOffset = 0;
+     yOffset = 0;
      bounds.y = 0;
      bounds.w = WINDOW_WIDTH;
      bounds.h = WINDOW_HEIGHT;
@@ -20,19 +23,19 @@ void Camera::updatePosition(){
 
 	if( currentKeyStates[ SDL_SCANCODE_W ] )
 	{
-		yOffset -= 60 * deltaT;
+		yOffset -= scrollingSpeed * deltaT;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_S ] )
 	{
-		yOffset += 60 * deltaT;
+		yOffset += scrollingSpeed * deltaT;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_A ] )
 	{
-		xOffset -= 60 * deltaT;
+		xOffset -= scrollingSpeed * deltaT;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_D ] )
 	{
-		xOffset += 60 * deltaT;
+		xOffset += scrollingSpeed * deltaT;
 	}
 	bounds.x = xOffset;
 	bounds.y = yOffset;
