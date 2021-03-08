@@ -1,7 +1,6 @@
 POR HACER
 
 
-*Modificar la velocidad de la cámara
 *Agregar audio para el salto de mario
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
@@ -12,6 +11,7 @@ POR HACER
 
 
 HECHO
+*Modificar la velocidad de la cámara
 *Agregar el primer enemigo
 *Arreglado un bug en el queal copiar una clase con punteros, todos los punteros apuntaban a la entidad de muestra
 *Agregar animación a los bloques de interrogación

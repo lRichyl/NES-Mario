@@ -12,7 +12,7 @@ struct Player : public Entity{
 	~Player();
 	Vector2df acceleration = Vector2df(400, 0);
 	float friction = 260;
-	float gravity = 800;
+	float gravity = 40;
 	float distanceTraveled = 0;
 	float maxXVelocity = 8;
 	float maxYVelocity = 10;

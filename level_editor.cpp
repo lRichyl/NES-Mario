@@ -194,10 +194,10 @@ void LevelEditor::setSelectedEntity(){
 
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
-	editorLayer0.update(deltaT, &camera.bounds);
-	editorLayer1.update(deltaT, &camera.bounds);
-	editorLayer2.update(deltaT, &camera.bounds);
-	editorLayer3.update(deltaT, &camera.bounds);
+	editorLayer0.update(deltaTfixed, &camera.bounds);
+	editorLayer1.update(deltaTfixed, &camera.bounds);
+	editorLayer2.update(deltaTfixed, &camera.bounds);
+	editorLayer3.update(deltaTfixed, &camera.bounds);
 }
 
 void LevelEditor::drawEditorLevel(){
@@ -277,7 +277,7 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
-				// if(editorLayer0.entities[i][j]->isStatic){					
+				// if(editorLayer0.entities[i][j]->isStatic){
 					level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
 				// }
 			}

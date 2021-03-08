@@ -16,6 +16,7 @@
 #include "level_editor.h"
 #include "renderer.h"
 #include "text.h"
+#include "timer.h"
 
 static void printFPS(float FPS, Text fpsText){
 	std::string fps = std::to_string(FPS);
@@ -85,6 +86,7 @@ int main(int argc, char* argv[]) {
 	double startingTime = 0;
 	double finalTime = 0;
  	double timePerFrameSum = 0;
+	Timer timer;
 	// double FPS = 0;
 
 	while( !quit )
@@ -134,22 +136,23 @@ int main(int argc, char* argv[]) {
 		}
 
 		//Here begins draw and update loop
-		startingTime = (float)SDL_GetTicks() / 1000.f; // We should get the time with a method that brings us better precision
-		deltaT = startingTime - finalTime;
-		timePerFrameSum += deltaT;
-		finalTime = startingTime;
+		// startingTime = (float)SDL_GetTicks() / 1000.f; // We should get the time with a method that brings us better precision
+		// deltaT = startingTime - finalTime;
+		// timePerFrameSum += deltaT;
+		// finalTime = startingTime;
+		timer.countTo(deltaTfixed);
 
 		//We do this because while we are moving the window the time counter keeps counting and it keeps going till you reac seconds
 		//and it causes the player to get updated by a big amount of deltaT causing it to skip collisions
 		//There should be a better way of doing this by detecting when the window is being moved
-		if(timePerFrameSum > .018) timePerFrameSum = 0;
-
+		if(timer.timeSum > .018) timer.timeSum = 0;
 		// Execute the main gameloop every 16ms
-		if(timePerFrameSum >= deltaTfixed){
+		if(timer.timeReached){
+			// std::cout << timer.timeSum << std::endl;
 			// FPS = 1/timePerFrameSum;
 			// std::cout << timePerFrameSum << std::endl;
 
-			timePerFrameSum = 0;
+			// timer.timeSum = 0;
 
 
 

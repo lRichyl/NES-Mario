@@ -11,10 +11,10 @@ Scene::Scene(){
 
 void Scene::updateScene(float deltaTime){
 	CAMERA.updatePosition();
-	layer0.update(deltaT, &CAMERA.bounds);
-	layer1.update(deltaT, &CAMERA.bounds);
-	layer2.update(deltaT, &CAMERA.bounds);
-	layer3.update(deltaT, &CAMERA.bounds);
+	layer0.update(deltaTime, &CAMERA.bounds);
+	layer1.update(deltaTime, &CAMERA.bounds);
+	layer2.update(deltaTime, &CAMERA.bounds);
+	layer3.update(deltaTime, &CAMERA.bounds);
 }
 
 void Scene::checkCollisions(){

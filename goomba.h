@@ -8,8 +8,8 @@
 struct Goomba : public Entity{
      Goomba();
 
-     float speed = 1000;
-     float gravity = 800;
+     float speed = 100;
+     float gravity = 40;
      int direction = -1;
 
      Sprite *currentAnimation;
