@@ -65,8 +65,8 @@ void Goomba::onStaticEntityCollision(Vector2df penetration, Entity *e){
 
 }
 
-void Goomba::onDynamicEntityCollision(Vector2df penetration, Entity* e){
-     // if(e->entityType == ENTITY_TYPE::PLAYER){
-     //      // if(penetration.y < 0 && e->velocity.y >= 0) isActive = false;
-     // }
-}
+// void Goomba::onDynamicEntityCollision(Vector2df penetration, Entity* e){
+//      // if(e->entityType == ENTITY_TYPE::PLAYER){
+//      //      // if(penetration.y < 0 && e->velocity.y >= 0) isActive = false;
+//      // }
+// }

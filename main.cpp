@@ -23,8 +23,8 @@ static void printFPS(float FPS, Text fpsText){
 	fpsText.renderText(fps);
 }
 
-int main(int argc, char* argv[]) {
-	SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
+int main(int argc, char**) {
+	SDL_Init(SDL_INIT_VIDEO);            // Initialize SDL2
 
     // initializeWindow(window, renderer, "Main Window");
 	// initializeWindow(editorWindow, editorRenderer, "Editor Window");
@@ -83,9 +83,9 @@ int main(int argc, char* argv[]) {
 	fpsText.y = 0;
 	fpsText.size = 16;
 
-	double startingTime = 0;
-	double finalTime = 0;
- 	double timePerFrameSum = 0;
+	// double startingTime = 0;
+	// double finalTime = 0;
+ 	// double timePerFrameSum = 0;
 	Timer timer;
 	// double FPS = 0;
 

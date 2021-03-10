@@ -8,7 +8,7 @@
 struct Goomba : public Entity{
      Goomba();
 
-     float speed = 100;
+     float speed = 60;
      float gravity = 40;
      int direction = -1;
 
@@ -21,7 +21,7 @@ struct Goomba : public Entity{
      void updatePosition();
 	void initializeAnimationFrames();
 	void onStaticEntityCollision(Vector2df penetration, Entity *e) override;
-     void onDynamicEntityCollision(Vector2df penetration, Entity *e) override;
+     // void onDynamicEntityCollision(Vector2df penetration, Entity *e) override;
      Entity *clone()override{
           ID = Entity::IDcount;
 		Entity::IDcount++;

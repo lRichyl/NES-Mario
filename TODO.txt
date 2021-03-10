@@ -1,6 +1,6 @@
 POR HACER
 
-
+*Modificar los valores físicos de mario y goomba
 *Agregar audio para el salto de mario
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
@@ -11,6 +11,9 @@ POR HACER
 
 
 HECHO
+*Arreglado un bug en el que no se estaba usando el delta correcto para actualizar la
+     escena y el editor
+*Se agregó un modulo para contar tiempo
 *Modificar la velocidad de la cámara
 *Agregar el primer enemigo
 *Arreglado un bug en el queal copiar una clase con punteros, todos los punteros apuntaban a la entidad de muestra
