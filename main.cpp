@@ -17,6 +17,10 @@
 #include "renderer.h"
 #include "text.h"
 #include "timer.h"
+#include "music.h"
+#include "sound_effects.h"
+
+const float VOLUME_MULTIPLIER = .5;
 
 static void printFPS(float FPS, Text fpsText){
 	std::string fps = std::to_string(FPS);
@@ -24,7 +28,11 @@ static void printFPS(float FPS, Text fpsText){
 }
 
 int main(int argc, char**) {
-	SDL_Init(SDL_INIT_VIDEO);            // Initialize SDL2
+	Mix_Init(MIX_INIT_MP3);
+	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
+	Mix_VolumeMusic(MIX_MAX_VOLUME * VOLUME_MULTIPLIER);
+
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);            // Initialize SDL2
 
     // initializeWindow(window, renderer, "Main Window");
 	// initializeWindow(editorWindow, editorRenderer, "Editor Window");
@@ -83,14 +91,17 @@ int main(int argc, char**) {
 	fpsText.y = 0;
 	fpsText.size = 16;
 
-	// double startingTime = 0;
-	// double finalTime = 0;
- 	// double timePerFrameSum = 0;
 	Timer timer;
-	// double FPS = 0;
+
+	Music overWorldTheme;
+	overWorldTheme.loadMusicFile("assets/music/Running About.mp3");
+	Music undergroundTheme;
+	undergroundTheme.loadMusicFile("assets/music/Underground.mp3");
 
 	while( !quit )
 	{
+
+
 		while( SDL_PollEvent( &e ) != 0 )
 		{
 			//User requests quit
@@ -108,12 +119,12 @@ int main(int argc, char**) {
 	                        testingLevel = !testingLevel;
 					    // timePerFrameSum = 0;
 					    if(testingLevel){
-						    std::cout << CAMERA.bounds.x << std::endl;
+						    	overWorldTheme.play();
 						    	editedLevel.resetCamera();
 						     editor.loadEntitiesToScene();
-							std::cout << CAMERA.bounds.x << std::endl;
 						}
 					    else {
+						    Mix_HaltMusic();
 						    editedLevel.unloadEntities();
 						    // editor.camera.resetCamera();
 					    }
@@ -202,5 +213,7 @@ int main(int argc, char**) {
     //Quit SDL subsystems.
     IMG_Quit();
     SDL_Quit();
+    Mix_CloseAudio();
+    Mix_Quit();
     return 0;
 }

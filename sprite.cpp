@@ -8,11 +8,9 @@ void Sprite::setTexture(std::string path){
 }
 
 void Sprite::animateSprite(float wishedTimePerFrame){
-	startingTime = (float)SDL_GetTicks() / 1000.f;
-	timeSum += startingTime - finalTime;
-	// std::cout << timeSum << std::endl;
-	finalTime = startingTime;
-	if(timeSum >= wishedTimePerFrame){
+	timer.countTo(wishedTimePerFrame);
+	
+	if(timer.timeReached){
 		timeSum = 0;
 		frameIndex++;
 	}

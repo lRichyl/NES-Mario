@@ -14,6 +14,7 @@ Player::Player(){
 	boundingBox.h = Tile::tileSize;
 	// setClippingBox(98, 32, 12, 16); // This is not used when doing animated sprites
 	initializeAnimationFrames();
+	initializeSoundEffects();
 	currentAnimation = &idleAnimation;
 }
 
@@ -73,7 +74,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	//if the velocity is close to zero we make it zero so that the player stands still
 	if( !currentKeyStates[ SDL_SCANCODE_LEFT ]&& !currentKeyStates[ SDL_SCANCODE_RIGHT ]){
 		currentAnimation = &idleAnimation;
-		if(velocity.x > -0.5 && velocity.x < 0.5){
+		if(velocity.x > -0.8 && velocity.x < 0.8){
 			velocity.x = 0;
 		}
 	}
@@ -81,14 +82,13 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 //////////////////// JUMPING////////////////////////////
 	if( currentKeyStates[ SDL_SCANCODE_B ] && !wasBReleased)
 	{
-
-
 		// currentAnimation = &jumpingAnimation;
 		if(canSetJumpingSpeed){
+			jumpSound.play();
 			// if(!isAirborne) velocity.y = 0;
 			isAirborne = true;
 			if(acceleration.y < 0)
-			acceleration.y += 300000* deltaTime;
+			acceleration.y += 220000* deltaTime;
 			if(acceleration.y > 0) acceleration.y = 0;
 			velocity.y += acceleration.y*deltaTime;
 			if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
@@ -163,7 +163,8 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		// canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
-		acceleration.y = -6000;
+		acceleration.y = -60000;
+		jumpSound.stop();
 	}
 }
 
@@ -193,7 +194,7 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 		if(penetration.y > 0 && velocity.y >= 0){
 			// std::cout << "collision" << std::endl;
 			e->isActive = false;
-			velocity.y = -12;
+			velocity.y = -10;
 		}
 	}
 }
@@ -214,4 +215,9 @@ void Player::initializeAnimationFrames(){
 	jumpingAnimation.texture = textures.marioAnimations;
 	jumpingAnimation.bBox = &boundingBox;
 	jumpingAnimation.frames.push_back(SDL_Rect {64, 32, 16, 16});
+}
+
+void Player::initializeSoundEffects(){
+	jumpSound.channel = 1;
+	jumpSound.loadSoundFile("assets/sounds/Jump.wav");
 }

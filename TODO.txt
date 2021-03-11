@@ -1,7 +1,6 @@
 POR HACER
 
-*Modificar los valores físicos de mario y goomba
-*Agregar audio para el salto de mario
+*Animación de muerte de los Goombas
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
@@ -11,6 +10,8 @@ POR HACER
 
 
 HECHO
+*Se agregó soporte para música y efectos de sonido
+*Modificar los valores físicos de mario y goomba
 *Arreglado un bug en el que no se estaba usando el delta correcto para actualizar la
      escena y el editor
 *Se agregó un modulo para contar tiempo

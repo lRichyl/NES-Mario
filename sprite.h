@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include "SDL2/SDL.h"
+#include "timer.h"
 #include <string>
 #include <vector>
 
@@ -16,6 +17,7 @@ struct Sprite{
 	float timeSum = 0;
 	float startingTime;
 	float finalTime;
+	Timer timer;
 	SDL_Texture *texture = NULL;
 
 	void animateSprite(float wishedTimePerFrame);

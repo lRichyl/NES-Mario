@@ -8,7 +8,7 @@
 struct Goomba : public Entity{
      Goomba();
 
-     float speed = 60;
+     float speed = 45;
      float gravity = 40;
      int direction = -1;
 
