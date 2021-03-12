@@ -1,6 +1,10 @@
 POR HACER
 
+
 *Animación de muerte de los Goombas
+*Poner todos los sonidos y la música en un struct.
+*Mostrar una ventana de error y terminar el programa cuando no se encuentren los archivos
+*Podemos asignar las entidades de muestra del editor en el stack en lugar de forma dinámica
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa

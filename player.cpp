@@ -2,6 +2,7 @@
 #include "global_variables.h"
 #include "collision.h"
 #include "vector2di.h"
+#include "goomba.h"
 #include <iostream>
 #include <cmath>
 
@@ -193,7 +194,9 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 		}
 		if(penetration.y > 0 && velocity.y >= 0){
 			// std::cout << "collision" << std::endl;
-			e->isActive = false;
+			Goomba *goomba = dynamic_cast<Goomba*>(e);
+			// std::cout << goomba << std::endl;
+			goomba->state = goomba->GoombaState::CRUSHED;
 			velocity.y = -10;
 		}
 	}

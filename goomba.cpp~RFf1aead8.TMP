@@ -12,8 +12,6 @@ Goomba::Goomba(){
 	boundingBox.h = Tile::tileSize;
      initializeAnimationFrames();
      currentAnimation = &walkingAnimation;
-     crushingSound.loadSoundFile("assets/sounds/Squish1.wav");
-     crushingSound.channel = 2;
 }
 
 void Goomba::update(float deltaTime, SDL_Rect *camera){
@@ -23,19 +21,15 @@ void Goomba::update(float deltaTime, SDL_Rect *camera){
                position.y += gravity * deltaTime;
                // std::cout << "goomba test" << std::endl;
                updatePosition();
-               // std::cout << deathTimer.timeSum << std::endl;
+               std::cout << deathTimer.timeSum << std::endl;
 
           }
           else if(state == GoombaState::CRUSHED){
                currentAnimation = &dyingAnimation;
-               crushingSound.play();
-               // deathTimer.countTo(.5);
+               deathTimer.countTo(.5);
                timeCounter += deltaTime;
-               if(timeCounter >= 1) {
-                    isActive = false;
-                    crushingSound.stop();
-               }
-               // std::cout << timeCounter << std::endl;
+               if(timeCounter >= 1) isActive = false;
+               std::cout << timeCounter << std::endl;
                // isActive = false;
           }
      }

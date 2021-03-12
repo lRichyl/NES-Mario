@@ -150,9 +150,9 @@ int main(int argc, char**) {
 		// startingTime = (float)SDL_GetTicks() / 1000.f; // We should get the time with a method that brings us better precision
 		// deltaT = startingTime - finalTime;
 		// timePerFrameSum += deltaT;
-		// finalTime = startingTime;
 		timer.countTo(deltaTfixed);
-
+		// std::cout << timer.timeSum << std::endl;
+		
 		//We do this because while we are moving the window the time counter keeps counting and it keeps going till you reac seconds
 		//and it causes the player to get updated by a big amount of deltaT causing it to skip collisions
 		//There should be a better way of doing this by detecting when the window is being moved
@@ -162,9 +162,6 @@ int main(int argc, char**) {
 			// std::cout << timer.timeSum << std::endl;
 			// FPS = 1/timePerFrameSum;
 			// std::cout << timePerFrameSum << std::endl;
-
-			// timer.timeSum = 0;
-
 
 
 			if(!testingLevel){
@@ -197,8 +194,15 @@ int main(int argc, char**) {
 
 
 		}
+		// finalTime = (float)SDL_GetTicks() / 1000.f;
+
 
 	}
+	// SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+     //                     "Missing file",
+     //                     "File is missing. Please reinstall the program.",
+     //                     window);
+
 
     // Clean up
 	//Destroy window and renderer.
