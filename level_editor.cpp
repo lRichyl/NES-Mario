@@ -300,7 +300,7 @@ void LevelEditor::loadEntitiesToScene(){
 				if(editorLayer2.entities[i][j]->isStatic ){
 					level->layer2.entities[i][j] = editorLayer2.entities[i][j]->clone();
 					// std::cout << "mario" << std::endl;
-				}
+				}else
 				if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::PLAYER){
 					Player *p = new Player();
 					setDynamicEntityPosition(editorLayer2.entities[i][j], p);

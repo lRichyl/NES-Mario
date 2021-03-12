@@ -19,7 +19,7 @@ struct Goomba : public Entity{
      float speed = 45;
      float gravity = 40;
      int direction = -1;
-     float timeCounter = 0;
+     float timeCounter = 0;;
 
      GoombaState state = GoombaState::NORMAL;
      // Timer deathTimer;
@@ -39,4 +39,6 @@ struct Goomba : public Entity{
           ID = Entity::IDcount;
 		Entity::IDcount++;
 		return new Goomba(*this);}
+
+     ~Goomba(){}
 };

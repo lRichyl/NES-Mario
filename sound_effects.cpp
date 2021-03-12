@@ -9,6 +9,7 @@ void SoundEffect::loadSoundFile(const char *fileName){
 }
 
 void SoundEffect::play(){
+     // if(interrupt && Mix_Playing(channel)) stop();
      if(Mix_Playing(channel) == 0){
           Mix_PlayChannel(channel, sound, 0);
      }

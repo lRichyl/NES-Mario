@@ -3,7 +3,9 @@
 
 struct SoundEffect{
      Mix_Chunk *sound = nullptr;
-     int channel;
+     int channel = 0;
+     // bool interrupt = false;
+     // float playTime = -1;
 
      void loadSoundFile(const char *fileName);
      void play();

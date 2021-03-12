@@ -189,15 +189,18 @@ void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
 
 void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 	if(e->entityType == ENTITY_TYPE::GOOMBA){
-		if(penetration.x > 0 || penetration.x < 0){
-		// std::cout << "player hit" << std::endl;
-		}
-		if(penetration.y > 0 && velocity.y >= 0){
-			// std::cout << "collision" << std::endl;
-			Goomba *goomba = dynamic_cast<Goomba*>(e);
-			// std::cout << goomba << std::endl;
-			goomba->state = goomba->GoombaState::CRUSHED;
-			velocity.y = -10;
+		Goomba *goomba = dynamic_cast<Goomba*>(e);
+
+		if(goomba->state == goomba->GoombaState::NORMAL){
+			if(penetration.y > 0 && velocity.y >= 0 ){
+				// std::cout << "collision" << std::endl;
+				// std::cout << goomba << std::endl;
+				Mix_HaltChannel(goomba->crushingSound.channel);
+				goomba->crushingSound.play();
+				goomba->state = goomba->GoombaState::CRUSHED;
+				velocity.y = -10;
+			}
+
 		}
 	}
 }
@@ -221,6 +224,6 @@ void Player::initializeAnimationFrames(){
 }
 
 void Player::initializeSoundEffects(){
-	jumpSound.channel = 1;
+	jumpSound.channel = -1;
 	jumpSound.loadSoundFile("assets/sounds/Jump.wav");
 }

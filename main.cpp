@@ -21,6 +21,7 @@
 #include "sound_effects.h"
 
 const float VOLUME_MULTIPLIER = .5;
+const int CHANNELS = 32;
 
 static void printFPS(float FPS, Text fpsText){
 	std::string fps = std::to_string(FPS);
@@ -31,6 +32,7 @@ int main(int argc, char**) {
 	Mix_Init(MIX_INIT_MP3);
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
 	Mix_VolumeMusic(MIX_MAX_VOLUME * VOLUME_MULTIPLIER);
+	Mix_AllocateChannels(CHANNELS);
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);            // Initialize SDL2
 
@@ -152,7 +154,7 @@ int main(int argc, char**) {
 		// timePerFrameSum += deltaT;
 		timer.countTo(deltaTfixed);
 		// std::cout << timer.timeSum << std::endl;
-		
+
 		//We do this because while we are moving the window the time counter keeps counting and it keeps going till you reac seconds
 		//and it causes the player to get updated by a big amount of deltaT causing it to skip collisions
 		//There should be a better way of doing this by detecting when the window is being moved

@@ -16,6 +16,7 @@ Goomba::Goomba(){
      crushingSound.channel = 2;
 }
 
+
 void Goomba::update(float deltaTime, SDL_Rect *camera){
      if(isActive){
           if(state == GoombaState::NORMAL){
@@ -24,18 +25,17 @@ void Goomba::update(float deltaTime, SDL_Rect *camera){
                // std::cout << "goomba test" << std::endl;
                updatePosition();
                // std::cout << deathTimer.timeSum << std::endl;
-
           }
           else if(state == GoombaState::CRUSHED){
                currentAnimation = &dyingAnimation;
-               crushingSound.play();
+               // crushingSound.play();
                // deathTimer.countTo(.5);
                timeCounter += deltaTime;
                if(timeCounter >= 1) {
                     isActive = false;
-                    crushingSound.stop();
+                    // crushingSound.stop();
                }
-               // std::cout << timeCounter << std::endl;
+               // std::cout << this << std::endl;
                // isActive = false;
           }
      }
