@@ -38,9 +38,12 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	}
 	if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
 	{
-		idleAnimation.flip = true;
-		walkingAnimation.flip = true;
-		jumpingAnimation.flip = true;
+		if(!isAirborne){
+			idleAnimation.flip = true;
+			walkingAnimation.flip = true;
+			jumpingAnimation.flip = true;
+
+		}
 		currentAnimation = &walkingAnimation;
 		velocity.x  -= acceleration.x * deltaTime;
 		if(velocity.x < -maxXVelocity){
@@ -51,9 +54,12 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 	}
 	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 	{
-		idleAnimation.flip = false;
-		walkingAnimation.flip = false;
-		jumpingAnimation.flip = false;
+		if(!isAirborne){
+			idleAnimation.flip = false;
+			walkingAnimation.flip = false;
+			jumpingAnimation.flip = false;
+		}
+
 		currentAnimation = &walkingAnimation;
 		velocity.x  += acceleration.x * deltaTime;
 		if(velocity.x > maxXVelocity){
@@ -71,39 +77,47 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		}
 	}
 
+
+
 //////////////////// JUMPING////////////////////////////
 	if( currentKeyStates[ SDL_SCANCODE_B ] && !wasBReleased)
 	{
-		// currentAnimation = &jumpingAnimation;
 		if(canSetJumpingSpeed){
 			jumpSound.play();
-			// if(!isAirborne) velocity.y = 0;
 			isAirborne = true;
 			if(acceleration.y < 0)
 			acceleration.y += 220000* deltaTime;
 			if(acceleration.y > 0) acceleration.y = 0;
 			velocity.y += acceleration.y*deltaTime;
 			if(velocity.y < -maxYVelocity) velocity.y = -maxYVelocity;
-			// velocity.y = -3 ;
-			// canSetJumpingSpeed = false;
-			// canJump = false;
 		}
-
-
-
-		// velocity.y += 10 * deltaTime;
 		distanceTraveled += abs(velocity.y * deltaTime);
 	}else{
 		wasBReleased = true;
-		// std::cout << "b release" << std::endl;
 
 	}
-	// std::cout << "velocity: " << velocity.y << "accel: " << acceleration.y << std::endl;
 
 
-	if(isAirborne) currentAnimation = &jumpingAnimation;
+	if(isAirborne) {
+		currentAnimation = &jumpingAnimation;
 
-////////////////////////////////////////////////////////
+
+	}else{
+
+		if(velocity.x >= 0){
+			idleAnimation.flip = false;
+			walkingAnimation.flip = false;
+			jumpingAnimation.flip = false;
+		}else {
+			idleAnimation.flip = true;
+			walkingAnimation.flip = true;
+			jumpingAnimation.flip = true;
+		}
+
+	}
+
+
+//////////////////////GRAVITY//////////////////////////////////
 
 	if(velocity.y < 20){
 		velocity.y += gravity * deltaTime;
@@ -124,27 +138,19 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 /////////////////////////////////////////////
 
 
-	// std::cout << walkingAnimation.frameIndex << std::endl;
 	position.x += velocity.x;
 	position.y += velocity.y;
 
 
 	updatePosition();
-	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
-
-	// if(currentAnimation->texture == nullptr){ std::cout << "NULL" << std::endl;}
-	// std::cout << currentAnimation->boundingBox.x << " , " << currentAnimation->boundingBox.x << std::endl;
 }
 
 void Player::updatePosition(){
 	boundingBox.x = position.x - CAMERA.bounds.x;
 	boundingBox.y = position.y - CAMERA.bounds.y;
-	// std::cout << boundingBox.x << " , " << boundingBox.x << std::endl;
-
 }
 
 void Player::draw(){
-	// SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &sprite.boundingBox );
 	currentAnimation->animateSprite(0.08);
 }
 
@@ -152,7 +158,6 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 	if(penetration.y > 0){
 		wasBReleased = false;
 		isAirborne = false;
-		// canJump = true;
 		canSetJumpingSpeed = true;
 		velocity.y = 0;
 		acceleration.y = -60000;
@@ -161,16 +166,12 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 }
 
 void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
-		// std::cout << penetrationVector.x << " , " << penetrationVector.y << std::endl;
-		// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 	if(penetration.y < 0) velocity.y = 0;
 
 	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
-	// if(penetration.y == 0 || penetration.y < 0) isFalling = true;
 
 
 	collidingWithTheFloor(penetration);
-	// std::cout << ID << " : " << penetration.x  <<std::endl;
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);
@@ -188,8 +189,6 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 				state = PlayerState::DEAD;
 			}
 			else if(penetration.y > 0 && velocity.y >= 0 && state == PlayerState::NORMAL){
-				// std::cout << "collision" << std::endl;
-				// std::cout << goomba << std::endl;
 				goomba->crushingSound.play();
 				goomba->state = goomba->GoombaState::CRUSHED;
 				velocity.y = -10;

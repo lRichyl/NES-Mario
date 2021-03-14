@@ -63,6 +63,12 @@ struct Brick : public Tile{
 };
 
 struct QuestionMark : public Tile{
+
+	enum QuestionMarkState{
+		NORMAL,
+		DISABLED
+	};
+
 	QuestionMark();
 	Sprite blockUnused;
      Sprite blockUsed;
@@ -78,7 +84,7 @@ struct QuestionMark : public Tile{
 		ID = Entity::IDcount;
 		QuestionMark *q = new QuestionMark(*this);
 		q->blockUnused.bBox = &q->boundingBox;
-		q->blockUsed.bBox = &q->boundingBox;		
+		q->blockUsed.bBox = &q->boundingBox;
 		return q;}
 };
 

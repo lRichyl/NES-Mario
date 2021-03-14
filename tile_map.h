@@ -13,23 +13,19 @@ struct TileMap{
 	int levelHeight = 10000;
 	int tileWidth = Tile::tileSize;
 	int tileHeight = Tile::tileSize;
-	// bool initializeDynamicEntities = true;
-	// float xScale;
-	// float yScale;
+
 	vector<vector<Entity*>> entities {};
 	vector<Entity*> dynamicEntities {};
 
 	TileMap();
 	~TileMap();
-	// bool addEntityByPosition(Entity *e);
-	// bool addEntityByTile(Entity *e);
+
 	bool addEntityOnTile(int xTile, int yTile, Entity *e);
 	void emptyTilemap();
 
 
 	int getXTile(float xPosition);
-	int getYTile(float yPosition);
-	// void scaleDimensions();
+	int getYTile(float yPositiion);
 	void update(float deltaT, SDL_Rect *camera);
 	void draw();
 };

@@ -51,6 +51,7 @@ void QuestionMark::initAnimation(){
 void QuestionMark::update(float deltaTime, SDL_Rect *camera){
      boundingBox.x = position.x - camera->x;
 	boundingBox.y = position.y - camera->y;
+	std::cout << tilemapToSpawnItemsOn << std::endl;
 }
 
 void QuestionMark::draw(){

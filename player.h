@@ -17,19 +17,18 @@ struct Player : public Entity{
 
 	Player();
 	~Player();
-	Vector2df acceleration = Vector2df(80, 0);
-	float friction = 25;
+	Vector2df acceleration = Vector2df(25, 0);
+	float friction = 15;
 	float gravity = 40;
 	float distanceTraveled = 0;
-	float maxXVelocity = 6;
+	float maxXVelocity = 8;
 	float maxYVelocity = 10;
-	// int xdirection = 1;
-	// int ydirection = 1;
+
 	bool isAirborne = true;
 	bool canJump = true;
 	bool wasBReleased = false;
 	bool canSetJumpingSpeed = true;
-	// SDL_Rect boundingBox;
+	
 	PlayerState state = PlayerState::NORMAL;
 
 	Sprite *currentAnimation = nullptr;

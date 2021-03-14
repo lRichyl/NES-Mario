@@ -1,6 +1,8 @@
 POR HACER
 
+
 *Agregar animación al golpear los bloques de interrogación
+*Agregar la animación de derrape a Mario
 *Aparecer objetos al golpear el bloque de signo de interrogación
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
@@ -11,6 +13,7 @@ POR HACER
 
 
 HECHO
+*Ahora mario tiene más inercia y puede brincar hacia atras. Ahora derrapa cuando está en el suelo.
 *Mostrar una ventana de error y terminar el programa cuando no se encuentren los archivos
 *Animación de muerte de los Goombas
 *Se agregó soporte para música y efectos de sonido
