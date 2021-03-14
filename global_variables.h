@@ -4,6 +4,8 @@
 #include "renderer.h"
 #include "camera.h"
 #include "texture.h"
+#include "sound_effects.h"
+#include "music.h"
 
 
 extern SDL_Renderer *renderer;
@@ -18,7 +20,8 @@ extern RendererInformation rendererInfo;
 extern float deltaT;
 extern double deltaTfixed;
 
-extern TextureContainer textures;
-
+extern TextureContainer texturesContainer;
+extern SoundsContainer soundsContainer;
+extern MusicContainer musicContainer;
 
 #endif

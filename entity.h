@@ -22,12 +22,12 @@ enum ENTITY_TYPE {
 struct Entity{
 	static int IDcount;
 	int ID;
-	bool isActive  = true;
+	bool isActive  = true; //When this is false the entity stops being updated and drawn
 	Vector2df position;
 	Vector2df velocity;
 	int xTile;
 	int yTile;
-	bool isStatic = true;
+	bool isStatic = true;  //This is used to indicate that the entity is part of the scenery
 	Sprite sprite;
 	SDL_Rect clippingBox;
 	SDL_Rect boundingBox;

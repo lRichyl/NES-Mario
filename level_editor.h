@@ -1,5 +1,4 @@
-#ifndef LEVEL_EDITOR_H
-#define LEVEL_EDITOR_H
+#pragma once
 #include "SDL2/SDL.h"
 #include "scene.h"
 #include "tile.h"
@@ -81,5 +80,3 @@ struct LevelEditor{
 	// bool saveLevelIntoFile();
 
 };
-
-#endif

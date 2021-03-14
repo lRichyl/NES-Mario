@@ -33,6 +33,7 @@ struct Goomba : public Entity{
      void draw()override;
      void updatePosition();
 	void initializeAnimationFrames();
+     void initializeSoundEffects();
 	void onStaticEntityCollision(Vector2df penetration, Entity *e) override;
      // void onDynamicEntityCollision(Vector2df penetration, Entity *e) override;
      Entity *clone()override{

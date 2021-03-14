@@ -53,7 +53,10 @@ int main(int argc, char**) {
 	// SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	// SDL_MaximizeWindow(window);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	textures.initTextureContainer();
+
+	texturesContainer.initTextureContainer();
+	soundsContainer.initSoundsContainer();
+	musicContainer.initMusicContainer();
 
 	// SDL_RenderSetLogicalSize(renderer, 1280, 480);
 	// int rendererX = getRendererWidth();
@@ -96,9 +99,11 @@ int main(int argc, char**) {
 	Timer timer;
 
 	Music overWorldTheme;
-	overWorldTheme.loadMusicFile("assets/music/Running About.mp3");
+	overWorldTheme.music = musicContainer.overWorldTheme;
 	Music undergroundTheme;
-	undergroundTheme.loadMusicFile("assets/music/Underground.mp3");
+	undergroundTheme.music = musicContainer.undergroundTheme;
+
+
 
 	while( !quit )
 	{
@@ -200,10 +205,7 @@ int main(int argc, char**) {
 
 
 	}
-	// SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
-     //                     "Missing file",
-     //                     "File is missing. Please reinstall the program.",
-     //                     window);
+
 
 
     // Clean up

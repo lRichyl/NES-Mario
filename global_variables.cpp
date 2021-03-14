@@ -13,4 +13,6 @@ RendererInformation rendererInfo;
 float deltaT = 0;
 double deltaTfixed = 1.f/60.f;
 
-TextureContainer textures;
+TextureContainer texturesContainer;
+SoundsContainer soundsContainer;
+MusicContainer musicContainer;

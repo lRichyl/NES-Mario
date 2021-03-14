@@ -1,11 +1,12 @@
-#ifndef TILE_MAP_H
-#define TILE_MAP_H
+#pragma once
 #include <iostream>
 #include <vector>
 #include "global_variables.h"
 #include "entity.h"
 #include "tile.h"
+// struct Tile;
 using namespace std;
+
 
 struct TileMap{
 	int levelWidth = 10000; // This size is in pixels
@@ -32,4 +33,3 @@ struct TileMap{
 	void update(float deltaT, SDL_Rect *camera);
 	void draw();
 };
-#endif

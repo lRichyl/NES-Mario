@@ -1,6 +1,6 @@
 #include "texture.h"
 #include "global_variables.h"
-
+#include <stdlib.h>
 
 
 
@@ -14,6 +14,11 @@ SDL_Texture* loadTexture( std::string path)
     if( loadedSurface == NULL )
     {
         printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+                            "Missing file",
+                            "Texture image not found. Make sure there's an assets folder.",
+                            window);
+          exit(1);
     }
     else
     {
@@ -30,9 +35,6 @@ SDL_Texture* loadTexture( std::string path)
 
     return newTexture;
 }
-
-// SDL_Texture *TextureContainer::marioAnimations = nullptr;
-// SDL_Texture *TextureContainer::marioBlocks = nullptr;
 
 
 void TextureContainer::initTextureContainer(){

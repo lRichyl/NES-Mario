@@ -12,13 +12,12 @@ Goomba::Goomba(){
 	boundingBox.h = Tile::tileSize;
      initializeAnimationFrames();
      currentAnimation = &walkingAnimation;
-     crushingSound.loadSoundFile("assets/sounds/Squish1.wav");
-     crushingSound.channel = 2;
+     initializeSoundEffects();
 }
 
 
 void Goomba::update(float deltaTime, SDL_Rect *camera){
-     if(isActive){
+     // if(isActive){
           if(state == GoombaState::NORMAL){
                position.x += direction * speed * deltaTime;
                position.y += gravity * deltaTime;
@@ -38,7 +37,7 @@ void Goomba::update(float deltaTime, SDL_Rect *camera){
                // std::cout << this << std::endl;
                // isActive = false;
           }
-     }
+     // }
 }
 void Goomba::updatePosition(){
 	boundingBox.x = position.x - CAMERA.bounds.x;
@@ -47,19 +46,19 @@ void Goomba::updatePosition(){
 
 }
 void Goomba::draw(){
-     if(isActive){
+     // if(isActive){
           currentAnimation->animateSprite(0.15);
-     }
+     // }
 }
 void Goomba::initializeAnimationFrames(){
      //---------WALKING ANIMATION----------
-     walkingAnimation.texture = textures.enemiesAnimations;
+     walkingAnimation.texture = texturesContainer.enemiesAnimations;
      walkingAnimation.bBox = &boundingBox;
      walkingAnimation.frames.push_back(SDL_Rect {1, 28, 16, 16});
      walkingAnimation.frames.push_back(SDL_Rect {18, 28, 16, 16});
 
      //---------DYING ANIMATION----------
-     dyingAnimation.texture = textures.enemiesAnimations;
+     dyingAnimation.texture = texturesContainer.enemiesAnimations;
      dyingAnimation.bBox = &boundingBox;
      dyingAnimation.frames.push_back(SDL_Rect {39, 28, 16, 16});
 
@@ -82,6 +81,12 @@ void Goomba::onStaticEntityCollision(Vector2df penetration, Entity *e){
      position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);
 	updatePosition();
+
+}
+
+void Goomba::initializeSoundEffects(){
+     crushingSound.channel = 2;
+     crushingSound.sound = soundsContainer.squish;
 
 }
 

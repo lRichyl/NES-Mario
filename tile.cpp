@@ -10,10 +10,7 @@ int Tile::tileSize = 64;
 
 void Tile::setTileSize(int newTileSize){
 	isActive = true;
-	texture = textures.marioBlocks;
-	// if(Tile::texture == nullptr){
-	// 	Tile::texture = loadTexture("assets/textures/mario_blocks.png"); // THIS WILL BE MOVED TO A TEXTURE MANA
-	// }
+	texture = texturesContainer.marioBlocks;
 	sprite.texture = texture;
 	boundingBox.w = tileSize;
 	boundingBox.h = tileSize;
@@ -22,7 +19,6 @@ void Tile::setTileSize(int newTileSize){
 
 Tile::Tile(){
 	setTileSize(Tile::tileSize);
-
 };
 
 
@@ -33,7 +29,7 @@ void Tile::update(float deltaTime, SDL_Rect *camera){
 void Tile::draw(){
 	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &boundingBox );
 }
-//////////////////////////////////////////////////////////
+///////////////////////QUESTION MARK TILE///////////////////////////////////
 QuestionMark::QuestionMark(){
      entityType = ENTITY_TYPE::QUESTIONMARK;
      isStatic = true;
@@ -41,13 +37,13 @@ QuestionMark::QuestionMark(){
 }
 
 void QuestionMark::initAnimation(){
-     blockUnused.texture = textures.marioBlocks;
+     blockUnused.texture = texturesContainer.marioBlocks;
      blockUnused.bBox = &boundingBox;
      blockUnused.frames.push_back(SDL_Rect {384, 0, 16, 16});
      blockUnused.frames.push_back(SDL_Rect {400, 0, 16, 16});
      blockUnused.frames.push_back(SDL_Rect {416, 0, 16, 16});
 
-     blockUsed.texture = textures.marioBlocks;
+     blockUsed.texture = texturesContainer.marioBlocks;
      blockUsed.bBox = &boundingBox;
      blockUsed.frames.push_back(SDL_Rect {432, 0, 16, 16});
 }

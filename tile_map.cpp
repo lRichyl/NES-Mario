@@ -20,7 +20,8 @@ bool TileMap::addEntityOnTile(int xTile, int yTile, Entity *e){
 void TileMap::draw(){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
-			dynamicEntities[i]->draw();
+			if(dynamicEntities[i]->isActive)
+				dynamicEntities[i]->draw();
 
 		}
 	}
@@ -28,7 +29,8 @@ void TileMap::draw(){
 	for(unsigned int i = 0; i < entities.size() ; i++){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
-				entities[i][j]->draw();
+				if(entities[i][j]->isActive)
+					entities[i][j]->draw();
 			}
 		}
 	}
@@ -37,8 +39,8 @@ void TileMap::draw(){
 void TileMap::update(float deltaT, SDL_Rect *camera){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
-
-			dynamicEntities[i]->update(deltaT, camera);
+			if(dynamicEntities[i]->isActive)
+				dynamicEntities[i]->update(deltaT, camera);
 			// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
 
 			// std::cout << "Mario" << std::endl;
@@ -48,7 +50,8 @@ void TileMap::update(float deltaT, SDL_Rect *camera){
 	for(unsigned int i = 0; i < entities.size() ; i++){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
-				entities[i][j]->update(deltaT, camera);
+				if(entities[i][j]->isActive)
+					entities[i][j]->update(deltaT, camera);
 				// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
 
 			}

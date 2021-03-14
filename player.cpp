@@ -20,22 +20,13 @@ Player::Player(){
 }
 
 Player::~Player(){
-	//Remember to always destroy the textures or it can cause a memory leak.
-	//This will be done in the future in a texture manager.
-	// SDL_DestroyTexture(idleAnimation.texture);
-	// SDL_DestroyTexture(walkingAnimation.texture);
-	// SDL_DestroyTexture(jumpingAnimation.texture);
+
 }
 // bool updatePosition = false;
 void Player::update(float deltaTime, SDL_Rect *camera){
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-
-	// if(updatePosition){
-	// 	sprite.boundingBox.x = position.x - camera->x;
-	// 	sprite.boundingBox.y = position.y - camera->y;
-	// }
 
 	if( currentKeyStates[ SDL_SCANCODE_UP ] )
 	{
@@ -192,14 +183,18 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 		Goomba *goomba = dynamic_cast<Goomba*>(e);
 
 		if(goomba->state == goomba->GoombaState::NORMAL){
-			if(penetration.y > 0 && velocity.y >= 0 ){
+			if((penetration.x > 0 || penetration.x < 0)){
+				isActive = false;
+				state = PlayerState::DEAD;
+			}
+			else if(penetration.y > 0 && velocity.y >= 0 && state == PlayerState::NORMAL){
 				// std::cout << "collision" << std::endl;
 				// std::cout << goomba << std::endl;
-				Mix_HaltChannel(goomba->crushingSound.channel);
 				goomba->crushingSound.play();
 				goomba->state = goomba->GoombaState::CRUSHED;
 				velocity.y = -10;
 			}
+
 
 		}
 	}
@@ -208,22 +203,22 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 
 void Player::initializeAnimationFrames(){
 	/////IDLE ANIMATION///
-	idleAnimation.texture    =  textures.marioAnimations;
+	idleAnimation.texture   =  texturesContainer.marioAnimations;
 	idleAnimation.bBox = &boundingBox;
 	idleAnimation.frames.push_back(SDL_Rect {98, 32, 12, 16});
 	/////WALKING ANIMATION///
-	walkingAnimation.texture =  textures.marioAnimations;
+	walkingAnimation.texture =  texturesContainer.marioAnimations;
 	walkingAnimation.bBox = &boundingBox;
 	walkingAnimation.frames.push_back(SDL_Rect {0, 32, 15, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {34, 32, 13, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {19, 32, 12, 16});
 	///////// JUMPING ANIMATION ///////////
-	jumpingAnimation.texture = textures.marioAnimations;
+	jumpingAnimation.texture = texturesContainer.marioAnimations;
 	jumpingAnimation.bBox = &boundingBox;
 	jumpingAnimation.frames.push_back(SDL_Rect {64, 32, 16, 16});
 }
 
 void Player::initializeSoundEffects(){
-	jumpSound.channel = -1;
-	jumpSound.loadSoundFile("assets/sounds/Jump.wav");
+	jumpSound.channel = 1;
+	jumpSound.sound = soundsContainer.marioJump;
 }

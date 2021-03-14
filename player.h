@@ -9,6 +9,12 @@
 // #include "vector2di.h"
 
 struct Player : public Entity{
+
+	enum PlayerState{
+		NORMAL,
+		DEAD
+	};
+
 	Player();
 	~Player();
 	Vector2df acceleration = Vector2df(80, 0);
@@ -24,6 +30,8 @@ struct Player : public Entity{
 	bool wasBReleased = false;
 	bool canSetJumpingSpeed = true;
 	// SDL_Rect boundingBox;
+	PlayerState state = PlayerState::NORMAL;
+
 	Sprite *currentAnimation = nullptr;
 	Sprite idleAnimation;
 	Sprite walkingAnimation;

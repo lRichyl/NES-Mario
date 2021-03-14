@@ -140,19 +140,6 @@ void LevelEditor::setTileOnClick(){
 
 			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
 				Entity *newEntity = selectedEntity->clone();
-				// if(!selectedEntity->isStatic){
-					// newEntity->boundingBox.x = selectedEntity->x;
-					// newEntity->boundingBox.y = selectedEntity->y;// selectedEntity->ystd::cout << xTile << ", " << yTile << std::endl;
-				// }
-				// int count = 0;
-			// for(unsigned int i = 0; i < tileMapBeingEdited.entities.size() ; i++){
-				// for(unsigned int j = 0; j < tileMapBeingEdited.entities[i].size(); j++){
-					// if(tileMapBeingEdited.entities[i][j] != nullptr){
-						// count++;
-					// }
-				// }
-			// }
-				// std::cout << count << std::endl;
 				tileMapBeingEdited->addEntityOnTile(xTile, yTile, newEntity);
 			}
 		}
@@ -189,8 +176,6 @@ void LevelEditor::setSelectedEntity(){
 
 	}
 }
-// float x = 0;
-// float y = 0;
 
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
@@ -229,8 +214,6 @@ void LevelEditor::drawSelectionSquare(){
 		int yTile = tileMapBeingEdited->getYTile(mouseY + camera.bounds.y);
 		tileSelectionSection.selectionSquareBox.x = (xTile * tileMapBeingEdited->tileWidth) - camera.bounds.x;
 		tileSelectionSection.selectionSquareBox.y = (yTile * tileMapBeingEdited->tileHeight) - camera.bounds.y;
-		// boundingBox.x = x - camera->x;
-		// boundingBox.y = y - camera->y;
 
 		SDL_RenderCopy(renderer, tileSelectionSection.selectionSquare, nullptr, &tileSelectionSection.selectionSquareBox);
 	}
@@ -245,9 +228,7 @@ void LevelEditor::drawSampleSelectionSquare(){
 		int yTile = (mouseY - tileSelectionSection.offset) / tileSelectionSection.editorTileSize;
 		tileSelectionSection.sampleSelectionSquareBox.x = tileSelectionSection.offset + (xTile * tileSelectionSection.editorTileSize);
 		tileSelectionSection.sampleSelectionSquareBox.y = tileSelectionSection.offset + (yTile * tileSelectionSection.editorTileSize);
-		// boundingBox.x = x - camera->x;
-		// boundingBox.y = y - camera->y;
-		// COMENTARIO DE PRUEBA
+
 		SDL_RenderCopy(renderer, tileSelectionSection.sampleSelectionSquare, nullptr, &tileSelectionSection.sampleSelectionSquareBox);
 	}
 }
@@ -267,19 +248,14 @@ void LevelEditor::drawLayerText(){
 static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
 	d->position.x = tileEntity->position.x - CAMERA.bounds.x;
 	d->position.y = tileEntity->position.y - CAMERA.bounds.y;
-	// d->boundingBox.x = d->position.x - CAMERA.bounds.x;
-	// d->boundingBox.y = d->position.y - CAMERA.bounds.y;
 }
 
 void LevelEditor::loadEntitiesToScene(){
-	// CAMERA.bounds.x =  100;
-	// CAMERA.bounds.y += 100;
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
-				// if(editorLayer0.entities[i][j]->isStatic){
 					level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
-				// }
+
 			}
 		}
 	}
@@ -287,33 +263,33 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer1.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer1.entities[i].size(); j++){
 			if(editorLayer1.entities[i][j] != nullptr){
-				// if(editorLayer1.entities[i][j]->isStatic){
-					level->layer1.entities[i][j] = editorLayer1.entities[i][j]->clone();
-				// }
+					Entity *e = editorLayer1.entities[i][j];
+					e = editorLayer1.entities[i][j]->clone();
 			}
 		}
 	}
 
 	for(unsigned int i = 0; i < editorLayer2.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer2.entities[i].size(); j++){
-			if(editorLayer2.entities[i][j] != nullptr){
-				if(editorLayer2.entities[i][j]->isStatic ){
-					level->layer2.entities[i][j] = editorLayer2.entities[i][j]->clone();
-					// std::cout << "mario" << std::endl;
+			Entity *e = editorLayer2.entities[i][j];
+			if(e != nullptr){
+				if(e->isStatic ){
+					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
+						QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
+						questionMark->tilemapToSpawnItemsOn = &level->layer2;
+					}
+					level->layer2.entities[i][j] = e->clone();
 				}else
-				if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::PLAYER){
+				if(e->entityType == ENTITY_TYPE::PLAYER){
 					Player *p = new Player();
-					setDynamicEntityPosition(editorLayer2.entities[i][j], p);
-					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
+					setDynamicEntityPosition(e, p);
 
 					level->layer2.dynamicEntities.push_back(p);
-				} else if(editorLayer2.entities[i][j]->entityType == ENTITY_TYPE::GOOMBA){
+				} else if(e->entityType == ENTITY_TYPE::GOOMBA){
 					Goomba *g = new Goomba();
-					setDynamicEntityPosition(editorLayer2.entities[i][j], g);
-					// std::cout << p->boundingBox.x << " , " << p->boundingBox.y << std::endl;
+					setDynamicEntityPosition(e, g);
 
 					level->layer2.dynamicEntities.push_back(g);
-					// std::cout << "test" << std::endl;
 				}
 			}
 		}
@@ -323,9 +299,7 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer3.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer3.entities[i].size(); j++){
 			if(editorLayer3.entities[i][j] != nullptr){
-				// if(editorLayer3.entities[i][j]->isStatic){
 					level->layer3.entities[i][j] = editorLayer3.entities[i][j]->clone();
-				// }
 			}
 		}
 	}

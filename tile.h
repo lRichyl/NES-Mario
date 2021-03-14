@@ -4,6 +4,8 @@
 #include "sprite.h"
 #include "global_variables.h"
 #include "texture.h"
+// #include "tile_map.h"
+struct TileMap;
 
 
 struct Tile : public Entity{
@@ -24,7 +26,7 @@ struct Tile : public Entity{
 
 struct PlayerTile : public Tile{
 	PlayerTile(){
-	sprite.texture = textures.marioAnimations;
+	sprite.texture = texturesContainer.marioAnimations;
 	isStatic = false;
 	setClippingBox(98, 32, 12, 16);
 	entityType = ENTITY_TYPE::PLAYER;
@@ -33,7 +35,7 @@ struct PlayerTile : public Tile{
 };
 struct GoombaTile : public Tile{
 	GoombaTile(){
-	sprite.texture = textures.enemiesAnimations;
+	sprite.texture = texturesContainer.enemiesAnimations;
 	isStatic = false;
 	setClippingBox(1, 28, 16, 16);
 	entityType = ENTITY_TYPE::GOOMBA;
@@ -52,34 +54,41 @@ struct SolidBlock : public Tile{
 	entityType = ENTITY_TYPE::SOLIDBLOCK;
 	}
 };
+
 struct Brick : public Tile{
 	Brick(){
 	setClippingBox(16, 0, 16, 16 );
 	entityType = ENTITY_TYPE::BRICK;
 	}
 };
+
 struct QuestionMark : public Tile{
 	QuestionMark();
 	Sprite blockUnused;
      Sprite blockUsed;
-	// setClippingBox(400, 0, 16, 16);
+
+	TileMap *tilemapToSpawnItemsOn;
+
      void initAnimation();
 	void update(float deltaTime, SDL_Rect *camera) override;
      void draw()override;
+
 	Entity *clone()override{
 		Entity::IDcount++;
 		ID = Entity::IDcount;
 		QuestionMark *q = new QuestionMark(*this);
 		q->blockUnused.bBox = &q->boundingBox;
-		q->blockUsed.bBox = &q->boundingBox;
+		q->blockUsed.bBox = &q->boundingBox;		
 		return q;}
 };
+
 struct CloudLeftTop : public Tile{
 	CloudLeftTop(){
 	setClippingBox(8, 320, 16, 16 );
 	entityType = ENTITY_TYPE::CLOUD;
 	}
 };
+
 struct CloudLeftDown : public Tile{
 	CloudLeftDown(){
 	setClippingBox(8, 336, 16, 16 );

@@ -1,10 +1,7 @@
 POR HACER
 
-
-*Animación de muerte de los Goombas
-*Poner todos los sonidos y la música en un struct.
-*Mostrar una ventana de error y terminar el programa cuando no se encuentren los archivos
-*Podemos asignar las entidades de muestra del editor en el stack en lugar de forma dinámica
+*Agregar animación al golpear los bloques de interrogación
+*Aparecer objetos al golpear el bloque de signo de interrogación
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
@@ -14,6 +11,8 @@ POR HACER
 
 
 HECHO
+*Mostrar una ventana de error y terminar el programa cuando no se encuentren los archivos
+*Animación de muerte de los Goombas
 *Se agregó soporte para música y efectos de sonido
 *Modificar los valores físicos de mario y goomba
 *Arreglado un bug en el que no se estaba usando el delta correcto para actualizar la
@@ -21,7 +20,7 @@ HECHO
 *Se agregó un modulo para contar tiempo
 *Modificar la velocidad de la cámara
 *Agregar el primer enemigo
-*Arreglado un bug en el queal copiar una clase con punteros, todos los punteros apuntaban a la entidad de muestra
+*Arreglado un bug en el que al copiar una clase con punteros, todos los punteros apuntaban a la entidad de muestra
 *Agregar animación a los bloques de interrogación
 *Crear una clase que se encargue de cargar y eliminar las texturas.
 *Se limito el timestep a 16ms para toda la aplcación
