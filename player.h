@@ -28,13 +28,14 @@ struct Player : public Entity{
 	bool canJump = true;
 	bool wasBReleased = false;
 	bool canSetJumpingSpeed = true;
-	
+
 	PlayerState state = PlayerState::NORMAL;
 
 	Sprite *currentAnimation = nullptr;
 	Sprite idleAnimation;
 	Sprite walkingAnimation;
 	Sprite jumpingAnimation;
+	Sprite turningAnimation;
 
 	SoundEffect jumpSound;
 

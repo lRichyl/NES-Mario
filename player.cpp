@@ -26,6 +26,8 @@ Player::~Player(){
 void Player::update(float deltaTime, SDL_Rect *camera){
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
+	float lastXvelocity = velocity.x;
+	float lastXvelocityIncrement;
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
 	if( currentKeyStates[ SDL_SCANCODE_UP ] )
@@ -49,9 +51,14 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		if(velocity.x < -maxXVelocity){
 			velocity.x = -maxXVelocity;
 		}
-		// acceleration.x += 3 * deltaTime;
-		// position.x -= velocity.x * xdirection * deltaTime;
+
+		if(velocity.x > 0) {
+			currentAnimation = &turningAnimation;
+			turningAnimation.flip = true;
+		}
+
 	}
+
 	if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
 	{
 		if(!isAirborne){
@@ -65,8 +72,12 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		if(velocity.x > maxXVelocity){
 			velocity.x = maxXVelocity;
 		}
-		// acceleration.x += 3 * deltaTime;
-		// position.x += velocity.x * xdirection * deltaTime;
+
+		if(velocity.x < 0) {
+			currentAnimation = &turningAnimation;
+			turningAnimation.flip = false;
+		}
+
 	}
 
 	//if the velocity is close to zero we make it zero so that the player stands still
@@ -97,7 +108,7 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 	}
 
-
+	// lastXvelocityIncrement = velocity.x - lastXvelocity;
 	if(isAirborne) {
 		currentAnimation = &jumpingAnimation;
 
@@ -108,6 +119,9 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 			idleAnimation.flip = false;
 			walkingAnimation.flip = false;
 			jumpingAnimation.flip = false;
+
+			// if(lastXvelocityIncrement > 0) currentAnimation = &turningAnimation;
+
 		}else {
 			idleAnimation.flip = true;
 			walkingAnimation.flip = true;
@@ -215,6 +229,10 @@ void Player::initializeAnimationFrames(){
 	jumpingAnimation.texture = texturesContainer.marioAnimations;
 	jumpingAnimation.bBox = &boundingBox;
 	jumpingAnimation.frames.push_back(SDL_Rect {64, 32, 16, 16});
+	///////// TURNING ANIMATION /////////////
+	turningAnimation.texture = texturesContainer.marioAnimations;
+	turningAnimation.bBox = &boundingBox;
+	turningAnimation.frames.push_back(SDL_Rect {50, 32, 13, 16});
 }
 
 void Player::initializeSoundEffects(){
