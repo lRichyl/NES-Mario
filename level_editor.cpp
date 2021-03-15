@@ -4,6 +4,7 @@
 #include "global_variables.h"
 #include "renderer.h"
 #include <iostream>
+#include "question_mark.h"
 using namespace std;
 
 TileSelectionSection::TileSelectionSection(){
@@ -57,7 +58,7 @@ void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new Ground());
 	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
-	sampleEntities.push_back(new QuestionMark());
+	sampleEntities.push_back(new QuestionMarkTile());
 	sampleEntities.push_back(new CloudLeftTop());
 	sampleEntities.push_back(new CloudRightTop());
 	sampleEntities.push_back(new CloudLeftDown());
@@ -136,10 +137,10 @@ void LevelEditor::setTileOnClick(){
 			selectedEntity->position.x = xTile * tileMapBeingEdited->tileWidth;
 			selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
 
-			// }
 
 			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
 				Entity *newEntity = selectedEntity->clone();
+				// std::cout << newEntity->position.y << " , " << selectedEntity->position.y << std::endl;
 				tileMapBeingEdited->addEntityOnTile(xTile, yTile, newEntity);
 			}
 		}
@@ -254,7 +255,7 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
 			if(editorLayer0.entities[i][j] != nullptr){
-					level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
+				level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
 
 			}
 		}
@@ -263,8 +264,8 @@ void LevelEditor::loadEntitiesToScene(){
 	for(unsigned int i = 0; i < editorLayer1.entities.size(); i++){
 		for(unsigned int j = 0; j < editorLayer1.entities[i].size(); j++){
 			if(editorLayer1.entities[i][j] != nullptr){
-					Entity *e = editorLayer1.entities[i][j];
-					e = editorLayer1.entities[i][j]->clone();
+				level->layer1.entities[i][j] = editorLayer1.entities[i][j]->clone();
+
 			}
 		}
 	}
@@ -274,22 +275,31 @@ void LevelEditor::loadEntitiesToScene(){
 			Entity *e = editorLayer2.entities[i][j];
 			if(e != nullptr){
 				if(e->isStatic ){
-					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
-						QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
-						questionMark->tilemapToSpawnItemsOn = &level->layer2;
-					}
-					level->layer2.entities[i][j] = e->clone();
+						level->layer2.entities[i][j] = e->clone();
+
+
+					// std::cout << level->layer2.entities[i][j]->position.y << " , " << e->position.y << std::endl;
+
 				}else
 				if(e->entityType == ENTITY_TYPE::PLAYER){
 					Player *p = new Player();
 					setDynamicEntityPosition(e, p);
 
 					level->layer2.dynamicEntities.push_back(p);
+
 				} else if(e->entityType == ENTITY_TYPE::GOOMBA){
 					Goomba *g = new Goomba();
 					setDynamicEntityPosition(e, g);
 
 					level->layer2.dynamicEntities.push_back(g);
+
+				}else if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
+					QuestionMark *q = new QuestionMark();
+					setDynamicEntityPosition(e, q);
+					q->initParameters();
+					std::cout << "test" << std::endl;
+					q->tilemapToSpawnItemsOn = &level->layer2;
+					level->layer2.dynamicEntities.push_back(q);
 				}
 			}
 		}

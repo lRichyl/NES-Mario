@@ -48,6 +48,7 @@ struct Player : public Entity{
 	void onStaticEntityCollision(Vector2df penetration,Entity *entity) override;
 	void onDynamicEntityCollision(Vector2df penetration,Entity *entity) override;
 	void collidingWithTheFloor(Vector2df penetration);
+	void collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e);
 	Entity *clone()override{
 		ID = Entity::IDcount;
 		Entity::IDcount++;

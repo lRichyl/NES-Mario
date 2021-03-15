@@ -4,8 +4,7 @@
 #include "sprite.h"
 #include "global_variables.h"
 #include "texture.h"
-// #include "tile_map.h"
-struct TileMap;
+
 
 
 struct Tile : public Entity{
@@ -42,6 +41,16 @@ struct GoombaTile : public Tile{
 	}
 
 };
+
+struct QuestionMarkTile : public Tile{
+		QuestionMarkTile(){
+			sprite.texture = texturesContainer.marioBlocks;
+			isStatic = false;
+			setClippingBox(384, 0, 16, 16);
+			entityType = ENTITY_TYPE::QUESTIONMARK;
+		}
+};
+
 struct Ground : public Tile{
 	Ground(){
 	setClippingBox(0, 0, 16, 16 );
@@ -62,31 +71,7 @@ struct Brick : public Tile{
 	}
 };
 
-struct QuestionMark : public Tile{
 
-	enum QuestionMarkState{
-		NORMAL,
-		DISABLED
-	};
-
-	QuestionMark();
-	Sprite blockUnused;
-     Sprite blockUsed;
-
-	TileMap *tilemapToSpawnItemsOn;
-
-     void initAnimation();
-	void update(float deltaTime, SDL_Rect *camera) override;
-     void draw()override;
-
-	Entity *clone()override{
-		Entity::IDcount++;
-		ID = Entity::IDcount;
-		QuestionMark *q = new QuestionMark(*this);
-		q->blockUnused.bBox = &q->boundingBox;
-		q->blockUsed.bBox = &q->boundingBox;
-		return q;}
-};
 
 struct CloudLeftTop : public Tile{
 	CloudLeftTop(){

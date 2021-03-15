@@ -3,6 +3,7 @@
 #include "collision.h"
 #include "vector2di.h"
 #include "goomba.h"
+#include "question_mark.h"
 #include <iostream>
 #include <cmath>
 
@@ -108,20 +109,13 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 	}
 
-	// lastXvelocityIncrement = velocity.x - lastXvelocity;
 	if(isAirborne) {
 		currentAnimation = &jumpingAnimation;
-
-
 	}else{
-
 		if(velocity.x >= 0){
 			idleAnimation.flip = false;
 			walkingAnimation.flip = false;
 			jumpingAnimation.flip = false;
-
-			// if(lastXvelocityIncrement > 0) currentAnimation = &turningAnimation;
-
 		}else {
 			idleAnimation.flip = true;
 			walkingAnimation.flip = true;
@@ -142,12 +136,10 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 /////////////////// FRICTION/////////////////
 	if(velocity.x > 0){
 		velocity.x -= friction* deltaTime;
-		// if(velocity.x < 0.03 && velocity.x > 0 ) velocity.x = 0;
 	}
 
 	if(velocity.x < 0){
 		velocity.x += friction* deltaTime;
-		// if(velocity.x > -0.03 && velocity.x < 0) velocity.x = 0;
 	}
 /////////////////////////////////////////////
 
@@ -179,9 +171,22 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 	}
 }
 
-void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
+void Player::collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e){
+	QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
+	if(penetration.y < 0 && velocity.y < 0){
+		questionMark->state = questionMark->QuestionMarkState::DISABLED;
+	}
 	if(penetration.y < 0) velocity.y = 0;
 
+	position.x = position.x - (penetration.x);
+	position.y = position.y - (penetration.y);
+	updatePosition();
+}
+
+void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
+	//If the player hits his head we its velocity to 0
+	if(penetration.y < 0) velocity.y = 0;
+	//If we don't do this the player stands walls when goiing to the right
 	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
 
 
@@ -210,7 +215,8 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 
 
 		}
-	}
+	}else if(e->entityType == ENTITY_TYPE::QUESTIONMARK) collidingWithQuestionMarkBlock(penetration, e);
+
 }
 
 
