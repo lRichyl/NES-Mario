@@ -275,10 +275,16 @@ void LevelEditor::loadEntitiesToScene(){
 			Entity *e = editorLayer2.entities[i][j];
 			if(e != nullptr){
 				if(e->isStatic ){
+					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
+						QuestionMark *q = new QuestionMark();
+						setDynamicEntityPosition(e, q);
+						q->initParameters();
+						q->tilemapToSpawnItemsOn = &level->layer2;
+						level->layer2.entities[i][j] = q;
+					}else
 						level->layer2.entities[i][j] = e->clone();
 
 
-					// std::cout << level->layer2.entities[i][j]->position.y << " , " << e->position.y << std::endl;
 
 				}else
 				if(e->entityType == ENTITY_TYPE::PLAYER){
@@ -293,12 +299,6 @@ void LevelEditor::loadEntitiesToScene(){
 
 					level->layer2.dynamicEntities.push_back(g);
 
-				}else if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
-					QuestionMark *q = new QuestionMark();
-					setDynamicEntityPosition(e, q);
-					q->initParameters();
-					q->tilemapToSpawnItemsOn = &level->layer2;
-					level->layer2.dynamicEntities.push_back(q);
 				}
 			}
 		}

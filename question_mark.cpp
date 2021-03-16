@@ -4,7 +4,7 @@
 
 QuestionMark::QuestionMark(){
      entityType = ENTITY_TYPE::QUESTIONMARK;
-     isStatic = false;
+     isStatic = true;
      isActive = true;
 
      initAnimation();

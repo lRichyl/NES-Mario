@@ -45,7 +45,7 @@ struct GoombaTile : public Tile{
 struct QuestionMarkTile : public Tile{
 		QuestionMarkTile(){
 			sprite.texture = texturesContainer.marioBlocks;
-			isStatic = false;
+			isStatic = true;
 			setClippingBox(384, 0, 16, 16);
 			entityType = ENTITY_TYPE::QUESTIONMARK;
 		}

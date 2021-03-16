@@ -174,27 +174,25 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 
 void Player::collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e){
 	QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
-	if(penetration.y < 0 && velocity.y < 0){
+
+	if(penetration.y < 0 ){
 		questionMark->state = questionMark->QuestionMarkState::DISABLED;
 		canSetJumpingSpeed = false;
+		velocity.y = 0;
 	}
-	// if(penetration.y < 0 ) velocity.y = 0;
 
-	collidingWithTheFloor(penetration);
-
-	position.x = position.x - (penetration.x);
-	position.y = position.y - (penetration.y);
-	updatePosition();
 }
 
 void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
-	//If the player hits his head we its velocity to 0
+	//If the player hits his head we set its velocity to 0
 	if(penetration.y < 0) velocity.y = 0;
 	//If we don't do this the player stands on the walls when going to the right
 	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
 
 
+	if(e->entityType == ENTITY_TYPE::QUESTIONMARK) collidingWithQuestionMarkBlock(penetration, e);
 	collidingWithTheFloor(penetration);
+
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);
@@ -219,8 +217,7 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 
 
 		}
-	}else if(e->entityType == ENTITY_TYPE::QUESTIONMARK) collidingWithQuestionMarkBlock(penetration, e);
-
+	}
 }
 
 

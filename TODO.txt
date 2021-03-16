@@ -1,9 +1,9 @@
 POR HACER
 
 
-*Agregar animación al golpear los bloques de interrogación
-*Agregar la animación de derrape a Mario
+
 *Aparecer objetos al golpear el bloque de signo de interrogación
+*Sortear los objetos dinámicos por distancias para evitar glitches en las colisiones
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
@@ -13,6 +13,8 @@ POR HACER
 
 
 HECHO
+*Los bloques de interrogación son empujados hacia arriba y vuelven a su posicion original y se
+     asigna el sprite correspondiente
 *Ahora mario tiene más inercia y puede brincar hacia atras. Ahora derrapa cuando está en el suelo.
 *Mostrar una ventana de error y terminar el programa cuando no se encuentren los archivos
 *Animación de muerte de los Goombas
