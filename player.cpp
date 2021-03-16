@@ -210,7 +210,6 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 				state = PlayerState::DEAD;
 			}
 			else if(penetration.y > 0 && velocity.y >= 0 && state == PlayerState::NORMAL){
-				goomba->crushingSound.play();
 				goomba->state = goomba->GoombaState::CRUSHED;
 				velocity.y = -10;
 			}

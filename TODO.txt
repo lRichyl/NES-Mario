@@ -3,7 +3,7 @@ POR HACER
 
 
 *Aparecer objetos al golpear el bloque de signo de interrogación
-*Sortear los objetos dinámicos por distancias para evitar glitches en las colisiones
+*Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa

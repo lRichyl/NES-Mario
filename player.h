@@ -6,7 +6,6 @@
 #include "texture.h"
 #include "vector2df.h"
 #include "sound_effects.h"
-// #include "vector2di.h"
 
 struct Player : public Entity{
 

@@ -3,6 +3,7 @@
 #include "tile_map.h"
 #include "entity.h"
 #include "SDL2/SDL.h"
+#include "sound_effects.h"
 
 struct QuestionMark : public Entity{
 
@@ -16,7 +17,6 @@ struct QuestionMark : public Entity{
 	float maxYmovement = position.y;
 	float originalPosition;
 	bool pushBlock = true;
-	bool doAnimationOnce = true;
 	// bool initParameters;
 	float speed = 5;
 
@@ -24,10 +24,13 @@ struct QuestionMark : public Entity{
      Sprite blockUsed;
 	Sprite *currentAnimation = nullptr;
 
+	SoundEffect bumpingSound;
+
 	TileMap *tilemapToSpawnItemsOn;
 	QuestionMarkState state = QuestionMarkState::NORMAL;
 
      void initAnimation();
+	void initSounds();
 	void initParameters();
 	void update(float deltaTime, SDL_Rect *camera) override;
      void draw()override;

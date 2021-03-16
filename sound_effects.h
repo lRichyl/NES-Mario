@@ -18,10 +18,12 @@ struct SoundEffect{
 struct SoundsContainer{
      Mix_Chunk *marioJump;
      Mix_Chunk *squish;
+     Mix_Chunk *bump;
 
      void initSoundsContainer();
      ~SoundsContainer(){
           Mix_FreeChunk(marioJump);
           Mix_FreeChunk(squish);
+          Mix_FreeChunk(bump);
      }
 };

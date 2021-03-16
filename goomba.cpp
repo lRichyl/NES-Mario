@@ -21,34 +21,24 @@ void Goomba::update(float deltaTime, SDL_Rect *camera){
           if(state == GoombaState::NORMAL){
                position.x += direction * speed * deltaTime;
                position.y += gravity * deltaTime;
-               // std::cout << "goomba test" << std::endl;
                updatePosition();
-               // std::cout << deathTimer.timeSum << std::endl;
           }
           else if(state == GoombaState::CRUSHED){
                currentAnimation = &dyingAnimation;
-               // crushingSound.play();
-               // deathTimer.countTo(.5);
+               crushingSound.play();
                timeCounter += deltaTime;
                if(timeCounter >= 1) {
                     isActive = false;
-                    // crushingSound.stop();
                }
-               // std::cout << this << std::endl;
-               // isActive = false;
           }
-     // }
 }
 void Goomba::updatePosition(){
 	boundingBox.x = position.x - CAMERA.bounds.x;
 	boundingBox.y = position.y - CAMERA.bounds.y;
-	// std::cout << boundingBox.x << " , " << boundingBox.x << std::endl;
 
 }
 void Goomba::draw(){
-     // if(isActive){
           currentAnimation->animateSprite(0.15);
-     // }
 }
 void Goomba::initializeAnimationFrames(){
      //---------WALKING ANIMATION----------
@@ -64,17 +54,12 @@ void Goomba::initializeAnimationFrames(){
 
 }
 void Goomba::onStaticEntityCollision(Vector2df penetration, Entity *e){
-     // if(penetra  tion.y > 0){
-     //      gravity = 0;
-     // }else gravity = 800;
-
+     //When colliding with entities marked as static
      if (penetration.x > 0) {
           direction = -1;
-          // std::cout << ID << " : " << penetration.x  <<std::endl;
      }
      if(penetration.x < 0){
           direction = 1;
-          // std::cout << ID << " : " << penetration.x  <<std::endl;
      }
 
 

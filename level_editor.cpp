@@ -283,23 +283,40 @@ void LevelEditor::loadEntitiesToScene(){
 						level->layer2.entities[i][j] = q;
 					}else
 						level->layer2.entities[i][j] = e->clone();
+				}else{
 
+					switch(e->entityType){
+						case ENTITY_TYPE::PLAYER:
+						{
+							Player *p = new Player();
+							setDynamicEntityPosition(e, p);
 
+							level->layer2.dynamicEntities.push_back(p);
+							break;
+						}
+						case ENTITY_TYPE::GOOMBA:
+						{
+							Goomba *g = new Goomba();
+							setDynamicEntityPosition(e, g);
 
-				}else
-				if(e->entityType == ENTITY_TYPE::PLAYER){
-					Player *p = new Player();
-					setDynamicEntityPosition(e, p);
-
-					level->layer2.dynamicEntities.push_back(p);
-
-				} else if(e->entityType == ENTITY_TYPE::GOOMBA){
-					Goomba *g = new Goomba();
-					setDynamicEntityPosition(e, g);
-
-					level->layer2.dynamicEntities.push_back(g);
-
+							level->layer2.dynamicEntities.push_back(g);
+							break;
+						}
+					}
 				}
+				// if(e->entityType == ENTITY_TYPE::PLAYER){
+				// 	Player *p = new Player();
+				// 	setDynamicEntityPosition(e, p);
+				//
+				// 	level->layer2.dynamicEntities.push_back(p);
+				//
+				// } else if(e->entityType == ENTITY_TYPE::GOOMBA){
+				// 	Goomba *g = new Goomba();
+				// 	setDynamicEntityPosition(e, g);
+				//
+				// 	level->layer2.dynamicEntities.push_back(g);
+				//
+				// }
 			}
 		}
 	}

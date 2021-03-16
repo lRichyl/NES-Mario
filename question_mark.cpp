@@ -8,6 +8,7 @@ QuestionMark::QuestionMark(){
      isActive = true;
 
      initAnimation();
+     initSounds();
 	currentAnimation = &blockUnused;
 
 }
@@ -31,17 +32,14 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 	}
 	else if(state == QuestionMarkState::DISABLED){
 	 	currentAnimation = &blockUsed;
+          bumpingSound.play();
 
-          if(doAnimationOnce){
-
-               if(pushBlock){
-                    if(position.y > maxYmovement) position.y -= speed;
-                    else pushBlock = false;
-               }else{
-                    if(position.y < originalPosition) position.y += speed;
-                    else doAnimationOnce = false;
-               }
-               // std::cout << (int)pushBlock << std::endl;
+          if(!pushBlock && position.y == originalPosition) return;
+          if(pushBlock){
+               if(position.y > maxYmovement) position.y -= speed;
+               else pushBlock = false;
+          }else{
+               if(position.y < originalPosition) position.y += speed;
           }
 	}
 
@@ -60,4 +58,9 @@ void QuestionMark::draw(){
 void QuestionMark::initParameters(){
      maxYmovement = position.y - 16;
 	originalPosition = position.y;
+}
+
+void QuestionMark::initSounds(){
+     bumpingSound.channel = 3;
+     bumpingSound.sound = soundsContainer.bump;
 }
