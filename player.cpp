@@ -27,8 +27,6 @@ Player::~Player(){
 void Player::update(float deltaTime, SDL_Rect *camera){
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
-	float lastXvelocity = velocity.x;
-	float lastXvelocityIncrement;
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 
 	if( currentKeyStates[ SDL_SCANCODE_UP ] )
@@ -171,12 +169,16 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 	}
 }
 
+
+
 void Player::collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e){
 	QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
 	if(penetration.y < 0 && velocity.y < 0){
 		questionMark->state = questionMark->QuestionMarkState::DISABLED;
 	}
-	if(penetration.y < 0) velocity.y = 0;
+	if(penetration.y < 0 ) velocity.y = 0;
+
+	collidingWithTheFloor(penetration);
 
 	position.x = position.x - (penetration.x);
 	position.y = position.y - (penetration.y);
@@ -186,7 +188,7 @@ void Player::collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e){
 void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
 	//If the player hits his head we its velocity to 0
 	if(penetration.y < 0) velocity.y = 0;
-	//If we don't do this the player stands walls when goiing to the right
+	//If we don't do this the player stands on the walls when going to the right
 	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
 
 

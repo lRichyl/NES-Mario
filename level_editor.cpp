@@ -297,7 +297,6 @@ void LevelEditor::loadEntitiesToScene(){
 					QuestionMark *q = new QuestionMark();
 					setDynamicEntityPosition(e, q);
 					q->initParameters();
-					std::cout << "test" << std::endl;
 					q->tilemapToSpawnItemsOn = &level->layer2;
 					level->layer2.dynamicEntities.push_back(q);
 				}

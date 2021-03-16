@@ -20,6 +20,7 @@
 #include "music.h"
 #include "sound_effects.h"
 
+const float TIME_PER_FRAME = 16; //In milliseconds
 const float VOLUME_MULTIPLIER = .5;
 const int CHANNELS = 32;
 
@@ -153,57 +154,49 @@ int main(int argc, char**) {
 
 		}
 
-		//Here begins draw and update loop
-		// startingTime = (float)SDL_GetTicks() / 1000.f; // We should get the time with a method that brings us better precision
-		// deltaT = startingTime - finalTime;
-		// timePerFrameSum += deltaT;
-		timer.countTo(deltaTfixed);
-		// std::cout << timer.timeSum << std::endl;
+		
 
-		//We do this because while we are moving the window the time counter keeps counting and it keeps going till you reac seconds
-		//and it causes the player to get updated by a big amount of deltaT causing it to skip collisions
-		//There should be a better way of doing this by detecting when the window is being moved
-		if(timer.timeSum > .018) timer.timeSum = 0;
+		SDL_Delay(TIME_PER_FRAME);
 		// Execute the main gameloop every 16ms
-		if(timer.timeReached){
-			// std::cout << timer.timeSum << std::endl;
-			// FPS = 1/timePerFrameSum;
-			// std::cout << timePerFrameSum << std::endl;
+
+		// std::cout << timer.timeSum << std::endl;
+		// FPS = 1/timePerFrameSum;
+		// std::cout << timePerFrameSum << std::endl;
 
 
-			if(!testingLevel){
-				editor.setSelectedEntity();
-				editor.setTileOnClick();
-				editor.deleteTileOnClick();
-				editor.udpateEditorLevel();
+		if(!testingLevel){
+			editor.setSelectedEntity();
+			editor.setTileOnClick();
+			editor.deleteTileOnClick();
+			editor.udpateEditorLevel();
 
-				SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
-				SDL_RenderClear( renderer );
-				editor.drawEditorLevel();
-				editor.drawEditorWindow();
-				editor.drawLayerText();
+			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+			SDL_RenderClear( renderer );
+			editor.drawEditorLevel();
+			editor.drawEditorWindow();
+			editor.drawLayerText();
 
-				// printFPS(FPS, fpsText);
+			// printFPS(FPS, fpsText);
 
-				SDL_RenderPresent( renderer );
-
-			}
-
-			if(testingLevel){
-				editedLevel.updateScene(deltaTfixed);
-				editedLevel.checkCollisions();
-				SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
-				SDL_RenderClear( renderer );
-				editedLevel.drawScene();
-				// printFPS(FPS, fpsText );
-				SDL_RenderPresent( renderer );
-			}
-
+			SDL_RenderPresent( renderer );
 
 		}
+
+		if(testingLevel){
+			editedLevel.updateScene(deltaTfixed);
+			editedLevel.checkCollisions();
+			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
+			SDL_RenderClear( renderer );
+			editedLevel.drawScene();
+			// printFPS(FPS, fpsText );
+			SDL_RenderPresent( renderer );
+		}
+
+
+
 		// finalTime = (float)SDL_GetTicks() / 1000.f;
 
-
+		// SDL_Delay(1);
 	}
 
 

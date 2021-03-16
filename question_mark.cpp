@@ -27,7 +27,6 @@ void QuestionMark::initAnimation(){
 void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 	if(state == QuestionMarkState::NORMAL){
 		currentAnimation = &blockUnused;
-          std::cout << maxYmovement << " , " << position.y <<  std::endl;
 
 	}
 	else if(state == QuestionMarkState::DISABLED){
