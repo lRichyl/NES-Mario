@@ -16,6 +16,7 @@ struct QuestionMark : public Entity{
 	float maxYmovement = position.y;
 	float originalPosition;
 	bool pushBlock = true;
+	bool doAnimationOnce = true;
 	// bool initParameters;
 	float speed = 5;
 

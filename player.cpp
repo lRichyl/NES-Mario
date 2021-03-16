@@ -76,12 +76,12 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 			currentAnimation = &turningAnimation;
 			turningAnimation.flip = false;
 		}
-
 	}
 
 	//if the velocity is close to zero we make it zero so that the player stands still
 	if( !currentKeyStates[ SDL_SCANCODE_LEFT ]&& !currentKeyStates[ SDL_SCANCODE_RIGHT ]){
 		currentAnimation = &idleAnimation;
+
 		if(velocity.x > -0.8 && velocity.x < 0.8){
 			velocity.x = 0;
 		}
@@ -107,14 +107,15 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 	}
 
+//
 	if(isAirborne) {
 		currentAnimation = &jumpingAnimation;
 	}else{
-		if(velocity.x >= 0){
+		if(velocity.x > 0){
 			idleAnimation.flip = false;
 			walkingAnimation.flip = false;
 			jumpingAnimation.flip = false;
-		}else {
+		}else if (velocity.x < 0){
 			idleAnimation.flip = true;
 			walkingAnimation.flip = true;
 			jumpingAnimation.flip = true;
@@ -175,8 +176,9 @@ void Player::collidingWithQuestionMarkBlock(Vector2df penetration, Entity *e){
 	QuestionMark *questionMark = dynamic_cast<QuestionMark*>(e);
 	if(penetration.y < 0 && velocity.y < 0){
 		questionMark->state = questionMark->QuestionMarkState::DISABLED;
+		canSetJumpingSpeed = false;
 	}
-	if(penetration.y < 0 ) velocity.y = 0;
+	// if(penetration.y < 0 ) velocity.y = 0;
 
 	collidingWithTheFloor(penetration);
 

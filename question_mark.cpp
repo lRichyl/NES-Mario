@@ -31,10 +31,18 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 	}
 	else if(state == QuestionMarkState::DISABLED){
 	 	currentAnimation = &blockUsed;
-		if(pushBlock){
-			if(position.y > maxYmovement) position.y -= speed;
-		}
 
+          if(doAnimationOnce){
+
+               if(pushBlock){
+                    if(position.y > maxYmovement) position.y -= speed;
+                    else pushBlock = false;
+               }else{
+                    if(position.y < originalPosition) position.y += speed;
+                    else doAnimationOnce = false;
+               }
+               // std::cout << (int)pushBlock << std::endl;
+          }
 	}
 
 

@@ -154,7 +154,7 @@ int main(int argc, char**) {
 
 		}
 
-		
+
 
 		SDL_Delay(TIME_PER_FRAME);
 		// Execute the main gameloop every 16ms
@@ -183,7 +183,7 @@ int main(int argc, char**) {
 		}
 
 		if(testingLevel){
-			editedLevel.updateScene(deltaTfixed);
+			editedLevel.updateScene(TIME_PER_FRAME / 1000.f);
 			editedLevel.checkCollisions();
 			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
 			SDL_RenderClear( renderer );
