@@ -34,6 +34,10 @@ LevelEditor::LevelEditor(){
 	layerText.size = 16;
 	layerText.x = WINDOW_WIDTH - layerText.size;
 	layerText.y = 0;
+
+	entityVariantText.size = 16;
+	entityVariantText.x = 132;
+	entityVariantText.y = 0;
 }
 
 void TileSelectionSection::draw(){
@@ -180,6 +184,7 @@ void LevelEditor::setSelectedEntity(){
 
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
+	setTileVariant();
 	editorLayer0.update(deltaTfixed, &camera.bounds);
 	editorLayer1.update(deltaTfixed, &camera.bounds);
 	editorLayer2.update(deltaTfixed, &camera.bounds);
@@ -191,6 +196,8 @@ void LevelEditor::drawEditorLevel(){
 	editorLayer1.draw();
 	editorLayer2.draw();
 	editorLayer3.draw();
+	drawTileVariant();
+
 }
 
 void LevelEditor::drawSampleEntities(){
@@ -277,8 +284,10 @@ void LevelEditor::loadEntitiesToScene(){
 				if(e->isStatic ){
 					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
 						QuestionMark *q = new QuestionMark();
+						QuestionMarkTile *tile = dynamic_cast<QuestionMarkTile*>(sampleEntities[5]); // This is the question mark sample entity
 						setDynamicEntityPosition(e, q);
 						q->initParameters();
+						q->itemType = tile->itemType;
 						q->tilemapToSpawnItemsOn = &level->layer2;
 						level->layer2.entities[i][j] = q;
 					}else
@@ -327,6 +336,44 @@ void LevelEditor::loadEntitiesToScene(){
 			if(editorLayer3.entities[i][j] != nullptr){
 					level->layer3.entities[i][j] = editorLayer3.entities[i][j]->clone();
 			}
+		}
+	}
+}
+
+void LevelEditor::drawTileVariant(){
+	switch(selectedEntity->entityType){
+		case ENTITY_TYPE::QUESTIONMARK:{
+			QuestionMarkTile *q = dynamic_cast<QuestionMarkTile*>(selectedEntity);
+			if(q->itemType == ITEM_TYPE::MUSHROOM){
+				entityVariantText.renderText("ITEM: MUSHROOM");
+			}else if(q->itemType == ITEM_TYPE::FIRE_FLOWER){
+				entityVariantText.renderText("ITEM: FIRE FLOWER");
+			}
+
+			break;
+		}
+	}
+}
+
+void LevelEditor::setTileVariant(){
+
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+	switch(selectedEntity->entityType){
+		case ENTITY_TYPE::QUESTIONMARK:{
+			QuestionMarkTile *q = dynamic_cast<QuestionMarkTile*>(selectedEntity);
+
+			if( currentKeyStates[ SDL_SCANCODE_E ] )
+			{
+				itemTypeCount++;
+			}
+
+			if(itemTypeCount > 3){
+				itemTypeCount = 0;
+			}
+			// ITEM_TYPE itemType = 2;
+			std::cout << itemTypeCount << std::endl;
+
+			break;
 		}
 	}
 }

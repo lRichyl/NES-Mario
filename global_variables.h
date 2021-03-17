@@ -6,6 +6,7 @@
 #include "texture.h"
 #include "sound_effects.h"
 #include "music.h"
+#include "text.h"
 
 
 extern SDL_Renderer *renderer;
@@ -14,6 +15,7 @@ extern SDL_Surface *screenSurface;
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
 extern Camera CAMERA;
+extern SDL_Event globalEvent;
 // extern int RENDERER_WIDTH;
 // extern int RENDERER_HEIGHT;
 extern RendererInformation rendererInfo;
@@ -23,5 +25,6 @@ extern double deltaTfixed;
 extern TextureContainer texturesContainer;
 extern SoundsContainer soundsContainer;
 extern MusicContainer musicContainer;
+extern GlyphsMap marioFont;
 
 #endif

@@ -19,6 +19,13 @@ enum ENTITY_TYPE {
 	MOUNTAIN
  };
 
+enum ITEM_TYPE{
+	MUSHROOM,
+	FIRE_FLOWER,
+	STAR,
+	EXTRA_LIFE
+};
+
 struct Entity{
 	static int IDcount;
 	int ID;

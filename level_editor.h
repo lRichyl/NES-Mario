@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "camera.h"
 #include "text.h"
+#include "global_variables.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();
@@ -18,7 +19,6 @@ struct TileSelectionSection{
 	int offset = 12;
 	int tilesPerRow = 3;
 	int editorTileSize = 32;
-
 	void draw();
 	~TileSelectionSection(){
 		SDL_DestroyTexture(selectionSquare);
@@ -40,8 +40,11 @@ struct LevelEditor{
 	TileMap editorLayer3;
 	Camera camera;
 
-	GlyphsMap font;
-	Text layerText = Text(&font);
+	int itemTypeCount;
+
+	// GlyphsMap font;
+	Text layerText = Text(&marioFont);
+	Text entityVariantText = Text(&marioFont);
 
 	TileSelectionSection tileSelectionSection;
 	int layerBeingEdited = 0;
@@ -54,12 +57,14 @@ struct LevelEditor{
 	void drawSampleEntities();
 	void drawSelectionSquare();
 	void drawSampleSelectionSquare();
+	void drawTileVariant();
 
 	void drawLayerText();
 	void setLayerBeingEdited();
 
 	void setTileMapBeingEdited();
 	void setSelectedEntity();
+	void setTileVariant();
 	// void setPlayMode();
 
 	void setTileOnClick();

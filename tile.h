@@ -43,6 +43,7 @@ struct GoombaTile : public Tile{
 };
 
 struct QuestionMarkTile : public Tile{
+		ITEM_TYPE itemType = ITEM_TYPE::FIRE_FLOWER;
 		QuestionMarkTile(){
 			sprite.texture = texturesContainer.marioBlocks;
 			isStatic = true;

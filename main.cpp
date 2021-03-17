@@ -87,12 +87,13 @@ int main(int argc, char**) {
 	LevelEditor editor;
 	editor.level = &editedLevel;
 	editor.setTileMapBeingEdited();
-
-	SDL_Event e;
+	// SDL_Event e;
 	bool quit = false;
 
-	GlyphsMap font;
-	Text fpsText(&font);
+
+	//Not currently used
+	marioFont.initializeMapofGlyphs();
+	Text fpsText(&marioFont);
 	fpsText.x = 0;
 	fpsText.y = 0;
 	fpsText.size = 16;
@@ -110,22 +111,19 @@ int main(int argc, char**) {
 	{
 
 
-		while( SDL_PollEvent( &e ) != 0 )
+		while( SDL_PollEvent( &globalEvent ) != 0 )
 		{
 			//User requests quit
-			if (e.type == SDL_WINDOWEVENT
-				&& e.window.event == SDL_WINDOWEVENT_CLOSE)
+			if (globalEvent.type == SDL_WINDOWEVENT
+				&& globalEvent.window.event == SDL_WINDOWEVENT_CLOSE)
 			{
 				quit = true;
 			}
-			switch( e.type ){
-	            /* Look for a keypress */
+			switch( globalEvent.type ){
 	          	case SDL_KEYDOWN:
-	                /* Check the SDLKey values and move change the coords */
-	               switch( e.key.keysym.sym ){
+	               switch( globalEvent.key.keysym.sym ){
 	                    case SDLK_SPACE:
 	                        testingLevel = !testingLevel;
-					    // timePerFrameSum = 0;
 					    if(testingLevel){
 						    	overWorldTheme.play();
 						    	editedLevel.resetCamera();
@@ -134,23 +132,24 @@ int main(int argc, char**) {
 					    else {
 						    Mix_HaltMusic();
 						    editedLevel.unloadEntities();
-						    // editor.camera.resetCamera();
 					    }
-	                        break;
+	                        break;					  
 				}
 				break;
 				case SDL_MOUSEWHEEL:
 					// std::cout << "moving" << std::endl;
-					if(e.wheel.y > 0){
+					if(globalEvent.wheel.y > 0){
 						editor.layerBeingEdited += 1;
 						editor.setLayerBeingEdited();
    					}
-					else if(e.wheel.y < 0){
+					else if(globalEvent.wheel.y < 0){
 						editor.layerBeingEdited -= 1;
 						editor.setLayerBeingEdited();
 					}
 					break;
 	        }
+
+
 
 		}
 

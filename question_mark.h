@@ -17,7 +17,7 @@ struct QuestionMark : public Entity{
 	float maxYmovement = position.y;
 	float originalPosition;
 	bool pushBlock = true;
-	// bool initParameters;
+	bool spawnItem = true;
 	float speed = 5;
 
 	Sprite blockUnused;
@@ -27,6 +27,7 @@ struct QuestionMark : public Entity{
 	SoundEffect bumpingSound;
 
 	TileMap *tilemapToSpawnItemsOn;
+	ITEM_TYPE itemType = ITEM_TYPE::MUSHROOM;
 	QuestionMarkState state = QuestionMarkState::NORMAL;
 
      void initAnimation();

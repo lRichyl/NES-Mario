@@ -41,6 +41,23 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
           }else{
                if(position.y < originalPosition) position.y += speed;
           }
+
+          if(!pushBlock && position.y == originalPosition && spawnItem){
+               spawnItem = false;
+
+               switch(itemType){
+                    case ITEM_TYPE::MUSHROOM:{
+                         std::cout << "spawning mushroom" << std::endl;
+
+                         break;
+                    }
+                    case ITEM_TYPE::FIRE_FLOWER:{
+                         std::cout << "spawning fire flower" << std::endl;
+
+                         break;
+                    }
+               }
+          }
 	}
 
 

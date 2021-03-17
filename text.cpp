@@ -4,8 +4,7 @@
 #include "global_variables.h"
 
 GlyphsMap::GlyphsMap(){
-     texture = loadTexture("assets/textures/nesfont_white.png");
-     initializeMapofGlyphs();
+     // initializeMapofGlyphs();
 }
 
 Text::Text(GlyphsMap *glyphsMap){
@@ -33,6 +32,8 @@ void Text::setGlyphs(){
      }
 }
 void GlyphsMap::initializeMapofGlyphs(){
+     texture = loadTexture("assets/textures/nesfont_white.png");
+     
      stringToGlyphMap.insert(
      {{"A", SDL_Rect {15, 31, 16, 16}},
       {"B", SDL_Rect {31, 31, 16, 16}},
