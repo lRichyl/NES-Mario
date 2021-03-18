@@ -8,17 +8,10 @@
 // }SDL_Texture* Tile::texture = nullptr;
 int Tile::tileSize = 64;
 
-void Tile::setTileSize(int newTileSize){
-	isActive = true;
-	texture = texturesContainer.marioBlocks;
-	sprite.texture = texture;
-	boundingBox.w = tileSize;
-	boundingBox.h = tileSize;
-}
-
-
 Tile::Tile(){
-	setTileSize(Tile::tileSize);
+	isActive = true;
+	sprite.texture = texturesContainer.marioBlocks;
+	// setTileSize(Tile::tileSize);
 };
 
 
@@ -28,4 +21,47 @@ void Tile::update(float deltaTime, SDL_Rect *camera){
 }
 void Tile::draw(){
 	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &boundingBox );
+}
+
+void QuestionMarkTile::changeVariant(SDL_Event *e){
+	int maxItemType = static_cast<int>(ITEM_TYPE::MAX);
+	int minItemType = static_cast<int>(ITEM_TYPE::MIN);
+
+	switch( e->key.keysym.sym ){
+		case SDLK_e:{
+			itemTypeCount++;
+			if(itemTypeCount > maxItemType) itemTypeCount = minItemType;
+		    	break;
+	     }
+	    case SDLK_q:{
+		    itemTypeCount--;
+		    if(itemTypeCount < minItemType) itemTypeCount = maxItemType;
+		    break;
+	    }
+	}
+	selectedItemType = itemTypeCount;
+	setItemType(selectedItemType);
+
+	// std::cout << itemTypeCount << std::endl;
+}
+
+void QuestionMarkTile::setItemType(int selectedItemType){
+	switch(selectedItemType){
+		case 0:{
+			itemType = ITEM_TYPE::MUSHROOM;
+			break;
+		}
+		case 1:{
+			itemType = ITEM_TYPE::FIRE_FLOWER;
+			break;
+		}
+		case 2:{
+			itemType = ITEM_TYPE::STAR;
+			break;
+		}
+		case 3:{
+			itemType = ITEM_TYPE::EXTRA_LIFE;
+			break;
+		}
+	}
 }

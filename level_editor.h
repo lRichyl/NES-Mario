@@ -40,7 +40,7 @@ struct LevelEditor{
 	TileMap editorLayer3;
 	Camera camera;
 
-	int itemTypeCount;
+	// int itemTypeCount;
 
 	// GlyphsMap font;
 	Text layerText = Text(&marioFont);
@@ -64,7 +64,7 @@ struct LevelEditor{
 
 	void setTileMapBeingEdited();
 	void setSelectedEntity();
-	void setTileVariant();
+	void setTileVariant(SDL_Event *e);
 	// void setPlayMode();
 
 	void setTileOnClick();

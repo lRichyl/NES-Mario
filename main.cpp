@@ -87,7 +87,7 @@ int main(int argc, char**) {
 	LevelEditor editor;
 	editor.level = &editedLevel;
 	editor.setTileMapBeingEdited();
-	// SDL_Event e;
+	SDL_Event e;
 	bool quit = false;
 
 
@@ -111,17 +111,18 @@ int main(int argc, char**) {
 	{
 
 
-		while( SDL_PollEvent( &globalEvent ) != 0 )
+		while( SDL_PollEvent( &e ) != 0 )
 		{
 			//User requests quit
-			if (globalEvent.type == SDL_WINDOWEVENT
-				&& globalEvent.window.event == SDL_WINDOWEVENT_CLOSE)
+			if (e.type == SDL_WINDOWEVENT
+				&& e.window.event == SDL_WINDOWEVENT_CLOSE)
 			{
 				quit = true;
 			}
-			switch( globalEvent.type ){
+			switch( e.type ){
 	          	case SDL_KEYDOWN:
-	               switch( globalEvent.key.keysym.sym ){
+				if(!testingLevel) editor.setTileVariant(&e);
+	               switch( e.key.keysym.sym ){
 	                    case SDLK_SPACE:
 	                        testingLevel = !testingLevel;
 					    if(testingLevel){
@@ -133,16 +134,16 @@ int main(int argc, char**) {
 						    Mix_HaltMusic();
 						    editedLevel.unloadEntities();
 					    }
-	                        break;					  
+	                        break;
 				}
 				break;
 				case SDL_MOUSEWHEEL:
 					// std::cout << "moving" << std::endl;
-					if(globalEvent.wheel.y > 0){
+					if(e.wheel.y > 0){
 						editor.layerBeingEdited += 1;
 						editor.setLayerBeingEdited();
    					}
-					else if(globalEvent.wheel.y < 0){
+					else if(e.wheel.y < 0){
 						editor.layerBeingEdited -= 1;
 						editor.setLayerBeingEdited();
 					}

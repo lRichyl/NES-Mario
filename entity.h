@@ -1,11 +1,11 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 #include "sprite.h"
 #include "vector2df.h"
 #include "vector2di.h"
 
-enum ENTITY_TYPE {
+enum class ENTITY_TYPE{
 	PLAYER,
+	MIN = PLAYER,
 	GOOMBA,
 	GROUND,
 	SOLIDBLOCK,
@@ -16,14 +16,17 @@ enum ENTITY_TYPE {
 	PIPELEFTDOWN,
 	PIPERIGHTTOP,
 	PIPERIGHTDOWN,
-	MOUNTAIN
+	MOUNTAIN,
+	MAX = MOUNTAIN
  };
 
-enum ITEM_TYPE{
+enum class ITEM_TYPE{
 	MUSHROOM,
+	MIN = MUSHROOM,
 	FIRE_FLOWER,
 	STAR,
-	EXTRA_LIFE
+	EXTRA_LIFE,
+	MAX = EXTRA_LIFE
 };
 
 struct Entity{
@@ -47,10 +50,10 @@ struct Entity{
 	virtual void draw() = 0;
 	virtual void onStaticEntityCollision(Vector2df,Entity*){};
 	virtual void onDynamicEntityCollision(Vector2df,Entity*){};
+	virtual void changeVariant(SDL_Event *e){};
 	void setTileSize(int tileSize);
 	virtual Entity *clone() = 0;
-	virtual ~Entity() = default;
+	virtual ~Entity() {};
 
 	void setClippingBox(int x, int y, int w, int h);
 };
-#endif

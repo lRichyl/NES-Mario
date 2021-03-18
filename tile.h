@@ -1,5 +1,4 @@
-#ifndef TILES_H
-#define TILES_H
+#pragma once
 #include "entity.h"
 #include "sprite.h"
 #include "global_variables.h"
@@ -10,12 +9,16 @@
 struct Tile : public Entity{
 	Tile();
 
-	void setTileSize(int newTileSize);
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
 	Sprite sprite;
-	SDL_Texture *texture;
 	static int tileSize;
+
+	//This should be in the QuestionMarkTile type but it cannot be downcasted
+	//from entity
+	ITEM_TYPE itemType = ITEM_TYPE::MUSHROOM;
+
+	// int tileType;
 
 	Entity *clone()override{
 		ID = Entity::IDcount;
@@ -42,14 +45,17 @@ struct GoombaTile : public Tile{
 
 };
 
-struct QuestionMarkTile : public Tile{
-		ITEM_TYPE itemType = ITEM_TYPE::FIRE_FLOWER;
+struct QuestionMarkTile : public Tile {
+		int selectedItemType = 0;
+		int itemTypeCount = 0;
 		QuestionMarkTile(){
 			sprite.texture = texturesContainer.marioBlocks;
 			isStatic = true;
 			setClippingBox(384, 0, 16, 16);
 			entityType = ENTITY_TYPE::QUESTIONMARK;
 		}
+		void setItemType(int selectedItemType);
+		void changeVariant(SDL_Event *e)override;
 };
 
 struct Ground : public Tile{
@@ -159,10 +165,3 @@ struct MountDown : public Tile{
 	entityType = ENTITY_TYPE::MOUNTAIN;
 	}
 };
-
-
-
-
-
-
-#endif

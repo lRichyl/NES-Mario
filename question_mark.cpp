@@ -58,6 +58,8 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
                     }
                }
           }
+          // std::cout << static_cast<int>(itemType) << std::endl;
+
 	}
 
 

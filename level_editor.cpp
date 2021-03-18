@@ -142,6 +142,7 @@ void LevelEditor::setTileOnClick(){
 			selectedEntity->position.y = yTile * tileMapBeingEdited->tileHeight;
 
 
+
 			if(tileMapBeingEdited->entities[xTile][yTile] == nullptr){
 				Entity *newEntity = selectedEntity->clone();
 				// std::cout << newEntity->position.y << " , " << selectedEntity->position.y << std::endl;
@@ -184,7 +185,7 @@ void LevelEditor::setSelectedEntity(){
 
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
-	setTileVariant();
+	// setTileVariant();
 	editorLayer0.update(deltaTfixed, &camera.bounds);
 	editorLayer1.update(deltaTfixed, &camera.bounds);
 	editorLayer2.update(deltaTfixed, &camera.bounds);
@@ -284,10 +285,12 @@ void LevelEditor::loadEntitiesToScene(){
 				if(e->isStatic ){
 					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
 						QuestionMark *q = new QuestionMark();
-						QuestionMarkTile *tile = dynamic_cast<QuestionMarkTile*>(sampleEntities[5]); // This is the question mark sample entity
+						Tile *tile = dynamic_cast<Tile*>(e);
 						setDynamicEntityPosition(e, q);
 						q->initParameters();
 						q->itemType = tile->itemType;
+						std::cout << static_cast<int>(q->itemType) << std::endl;
+
 						q->tilemapToSpawnItemsOn = &level->layer2;
 						level->layer2.entities[i][j] = q;
 					}else
@@ -355,27 +358,9 @@ void LevelEditor::drawTileVariant(){
 	}
 }
 
-void LevelEditor::setTileVariant(){
+void LevelEditor::setTileVariant(SDL_Event *e){
+	selectedEntity->changeVariant(e);
 
-	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-	switch(selectedEntity->entityType){
-		case ENTITY_TYPE::QUESTIONMARK:{
-			QuestionMarkTile *q = dynamic_cast<QuestionMarkTile*>(selectedEntity);
-
-			if( currentKeyStates[ SDL_SCANCODE_E ] )
-			{
-				itemTypeCount++;
-			}
-
-			if(itemTypeCount > 3){
-				itemTypeCount = 0;
-			}
-			// ITEM_TYPE itemType = 2;
-			std::cout << itemTypeCount << std::endl;
-
-			break;
-		}
-	}
 }
 
 
