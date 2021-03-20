@@ -1,5 +1,6 @@
 #include "question_mark.h"
 #include "global_variables.h"
+#include "mushroom.h"
 #include <iostream>
 
 QuestionMark::QuestionMark(){
@@ -34,7 +35,7 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 	 	currentAnimation = &blockUsed;
           bumpingSound.play();
 
-          if(!pushBlock && position.y == originalPosition) return;
+          // if(!pushBlock && position.y == originalPosition) return;
           if(pushBlock){
                if(position.y > maxYmovement) position.y -= speed;
                else pushBlock = false;
@@ -47,7 +48,9 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 
                switch(itemType){
                     case ITEM_TYPE::MUSHROOM:{
-                         std::cout << "spawning mushroom" << std::endl;
+                         Mushroom *m = new Mushroom(position, position.y - Tile::tileSize);
+                         m->state = m->MushroomState::SPAWNING;
+                         tilemapToSpawnItemsOn->dynamicEntities.push_back(m);
 
                          break;
                     }
@@ -56,6 +59,10 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 
                          break;
                     }
+                    default:
+                    std::cout << "NO TYPE" << std::endl;
+
+
                }
           }
           // std::cout << static_cast<int>(itemType) << std::endl;

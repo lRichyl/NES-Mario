@@ -14,12 +14,18 @@ Tile::Tile(){
 	// setTileSize(Tile::tileSize);
 };
 
+Tile::Tile(SDL_Texture *texture, SDL_Rect clippingBox, ENTITY_TYPE type, bool isStatic){
+	sprite.texture = texture;
+	setClippingBox(clippingBox.x, clippingBox.y, clippingBox.w, clippingBox.h);
+	entityType = type;
+}
 
 void Tile::update(float deltaTime, SDL_Rect *camera){
 	boundingBox.x = position.x - camera->x;
 	boundingBox.y = position.y - camera->y;
 }
 void Tile::draw(){
+	// sprite.animateSprite(0);
 	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &boundingBox );
 }
 

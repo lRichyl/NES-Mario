@@ -8,14 +8,17 @@ void Sprite::setTexture(std::string path){
 }
 
 void Sprite::animateSprite(float wishedTimePerFrame){
-	timer.countTo(wishedTimePerFrame);
-	
-	if(timer.timeReached){
-		timeSum = 0;
-		frameIndex++;
-	}
-	if(frameIndex > frames.size() - 1){
-		frameIndex = 0;
+	if(wishedTimePerFrame > 0){
+		timer.countTo(wishedTimePerFrame);
+
+		if(timer.timeReached){
+			timeSum = 0;
+			frameIndex++;
+		}
+		if(frameIndex > frames.size() - 1){
+			frameIndex = 0;
+		}
+		
 	}
 
 	if(flip){

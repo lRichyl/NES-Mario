@@ -11,10 +11,12 @@ struct TextureContainer{
      SDL_Texture *marioAnimations;
      SDL_Texture *marioBlocks;
      SDL_Texture *enemiesAnimations;
+     SDL_Texture *items;
 
      ~TextureContainer(){
           SDL_DestroyTexture(marioAnimations);
           SDL_DestroyTexture(marioBlocks);
           SDL_DestroyTexture(enemiesAnimations);
+          SDL_DestroyTexture(items);
      }
 };

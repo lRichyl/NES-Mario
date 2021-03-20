@@ -59,7 +59,7 @@ void TileSelectionSection::draw(){
 void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PlayerTile());
 	sampleEntities.push_back(new GoombaTile());
-	sampleEntities.push_back(new Ground());
+	sampleEntities.push_back(new Tile(texturesContainer.marioBlocks,SDL_Rect {0, 0, 16, 16 }, ENTITY_TYPE::GROUND ));
 	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
 	sampleEntities.push_back(new QuestionMarkTile());
@@ -289,8 +289,6 @@ void LevelEditor::loadEntitiesToScene(){
 						setDynamicEntityPosition(e, q);
 						q->initParameters();
 						q->itemType = tile->itemType;
-						std::cout << static_cast<int>(q->itemType) << std::endl;
-
 						q->tilemapToSpawnItemsOn = &level->layer2;
 						level->layer2.entities[i][j] = q;
 					}else

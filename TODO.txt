@@ -2,18 +2,20 @@ POR HACER
 
 
 
-*Aparecer objetos al golpear el bloque de signo de interrogación
+*Aparecer objetos al golpear el bloque de signo de interrogación (en progreso)
+*Implementar el metodo en tile_list para crear tiles automaticamente a partir de una textura
 *Se debe de poder cambiar la variante de un bloque al seleccionarlo
 *Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
-*Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
+*Escalar la imagen de forma apropiada al poner lDDDa pantalla completa usando la camara y la resolución nativa
 *
 
 
 
 
 HECHO
+*Crear un constructor para crear los tiles y no crear una clase para cada uno
 *Los bloques de interrogación son empujados hacia arriba y vuelven a su posicion original y se
      asigna el sprite correspondiente
 *Ahora mario tiene más inercia y puede brincar hacia atras. Ahora derrapa cuando está en el suelo.

@@ -3,3 +3,5 @@
 //include them individually
 
 #include "goomba.h"
+#include "mushroom.h"
+#include "question_mark.h"

@@ -8,6 +8,7 @@ struct Vector2di{
 
      Vector2di operator+(Vector2di v);
      Vector2di operator-(Vector2di v);
+     // Vector2di operator=(Vector2di v);
 
      int dotProduct(Vector2di);
 

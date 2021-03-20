@@ -8,17 +8,18 @@
 
 struct Tile : public Entity{
 	Tile();
+	Tile::Tile(SDL_Texture *texture, SDL_Rect clippingBox, ENTITY_TYPE type, bool isStatic = true);
 
 	void update(float deltaTime, SDL_Rect *camera)override;
 	void draw()override;
-	Sprite sprite;
 	static int tileSize;
+	Sprite sprite;
 
 	//This should be in the QuestionMarkTile type but it cannot be downcasted
 	//from entity
 	ITEM_TYPE itemType = ITEM_TYPE::MUSHROOM;
 
-	// int tileType;
+
 
 	Entity *clone()override{
 		ID = Entity::IDcount;
@@ -46,16 +47,19 @@ struct GoombaTile : public Tile{
 };
 
 struct QuestionMarkTile : public Tile {
-		int selectedItemType = 0;
-		int itemTypeCount = 0;
-		QuestionMarkTile(){
-			sprite.texture = texturesContainer.marioBlocks;
-			isStatic = true;
-			setClippingBox(384, 0, 16, 16);
-			entityType = ENTITY_TYPE::QUESTIONMARK;
-		}
-		void setItemType(int selectedItemType);
-		void changeVariant(SDL_Event *e)override;
+
+	int selectedItemType = 0;
+	int itemTypeCount = 0;
+	QuestionMarkTile(){
+		sprite.texture = texturesContainer.marioBlocks;
+		isStatic = true;
+		setClippingBox(384, 0, 16, 16);
+		entityType = ENTITY_TYPE::QUESTIONMARK;
+	}
+
+
+	void setItemType(int selectedItemType);
+	void changeVariant(SDL_Event *e)override;
 };
 
 struct Ground : public Tile{

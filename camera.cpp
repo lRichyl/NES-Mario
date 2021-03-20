@@ -23,19 +23,19 @@ void Camera::updatePosition(){
 
 	if( currentKeyStates[ SDL_SCANCODE_W ] )
 	{
-		yOffset -= scrollingSpeed * deltaT;
+		yOffset -= scrollingSpeed * deltaTfixed;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_S ] )
 	{
-		yOffset += scrollingSpeed * deltaT;
+		yOffset += scrollingSpeed * deltaTfixed;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_A ] )
 	{
-		xOffset -= scrollingSpeed * deltaT;
+		xOffset -= scrollingSpeed * deltaTfixed;
 	}
 	if( currentKeyStates[ SDL_SCANCODE_D ] )
 	{
-		xOffset += scrollingSpeed * deltaT;
+		xOffset += scrollingSpeed * deltaTfixed;
 	}
 	bounds.x = xOffset;
 	bounds.y = yOffset;

@@ -38,7 +38,7 @@ struct Entity{
 	int xTile;
 	int yTile;
 	bool isStatic = true;  //This is used to indicate that the entity is part of the scenery
-	Sprite sprite;
+	// Sprite sprite;
 	SDL_Rect clippingBox;
 	SDL_Rect boundingBox;
 	ENTITY_TYPE entityType;

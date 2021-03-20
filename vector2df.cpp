@@ -10,18 +10,20 @@ Vector2df::Vector2df(float x, float y){
      this->y = y;
 }
 
-Vector2df operator+(Vector2df v){
-     Vector2df result;
-     result.x += v.x;
-     result.y += v.y;
-     return result;
+void Vector2df::operator+(Vector2df v){
+     x += v.x;
+     y += v.y;
 }
 
-Vector2df operator-(Vector2df v){
-     Vector2df result;
-     result.x -= v.x;
-     result.y -= v.y;
-     return result;
+
+void Vector2df::operator-(Vector2df v){
+     x -= v.x;
+     y -= v.y;
+}
+
+void Vector2df::operator=(Vector2df v){
+     x = v.x;
+     y = v.y;
 }
 
 int Vector2df::dotProduct(Vector2df v){
