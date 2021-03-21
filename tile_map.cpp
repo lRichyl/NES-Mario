@@ -36,7 +36,7 @@ void TileMap::draw(){
 	}
 }
 
-void TileMap::update(float deltaT, SDL_Rect *camera){
+void TileMap::update(float deltaT, Camera *camera){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
 			if(dynamicEntities[i]->isActive)

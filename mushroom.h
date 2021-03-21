@@ -20,14 +20,14 @@ struct Mushroom : public Entity{
      int gravity = 30;
      Vector2df velocity = Vector2df(70, 0);
 
-     Camera localCamera;
+     // Camera localCamera;
 
      Sprite sprite;
 
-     void updatePosition();
+     // void updatePosition();
      void onStaticEntityCollision(Vector2df,Entity*)override;
 	void onDynamicEntityCollision(Vector2df,Entity*)override;
-     void update(float deltaTime, SDL_Rect *camera)override;
+     void update(float deltaTime, Camera *camera)override;
 	void draw()override;
      Entity *clone()override{
 		ID = Entity::IDcount;

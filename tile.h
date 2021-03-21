@@ -10,7 +10,7 @@ struct Tile : public Entity{
 	Tile();
 	Tile::Tile(SDL_Texture *texture, SDL_Rect clippingBox, ENTITY_TYPE type, bool isStatic = true);
 
-	void update(float deltaTime, SDL_Rect *camera)override;
+	void update(float deltaTime, Camera *camera)override;
 	void draw()override;
 	static int tileSize;
 	Sprite sprite;

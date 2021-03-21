@@ -33,7 +33,7 @@ struct QuestionMark : public Entity{
      void initAnimation();
 	void initSounds();
 	void initParameters();
-	void update(float deltaTime, SDL_Rect *camera) override;
+	void update(float deltaTime, Camera *camera) override;
      void draw()override;
 
 	Entity *clone()override{

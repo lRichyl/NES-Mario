@@ -6,6 +6,7 @@
 #include "vector2df.h"
 #include "timer.h"
 #include "sound_effects.h"
+#include "camera.h"
 
 
 
@@ -29,9 +30,11 @@ struct Goomba : public Entity{
 
      SoundEffect crushingSound;
 
-     void update(float deltaTime, SDL_Rect *camera) override;
+     // Camera localCamera;
+
+     void update(float deltaTime, Camera *camera) override;
      void draw()override;
-     void updatePosition();
+     // void updatePosition();
 	void initializeAnimationFrames();
      void initializeSoundEffects();
 	void onStaticEntityCollision(Vector2df penetration, Entity *e) override;

@@ -11,7 +11,7 @@ struct Scene{
 	int levelWidth;
 	int levelHeight;
 	SDL_Texture *tileset;
-	// SDL_Rect camera;
+	Camera camera;
 
 	CollisionManager collisionManager;
 

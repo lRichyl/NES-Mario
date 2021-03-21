@@ -21,8 +21,8 @@ Mushroom::Mushroom(Vector2df p, int p1){
      updatePosition();
 }
 
-void Mushroom::update(float deltaTime, SDL_Rect *camera){
-     localCamera.bounds = *camera;
+void Mushroom::update(float deltaTime, Camera *camera){
+     localCamera = *camera;
      if(state == MushroomState::SPAWNING){
           position.y -= spawningSpeed * deltaTime;
           if(position.y <= finalSpawningPosition) state = MushroomState::NORMAL;
@@ -40,10 +40,10 @@ void Mushroom::draw(){
      sprite.animateSprite(0);
 }
 
-void Mushroom::updatePosition(){
-     boundingBox.x = position.x - localCamera.bounds.x;
-	boundingBox.y = position.y - localCamera.bounds.y;
-}
+// void Mushroom::updatePosition(){
+//      boundingBox.x = position.x - localCamera.bounds.x;
+// 	boundingBox.y = position.y - localCamera.bounds.y;
+// }
 
 void Mushroom::onStaticEntityCollision(Vector2df penetration, Entity *e){
 

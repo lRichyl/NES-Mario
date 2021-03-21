@@ -6,6 +6,7 @@
 #include "camera.h"
 #include "text.h"
 #include "global_variables.h"
+#include "tile_list.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();
@@ -39,6 +40,8 @@ struct LevelEditor{
 	TileMap editorLayer2;
 	TileMap editorLayer3;
 	Camera camera;
+
+	TileSet tileSet;
 
 	// int itemTypeCount;
 

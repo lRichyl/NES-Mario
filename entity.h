@@ -2,6 +2,7 @@
 #include "sprite.h"
 #include "vector2df.h"
 #include "vector2di.h"
+#include "camera.h"
 
 enum class ENTITY_TYPE{
 	PLAYER,
@@ -42,16 +43,17 @@ struct Entity{
 	SDL_Rect clippingBox;
 	SDL_Rect boundingBox;
 	ENTITY_TYPE entityType;
-	// int xTileNumber;
-	// int yTileNumber;
+
+	Camera localCamera;
 
 	Entity();
-	virtual void update(float deltaTime, SDL_Rect *camera) = 0;
+	virtual void update(float deltaTime, Camera *camera) = 0;
 	virtual void draw() = 0;
 	virtual void onStaticEntityCollision(Vector2df,Entity*){};
 	virtual void onDynamicEntityCollision(Vector2df,Entity*){};
 	virtual void changeVariant(SDL_Event *e){};
 	void setTileSize(int tileSize);
+	void updatePosition();
 	virtual Entity *clone() = 0;
 	virtual ~Entity() {};
 

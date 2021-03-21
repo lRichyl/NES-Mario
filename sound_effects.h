@@ -19,11 +19,13 @@ struct SoundsContainer{
      Mix_Chunk *marioJump;
      Mix_Chunk *squish;
      Mix_Chunk *bump;
+     Mix_Chunk *skid;
 
      void initSoundsContainer();
      ~SoundsContainer(){
           Mix_FreeChunk(marioJump);
           Mix_FreeChunk(squish);
           Mix_FreeChunk(bump);
+          Mix_FreeChunk(skid);
      }
 };

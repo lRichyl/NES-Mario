@@ -24,7 +24,8 @@ Player::~Player(){
 
 }
 // bool updatePosition = false;
-void Player::update(float deltaTime, SDL_Rect *camera){
+void Player::update(float deltaTime, Camera *camera){
+	localCamera = *camera;
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
@@ -54,7 +55,8 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		if(velocity.x > 0) {
 			currentAnimation = &turningAnimation;
 			turningAnimation.flip = true;
-		}
+			skidSound.play();
+		}else if(velocity.x < 0) skidSound.stop();
 
 	}
 
@@ -75,7 +77,8 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 		if(velocity.x < 0) {
 			currentAnimation = &turningAnimation;
 			turningAnimation.flip = false;
-		}
+			skidSound.play();
+		}else if(velocity.x > 0) skidSound.stop();
 	}
 
 	//if the velocity is close to zero we make it zero so that the player stands still
@@ -110,15 +113,18 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 //
 	if(isAirborne) {
 		currentAnimation = &jumpingAnimation;
+		skidSound.stop();
 	}else{
 		if(velocity.x > 0){
 			idleAnimation.flip = false;
 			walkingAnimation.flip = false;
 			jumpingAnimation.flip = false;
+			// skidSound.play();
 		}else if (velocity.x < 0){
 			idleAnimation.flip = true;
 			walkingAnimation.flip = true;
 			jumpingAnimation.flip = true;
+			// skidSound.play();
 		}
 
 	}
@@ -149,11 +155,11 @@ void Player::update(float deltaTime, SDL_Rect *camera){
 
 	updatePosition();
 }
-
-void Player::updatePosition(){
-	boundingBox.x = position.x - CAMERA.bounds.x;
-	boundingBox.y = position.y - CAMERA.bounds.y;
-}
+//
+// void Player::updatePosition(){
+// 	boundingBox.x = position.x - localCamera.bounds.x;
+// 	boundingBox.y = position.y - localCamera.bounds.y;
+// }
 
 void Player::draw(){
 	currentAnimation->animateSprite(0.08);
@@ -167,6 +173,7 @@ void Player::collidingWithTheFloor(Vector2df penetration){
 		velocity.y = 0;
 		acceleration.y = -60000;
 		jumpSound.stop();
+
 	}
 }
 
@@ -245,4 +252,6 @@ void Player::initializeAnimationFrames(){
 void Player::initializeSoundEffects(){
 	jumpSound.channel = 1;
 	jumpSound.sound = soundsContainer.marioJump;
+	skidSound.channel = 2;
+	skidSound.sound = soundsContainer.skid;
 }

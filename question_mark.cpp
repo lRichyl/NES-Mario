@@ -26,7 +26,7 @@ void QuestionMark::initAnimation(){
      blockUsed.frames.push_back(SDL_Rect {432, 0, 16, 16});
 }
 
-void QuestionMark::update(float deltaTime, SDL_Rect *camera){
+void QuestionMark::update(float deltaTime, Camera *camera){
 	if(state == QuestionMarkState::NORMAL){
 		currentAnimation = &blockUnused;
 
@@ -72,8 +72,8 @@ void QuestionMark::update(float deltaTime, SDL_Rect *camera){
 
 
 
-     boundingBox.x = position.x - camera->x;
-	boundingBox.y = position.y - camera->y;
+     boundingBox.x = position.x - camera->bounds.x;
+	boundingBox.y = position.y - camera->bounds.y;
 }
 
 void QuestionMark::draw(){

@@ -26,6 +26,6 @@ struct TileMap{
 
 	int getXTile(float xPosition);
 	int getYTile(float yPositiion);
-	void update(float deltaT, SDL_Rect *camera);
+	void update(float deltaT, Camera *camera);
 	void draw();
 };

@@ -20,9 +20,9 @@ Tile::Tile(SDL_Texture *texture, SDL_Rect clippingBox, ENTITY_TYPE type, bool is
 	entityType = type;
 }
 
-void Tile::update(float deltaTime, SDL_Rect *camera){
-	boundingBox.x = position.x - camera->x;
-	boundingBox.y = position.y - camera->y;
+void Tile::update(float deltaTime, Camera *camera){
+	boundingBox.x = position.x - camera->bounds.x;
+	boundingBox.y = position.y - camera->bounds.y;
 }
 void Tile::draw(){
 	// sprite.animateSprite(0);

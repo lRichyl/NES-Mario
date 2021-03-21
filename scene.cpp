@@ -4,17 +4,17 @@
 
 
 Scene::Scene(){
-	CAMERA.resetCamera();
+	camera.resetCamera();
 	// CAMERA.xOffset = 3 * Tile::tileSize;
 	// CAMERA.yOffset = 3 * Tile::tileSize;
 }
 
 void Scene::updateScene(float deltaTime){
-	CAMERA.updatePosition();
-	layer0.update(deltaTime, &CAMERA.bounds);
-	layer1.update(deltaTime, &CAMERA.bounds);
-	layer2.update(deltaTime, &CAMERA.bounds);
-	layer3.update(deltaTime, &CAMERA.bounds);
+	camera.updatePosition();
+	layer0.update(deltaTime, &camera);
+	layer1.update(deltaTime, &camera);
+	layer2.update(deltaTime, &camera);
+	layer3.update(deltaTime, &camera);
 }
 
 void Scene::checkCollisions(){
@@ -37,5 +37,5 @@ void Scene::unloadEntities(){
 }
 
 void Scene::resetCamera(){
-	CAMERA.resetCamera();
+	camera.resetCamera();
 }

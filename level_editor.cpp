@@ -27,6 +27,7 @@ TileSelectionSection::TileSelectionSection(){
 
 LevelEditor::LevelEditor(){
 	camera.resetCamera();
+	tileSet.generateTiles(texturesContainer.marioBlocks, 0, 0, 528, 128, 16, 16);
 	initializeSampleEntities();
 	selectedEntity = sampleEntities[0];
 	calculateSampleEntitiesPosition();
@@ -38,6 +39,7 @@ LevelEditor::LevelEditor(){
 	entityVariantText.size = 16;
 	entityVariantText.x = 132;
 	entityVariantText.y = 0;
+
 }
 
 void TileSelectionSection::draw(){
@@ -60,6 +62,7 @@ void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PlayerTile());
 	sampleEntities.push_back(new GoombaTile());
 	sampleEntities.push_back(new Tile(texturesContainer.marioBlocks,SDL_Rect {0, 0, 16, 16 }, ENTITY_TYPE::GROUND ));
+	// sampleEntities.insert(sampleEntities.end(),tileSet.tiles.begin(),tileSet.tiles.end());
 	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
 	sampleEntities.push_back(new QuestionMarkTile());
@@ -78,7 +81,6 @@ void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new MountTop());
 	sampleEntities.push_back(new MountDown());
 
-	// resizeSampleEntities();
 }
 
 void LevelEditor::calculateSampleEntitiesPosition(){
@@ -186,10 +188,10 @@ void LevelEditor::setSelectedEntity(){
 void LevelEditor::udpateEditorLevel(){
 	camera.updatePosition();
 	// setTileVariant();
-	editorLayer0.update(deltaTfixed, &camera.bounds);
-	editorLayer1.update(deltaTfixed, &camera.bounds);
-	editorLayer2.update(deltaTfixed, &camera.bounds);
-	editorLayer3.update(deltaTfixed, &camera.bounds);
+	editorLayer0.update(deltaTfixed, &camera);
+	editorLayer1.update(deltaTfixed, &camera);
+	editorLayer2.update(deltaTfixed, &camera);
+	editorLayer3.update(deltaTfixed, &camera);
 }
 
 void LevelEditor::drawEditorLevel(){

@@ -35,4 +35,5 @@ void SoundsContainer::initSoundsContainer(){
      marioJump = Mix_LoadWAV("assets/sounds/Jump.wav");
      squish = Mix_LoadWAV("assets/sounds/Squish1.wav");
      bump = Mix_LoadWAV("assets/sounds/Bump.wav");
+     skid = Mix_LoadWAV("assets/sounds/Skid.wav");
 }

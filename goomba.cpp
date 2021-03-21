@@ -16,8 +16,9 @@ Goomba::Goomba(){
 }
 
 
-void Goomba::update(float deltaTime, SDL_Rect *camera){
+void Goomba::update(float deltaTime, Camera *camera){
      // if(isActive){
+          localCamera = *camera;
           if(state == GoombaState::NORMAL){
                position.x += direction * speed * deltaTime;
                position.y += gravity * deltaTime;
@@ -32,11 +33,11 @@ void Goomba::update(float deltaTime, SDL_Rect *camera){
                }
           }
 }
-void Goomba::updatePosition(){
-	boundingBox.x = position.x - CAMERA.bounds.x;
-	boundingBox.y = position.y - CAMERA.bounds.y;
-
-}
+// void Goomba::updatePosition(){
+// 	boundingBox.x = position.x - localCamera.bounds.x;
+// 	boundingBox.y = position.y - localCamera.bounds.y;
+//
+// }
 void Goomba::draw(){
           currentAnimation->animateSprite(0.15);
 }

@@ -6,6 +6,7 @@
 #include "texture.h"
 #include "vector2df.h"
 #include "sound_effects.h"
+#include "camera.h"
 
 struct Player : public Entity{
 
@@ -37,10 +38,13 @@ struct Player : public Entity{
 	Sprite turningAnimation;
 
 	SoundEffect jumpSound;
+	SoundEffect skidSound;
+
+	// Camera localCamera;
 
 
-	void update(float deltaTime, SDL_Rect *camera) override;
-	void updatePosition();
+	void update(float deltaTime, Camera *camera) override;
+	// void updatePosition();
 	void draw()override;
 	void initializeAnimationFrames();
 	void initializeSoundEffects();
