@@ -2,10 +2,6 @@ POR HACER
 
 
 
-*Agregar el sonido de derrape para Mario
-*Agregar el objeto de FireFlower y aparecerlo con el bloque de interrogación
-*Colisión entre mario y champiñones
-*Los objetos deben de ser desactivados si se salen de la camara
 *Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
@@ -16,6 +12,10 @@ POR HACER
 
 
 HECHO
+*Los objetos deben de ser desactivados si se salen de la camara
+*Colisión entre mario, champiñones  y flores de fuego
+*Agregar el objeto de FireFlower y aparecerlo con el bloque de interrogación
+*Agregar el sonido de derrape para Mario
 *Agregar una camara local como en Mushroom para el jugador (y eliminar _la camara global)
 *Implementar el metodo en tile_list para crear tiles automaticamente a partir de una textura.
      crear una tile list para todos los bloques del juego

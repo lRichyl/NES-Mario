@@ -20,7 +20,7 @@ bool TileMap::addEntityOnTile(int xTile, int yTile, Entity *e){
 void TileMap::draw(){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
-			if(dynamicEntities[i]->isActive)
+			if(dynamicEntities[i]->isActive && !dynamicEntities[i]->isDestroyed)
 				dynamicEntities[i]->draw();
 
 		}
@@ -29,7 +29,7 @@ void TileMap::draw(){
 	for(unsigned int i = 0; i < entities.size() ; i++){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
-				if(entities[i][j]->isActive)
+				if(entities[i][j]->isActive && !entities[i][j]->isDestroyed)
 					entities[i][j]->draw();
 			}
 		}
@@ -39,7 +39,9 @@ void TileMap::draw(){
 void TileMap::update(float deltaT, Camera *camera){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
-			if(dynamicEntities[i]->isActive)
+			dynamicEntities[i]->updateLocalCamera(*camera);
+			dynamicEntities[i]->setInactiveIfOutsideOfCameraBounds();
+			if(dynamicEntities[i]->isActive && !dynamicEntities[i]->isDestroyed)
 				dynamicEntities[i]->update(deltaT, camera);
 			// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
 
@@ -50,7 +52,8 @@ void TileMap::update(float deltaT, Camera *camera){
 	for(unsigned int i = 0; i < entities.size() ; i++){
 		for(unsigned int j = 0; j < entities[i].size(); j++){
 			if(entities[i][j] != nullptr){
-				if(entities[i][j]->isActive)
+				entities[i][j]->updateLocalCamera(*camera);
+				if(entities[i][j]->isActive  && !entities[i][j]->isDestroyed)
 					entities[i][j]->update(deltaT, camera);
 				// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
 

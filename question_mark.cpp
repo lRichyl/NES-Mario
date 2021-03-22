@@ -1,6 +1,6 @@
 #include "question_mark.h"
 #include "global_variables.h"
-#include "mushroom.h"
+#include "dynamic_entities.h"
 #include <iostream>
 
 QuestionMark::QuestionMark(){
@@ -49,13 +49,13 @@ void QuestionMark::update(float deltaTime, Camera *camera){
                switch(itemType){
                     case ITEM_TYPE::MUSHROOM:{
                          Mushroom *m = new Mushroom(position, position.y - Tile::tileSize);
-                         m->state = m->MushroomState::SPAWNING;
                          tilemapToSpawnItemsOn->dynamicEntities.push_back(m);
 
                          break;
                     }
                     case ITEM_TYPE::FIRE_FLOWER:{
-                         std::cout << "spawning fire flower" << std::endl;
+                         FireFlower *f = new FireFlower(position, position.y - Tile::tileSize);
+                         tilemapToSpawnItemsOn->dynamicEntities.push_back(f);
 
                          break;
                     }
@@ -72,8 +72,7 @@ void QuestionMark::update(float deltaTime, Camera *camera){
 
 
 
-     boundingBox.x = position.x - camera->bounds.x;
-	boundingBox.y = position.y - camera->bounds.y;
+     updatePosition();
 }
 
 void QuestionMark::draw(){
@@ -87,6 +86,6 @@ void QuestionMark::initParameters(){
 }
 
 void QuestionMark::initSounds(){
-     bumpingSound.channel = 3;
+     bumpingSound.channel = 4;
      bumpingSound.sound = soundsContainer.bump;
 }

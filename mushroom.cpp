@@ -1,28 +1,32 @@
 #include "mushroom.h"
 #include "global_variables.h"
+#include <iostream>
 
+//
+// Mushroom::Mushroom(){
+//      isStatic = false;
+//      sprite.texture = texturesContainer.items;
+//      sprite.bBox = &boundingBox;
+//      sprite.frames.push_back(SDL_Rect{0, 0, 16, 16});
+//      velocity.x = 90;
+//      updatePosition();
+// }
 
-Mushroom::Mushroom(){
+Mushroom::Mushroom(Vector2df p, int finalSpawningPosition){
      isStatic = false;
      sprite.texture = texturesContainer.items;
      sprite.bBox = &boundingBox;
      sprite.frames.push_back(SDL_Rect{0, 0, 16, 16});
-     updatePosition();
-}
 
-Mushroom::Mushroom(Vector2df p, int p1){
-     isStatic = false;
-     sprite.texture = texturesContainer.items;
-     sprite.bBox = &boundingBox;
-     sprite.frames.push_back(SDL_Rect{0, 0, 16, 16});
-
+     entityType = ENTITY_TYPE::MUSHROOM;
      this->position = p;
-     this->finalSpawningPosition = p1;
+     this->finalSpawningPosition = finalSpawningPosition;
+     velocity.x = 90;
      updatePosition();
 }
 
 void Mushroom::update(float deltaTime, Camera *camera){
-     localCamera = *camera;
+     // localCamera = *camera;
      if(state == MushroomState::SPAWNING){
           position.y -= spawningSpeed * deltaTime;
           if(position.y <= finalSpawningPosition) state = MushroomState::NORMAL;

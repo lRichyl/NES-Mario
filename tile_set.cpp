@@ -1,4 +1,4 @@
-#include "tile_list.h"
+#include "tile_set.h"
 #include <iostream>
 
 void TileSet::generateTiles(SDL_Texture *texture, int tilesetInitialX,

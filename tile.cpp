@@ -29,6 +29,13 @@ void Tile::draw(){
 	SDL_RenderCopy( renderer, sprite.texture, &clippingBox, &boundingBox );
 }
 
+void Tile::setClippingBox(int x, int y, int w, int h){
+	clippingBox.x = x;
+	clippingBox.y = y;
+	clippingBox.w = w;
+	clippingBox.h = h;
+}
+
 void QuestionMarkTile::changeVariant(SDL_Event *e){
 	int maxItemType = static_cast<int>(ITEM_TYPE::MAX);
 	int minItemType = static_cast<int>(ITEM_TYPE::MIN);

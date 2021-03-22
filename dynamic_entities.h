@@ -5,3 +5,4 @@
 #include "goomba.h"
 #include "mushroom.h"
 #include "question_mark.h"
+#include "fire_flower.h"

@@ -13,16 +13,18 @@ Goomba::Goomba(){
      initializeAnimationFrames();
      currentAnimation = &walkingAnimation;
      initializeSoundEffects();
+     velocity.x = 45;
+     isDestroyed = false;
 }
 
 
 void Goomba::update(float deltaTime, Camera *camera){
      // if(isActive){
-          localCamera = *camera;
+          // localCamera = *camera;
           if(state == GoombaState::NORMAL){
-               position.x += direction * speed * deltaTime;
+               position.x += direction * velocity.x * deltaTime;
                position.y += gravity * deltaTime;
-               updatePosition();
+
           }
           else if(state == GoombaState::CRUSHED){
                currentAnimation = &dyingAnimation;
@@ -30,8 +32,10 @@ void Goomba::update(float deltaTime, Camera *camera){
                timeCounter += deltaTime;
                if(timeCounter >= 1) {
                     isActive = false;
+                    isDestroyed = true;
                }
           }
+          updatePosition();
 }
 // void Goomba::updatePosition(){
 // 	boundingBox.x = position.x - localCamera.bounds.x;
@@ -71,7 +75,7 @@ void Goomba::onStaticEntityCollision(Vector2df penetration, Entity *e){
 }
 
 void Goomba::initializeSoundEffects(){
-     crushingSound.channel = 2;
+     crushingSound.channel = 3;
      crushingSound.sound = soundsContainer.squish;
 
 }

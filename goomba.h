@@ -17,7 +17,7 @@ struct Goomba : public Entity{
      };
      Goomba();
 
-     float speed = 45;
+     // float speed = 45;
      float gravity = 40;
      int direction = -1;
      float timeCounter = 0;;
@@ -44,5 +44,5 @@ struct Goomba : public Entity{
 		Entity::IDcount++;
 		return new Goomba(*this);}
 
-     ~Goomba(){}
+     
 };

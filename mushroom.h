@@ -8,17 +8,17 @@ struct Mushroom : public Entity{
           SPAWNING,
           NORMAL
      };
-     MushroomState state = MushroomState::NORMAL;
+     MushroomState state = SPAWNING;
+     ITEM_TYPE type = ITEM_TYPE::MUSHROOM;   
 
-     Mushroom();
+     // Mushr.oom();
      Mushroom(Vector2df position, int finalSpawningPosition);
 
      int finalSpawningPosition = 0;
      int spawningSpeed = 80;
-     // int normalSpeed = 50;
+     int normalSpeed = 50;
      int direction = 1;
-     int gravity = 30;
-     Vector2df velocity = Vector2df(70, 0);
+     int gravity = 50;
 
      // Camera localCamera;
 

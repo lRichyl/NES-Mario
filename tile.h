@@ -9,11 +9,14 @@
 struct Tile : public Entity{
 	Tile();
 	Tile::Tile(SDL_Texture *texture, SDL_Rect clippingBox, ENTITY_TYPE type, bool isStatic = true);
-
-	void update(float deltaTime, Camera *camera)override;
-	void draw()override;
 	static int tileSize;
 	Sprite sprite;
+	SDL_Rect clippingBox;
+
+	void setClippingBox(int x, int y, int w, int h);
+	void update(float deltaTime, Camera *camera)override;
+	void draw()override;
+
 
 	//This should be in the QuestionMarkTile type but it cannot be downcasted
 	//from entity

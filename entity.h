@@ -8,6 +8,8 @@ enum class ENTITY_TYPE{
 	PLAYER,
 	MIN = PLAYER,
 	GOOMBA,
+	MUSHROOM,
+	FIRE_FLOWER,
 	GROUND,
 	SOLIDBLOCK,
 	BRICK,
@@ -34,13 +36,13 @@ struct Entity{
 	static int IDcount;
 	int ID;
 	bool isActive  = true; //When this is false the entity stops being updated and drawn
+	bool isDestroyed = false;
 	Vector2df position;
 	Vector2df velocity;
 	int xTile;
 	int yTile;
 	bool isStatic = true;  //This is used to indicate that the entity is part of the scenery
 	// Sprite sprite;
-	SDL_Rect clippingBox;
 	SDL_Rect boundingBox;
 	ENTITY_TYPE entityType;
 
@@ -54,8 +56,9 @@ struct Entity{
 	virtual void changeVariant(SDL_Event *e){};
 	void setTileSize(int tileSize);
 	void updatePosition();
+	void updateLocalCamera(Camera camera);
+	void setInactiveIfOutsideOfCameraBounds();
 	virtual Entity *clone() = 0;
 	virtual ~Entity() {};
 
-	void setClippingBox(int x, int y, int w, int h);
 };

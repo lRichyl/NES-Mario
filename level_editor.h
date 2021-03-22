@@ -6,7 +6,7 @@
 #include "camera.h"
 #include "text.h"
 #include "global_variables.h"
-#include "tile_list.h"
+#include "tile_set.h"
 
 struct TileSelectionSection{
 	TileSelectionSection();

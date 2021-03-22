@@ -4,8 +4,8 @@
 int Entity::IDcount = 0;
 
 Entity::Entity(){
-	ID = IDcount;
 	IDcount++;
+	ID = IDcount;
 	boundingBox.h = Tile::tileSize;
      boundingBox.w = Tile::tileSize;
 }
@@ -17,12 +17,7 @@ Entity::Entity(){
 //
 // }
 
-void Entity::setClippingBox(int x, int y, int w, int h){
-	clippingBox.x = x;
-	clippingBox.y = y;
-	clippingBox.w = w;
-	clippingBox.h = h;
-}
+
 
 void Entity::setTileSize(int tileSize){
 	boundingBox.w = tileSize;
@@ -32,4 +27,22 @@ void Entity::setTileSize(int tileSize){
 void Entity::updatePosition(){
 	boundingBox.x = position.x - localCamera.bounds.x;
 	boundingBox.y = position.y - localCamera.bounds.y;
+}
+
+void Entity::updateLocalCamera(Camera camera){
+	localCamera = camera;
+}
+
+void Entity::setInactiveIfOutsideOfCameraBounds(){
+	if(entityType != ENTITY_TYPE::PLAYER){
+		if(boundingBox.y + Tile::tileSize <= 0 || boundingBox.y > localCamera.bounds.h || boundingBox.x + Tile::tileSize <= 0 || boundingBox.x > localCamera.bounds.w){
+			isActive = false;
+		}
+		else if(boundingBox.y  >= 0 && boundingBox.y + Tile::tileSize < localCamera.bounds.h && boundingBox.x  >= 0 && boundingBox.x + Tile::tileSize < localCamera.bounds.w && !isDestroyed){
+			isActive = true;
+		}
+		// else if (boundingBox.x + Tile::tileSize < 0 || boundingBox.x > localCamera.bounds.w){
+		// 	isActive = false;
+		// else isActive = true;
+	}
 }

@@ -23,7 +23,8 @@ void SoundEffect::play(){
           if(Mix_Playing(channel) == 0){
                Mix_PlayChannel(channel, sound, 0);
           }
-     }
+     }//else if(Mix_Playing(channel)) interrupt = true;
+
 }
 
 void SoundEffect::stop(){

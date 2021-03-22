@@ -3,6 +3,7 @@
 #include <cfloat>
 #include <cmath>
 #include <algorithm>
+#include "dynamic_entities.h"
 
 bool CollisionManager::minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *penetration){
 	int mdtop   =  b1.y - (b2.y + b2.h);
@@ -163,9 +164,18 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 			for(unsigned int i = 0; i < collisionLayer->dynamicEntities.size();i++){
 				Vector2df penetrationVector;
 				Entity *collidedDynamicEntity = collisionLayer->dynamicEntities[i];
-				if(collidedDynamicEntity->ID != e->ID && collidedDynamicEntity->isActive)
-				if(CollisionManager::minkowskiDifference(e->boundingBox,collidedDynamicEntity->boundingBox, &penetrationVector)){
-					e->onDynamicEntityCollision(penetrationVector, collidedDynamicEntity);
+				if(collidedDynamicEntity->ID != e->ID && collidedDynamicEntity->isActive){
+					// FireFlower *f = dynamic_cast<FireFlower*>(collidedDynamicEntity);
+					// if(f->type == ITEM_TYPE::FIRE_FLOWER){
+					//
+					// }
+					// std::cout << e->ID << std::endl;
+					// std::cout << collidedDynamicEntity->ID << std::endl;
+
+					if(CollisionManager::minkowskiDifference(e->boundingBox,collidedDynamicEntity->boundingBox, &penetrationVector)){
+						e->onDynamicEntityCollision(penetrationVector, collidedDynamicEntity);
+
+					}
 				}
 			}
 

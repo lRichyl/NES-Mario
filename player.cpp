@@ -2,7 +2,7 @@
 #include "global_variables.h"
 #include "collision.h"
 #include "vector2di.h"
-#include "goomba.h"
+#include "dynamic_entities.h"
 #include "question_mark.h"
 #include <iostream>
 #include <cmath>
@@ -25,7 +25,7 @@ Player::~Player(){
 }
 // bool updatePosition = false;
 void Player::update(float deltaTime, Camera *camera){
-	localCamera = *camera;
+	// localCamera = *camera;
 	// std::cout << boundingBox.x << " , " << boundingBox.y << std::endl;
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
@@ -52,10 +52,12 @@ void Player::update(float deltaTime, Camera *camera){
 			velocity.x = -maxXVelocity;
 		}
 
-		if(velocity.x > 0) {
+		if(velocity.x > 0 && !isAirborne) {
 			currentAnimation = &turningAnimation;
 			turningAnimation.flip = true;
-			skidSound.play();
+			if(velocity.x > velocityToPlayTurningSound){
+				skidSound.play();
+			}
 		}else if(velocity.x < 0) skidSound.stop();
 
 	}
@@ -74,10 +76,12 @@ void Player::update(float deltaTime, Camera *camera){
 			velocity.x = maxXVelocity;
 		}
 
-		if(velocity.x < 0) {
+		if(velocity.x < 0 && !isAirborne) {
 			currentAnimation = &turningAnimation;
 			turningAnimation.flip = false;
-			skidSound.play();
+			if(velocity.x < -velocityToPlayTurningSound){
+				skidSound.play();
+			}
 		}else if(velocity.x > 0) skidSound.stop();
 	}
 
@@ -110,26 +114,23 @@ void Player::update(float deltaTime, Camera *camera){
 
 	}
 
-//
 	if(isAirborne) {
 		currentAnimation = &jumpingAnimation;
-		skidSound.stop();
+		// skidSound.stop();
 	}else{
 		if(velocity.x > 0){
 			idleAnimation.flip = false;
 			walkingAnimation.flip = false;
 			jumpingAnimation.flip = false;
-			// skidSound.play();
 		}else if (velocity.x < 0){
 			idleAnimation.flip = true;
 			walkingAnimation.flip = true;
 			jumpingAnimation.flip = true;
-			// skidSound.play();
 		}
 
 	}
 
-
+	if(velocity.y > 0) isAirborne = true;
 //////////////////////GRAVITY//////////////////////////////////
 
 	if(velocity.y < 20){
@@ -221,9 +222,19 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 				goomba->state = goomba->GoombaState::CRUSHED;
 				velocity.y = -10;
 			}
-
-
 		}
+
+	}else if(e->entityType == ENTITY_TYPE::MUSHROOM){
+		Mushroom *m = dynamic_cast<Mushroom *>(e);
+		m->isActive = false;
+		m->isDestroyed = true;
+		state = GROWING;
+	}
+	else if(e->entityType == ENTITY_TYPE::FIRE_FLOWER){
+		FireFlower *f = dynamic_cast<FireFlower *>(e);
+		f->isActive = false;
+		f->isDestroyed = true;
+		state = PICKING_FIRE;
 	}
 }
 

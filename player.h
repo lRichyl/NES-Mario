@@ -1,6 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
+#pragma once
 #include "entity.h"
 #include "sprite.h"
 #include "texture.h"
@@ -12,6 +10,9 @@ struct Player : public Entity{
 
 	enum PlayerState{
 		NORMAL,
+		GROWING,
+		SHRINKING,
+		PICKING_FIRE,
 		DEAD
 	};
 
@@ -23,6 +24,7 @@ struct Player : public Entity{
 	float distanceTraveled = 0;
 	float maxXVelocity = 8;
 	float maxYVelocity = 10;
+	int   velocityToPlayTurningSound = 3;
 
 	bool isAirborne = true;
 	bool canJump = true;
@@ -57,4 +59,3 @@ struct Player : public Entity{
 		Entity::IDcount++;
 		return new Player(*this);}
 };
-#endif
