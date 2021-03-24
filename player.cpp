@@ -220,7 +220,7 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 			}
 			else if(penetration.y > 0 && velocity.y >= 0 && state == PlayerState::NORMAL){
 				goomba->state = goomba->GoombaState::CRUSHED;
-				velocity.y = -10;
+				velocity.y = -5;
 			}
 		}
 
@@ -228,13 +228,13 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 		Mushroom *m = dynamic_cast<Mushroom *>(e);
 		m->isActive = false;
 		m->isDestroyed = true;
-		state = GROWING;
+		// state = GROWING;
 	}
 	else if(e->entityType == ENTITY_TYPE::FIRE_FLOWER){
 		FireFlower *f = dynamic_cast<FireFlower *>(e);
 		f->isActive = false;
 		f->isDestroyed = true;
-		state = PICKING_FIRE;
+		// state = PICKING_FIRE;
 	}
 }
 

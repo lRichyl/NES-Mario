@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "tile.h"
+#include <iostream>
 
 int Entity::IDcount = 0;
 
@@ -34,13 +35,20 @@ void Entity::updateLocalCamera(Camera camera){
 }
 
 void Entity::setInactiveIfOutsideOfCameraBounds(){
-	if(entityType != ENTITY_TYPE::PLAYER){
-		if(boundingBox.y + Tile::tileSize <= 0 || boundingBox.y > localCamera.bounds.h || boundingBox.x + Tile::tileSize <= 0 || boundingBox.x > localCamera.bounds.w){
-			isActive = false;
+	if(entityType != ENTITY_TYPE::PLAYER && !isDestroyed){
+		if(isActive){
+			if(boundingBox.y + Tile::tileSize <= 0 || boundingBox.y > localCamera.bounds.h || boundingBox.x + Tile::tileSize <= 0 || boundingBox.x > localCamera.bounds.w){
+				isActive = false;
+			}
+
+		}else{
+			updatePosition();
+			if(boundingBox.y  >= 0 && boundingBox.y + Tile::tileSize < localCamera.bounds.h && boundingBox.x  >= 0 && boundingBox.x + Tile::tileSize < localCamera.bounds.w ){
+				isActive = true;
+			}
 		}
-		else if(boundingBox.y  >= 0 && boundingBox.y + Tile::tileSize < localCamera.bounds.h && boundingBox.x  >= 0 && boundingBox.x + Tile::tileSize < localCamera.bounds.w && !isDestroyed){
-			isActive = true;
-		}
+
+
 		// else if (boundingBox.x + Tile::tileSize < 0 || boundingBox.x > localCamera.bounds.w){
 		// 	isActive = false;
 		// else isActive = true;

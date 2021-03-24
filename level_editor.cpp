@@ -256,9 +256,10 @@ void LevelEditor::drawLayerText(){
 	layerText.renderText(std::to_string(layerBeingEdited));
 }
 
-static void setDynamicEntityPosition(Entity* tileEntity, Entity* d){
-	d->position.x = tileEntity->position.x - CAMERA.bounds.x;
-	d->position.y = tileEntity->position.y - CAMERA.bounds.y;
+static void setDynamicEntityPosition(Entity* tileEntity, Entity* d, Camera *camera){
+	d->position.x = tileEntity->position.x - camera->bounds.x;
+	d->position.y = tileEntity->position.y - camera->bounds.y;
+	d->updatePosition();
 }
 
 void LevelEditor::loadEntitiesToScene(){
@@ -288,7 +289,7 @@ void LevelEditor::loadEntitiesToScene(){
 					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
 						QuestionMark *q = new QuestionMark();
 						Tile *tile = dynamic_cast<Tile*>(e);
-						setDynamicEntityPosition(e, q);
+						setDynamicEntityPosition(e, q, &level->camera);
 						q->initParameters();
 						q->itemType = tile->itemType;
 						q->tilemapToSpawnItemsOn = &level->layer2;
@@ -301,7 +302,7 @@ void LevelEditor::loadEntitiesToScene(){
 						case ENTITY_TYPE::PLAYER:
 						{
 							Player *p = new Player();
-							setDynamicEntityPosition(e, p);
+							setDynamicEntityPosition(e, p, &level->camera);
 
 							level->layer2.dynamicEntities.push_back(p);
 							break;
@@ -309,7 +310,7 @@ void LevelEditor::loadEntitiesToScene(){
 						case ENTITY_TYPE::GOOMBA:
 						{
 							Goomba *g = new Goomba();
-							setDynamicEntityPosition(e, g);
+							setDynamicEntityPosition(e, g, &level->camera);
 
 							level->layer2.dynamicEntities.push_back(g);
 							break;

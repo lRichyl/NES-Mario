@@ -41,8 +41,10 @@ void Camera::updatePosition(){
 	bounds.y = yOffset;
 	if(bounds.x < 0) {
 		bounds.x = 0;
+          xOffset = 0;
 	}
 	if(bounds.y < 0) {
 		bounds.y = 0;
+          yOffset = 0;
 	}
 }

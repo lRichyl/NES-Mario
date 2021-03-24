@@ -8,13 +8,13 @@ Goomba::Goomba(){
      entityType = ENTITY_TYPE::GOOMBA;
 	isStatic = false;
 	isActive = true;
-	boundingBox.w = Tile::tileSize;
-	boundingBox.h = Tile::tileSize;
+	// boundingBox.w = Tile::tileSize;
+	// boundingBox.h = Tile::tileSize;
      initializeAnimationFrames();
      currentAnimation = &walkingAnimation;
      initializeSoundEffects();
      velocity.x = 45;
-     isDestroyed = false;
+     // isDestroyed = false;
 }
 
 
@@ -23,8 +23,7 @@ void Goomba::update(float deltaTime, Camera *camera){
           // localCamera = *camera;
           if(state == GoombaState::NORMAL){
                position.x += direction * velocity.x * deltaTime;
-               position.y += gravity * deltaTime;
-
+               // position.y += gravity * deltaTime;
           }
           else if(state == GoombaState::CRUSHED){
                currentAnimation = &dyingAnimation;
