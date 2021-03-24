@@ -9,7 +9,7 @@ struct Mushroom : public Entity{
           NORMAL
      };
      MushroomState state = SPAWNING;
-     ITEM_TYPE type = ITEM_TYPE::MUSHROOM;   
+     ITEM_TYPE type = ITEM_MUSHROOM;   
 
      // Mushr.oom();
      Mushroom(Vector2df position, int finalSpawningPosition);

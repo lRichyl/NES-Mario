@@ -18,7 +18,7 @@ Mushroom::Mushroom(Vector2df p, int finalSpawningPosition){
      sprite.bBox = &boundingBox;
      sprite.frames.push_back(SDL_Rect{0, 0, 16, 16});
 
-     entityType = ENTITY_TYPE::MUSHROOM;
+     entityType = ENTITY_MUSHROOM;
      this->position = p;
      this->finalSpawningPosition = finalSpawningPosition;
      velocity.x = 90;

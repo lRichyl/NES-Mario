@@ -27,7 +27,7 @@ struct QuestionMark : public Entity{
 	SoundEffect bumpingSound;
 
 	TileMap *tilemapToSpawnItemsOn;
-	ITEM_TYPE itemType = ITEM_TYPE::MUSHROOM;
+	ITEM_TYPE itemType = ITEM_MUSHROOM;
 	QuestionMarkState state = QuestionMarkState::NORMAL;
 
      void initAnimation();

@@ -61,7 +61,7 @@ void TileSelectionSection::draw(){
 void LevelEditor::initializeSampleEntities(){
 	sampleEntities.push_back(new PlayerTile());
 	sampleEntities.push_back(new GoombaTile());
-	sampleEntities.push_back(new Tile(texturesContainer.marioBlocks,SDL_Rect {0, 0, 16, 16 }, ENTITY_TYPE::GROUND ));
+	sampleEntities.push_back(new Tile(texturesContainer.marioBlocks,SDL_Rect {0, 0, 16, 16 }, ENTITY_GROUND ));
 	// sampleEntities.insert(sampleEntities.end(),tileSet.tiles.begin(),tileSet.tiles.end());
 	sampleEntities.push_back(new SolidBlock());
 	sampleEntities.push_back(new Brick());
@@ -286,9 +286,9 @@ void LevelEditor::loadEntitiesToScene(){
 			Entity *e = editorLayer2.entities[i][j];
 			if(e != nullptr){
 				if(e->isStatic ){
-					if(e->entityType == ENTITY_TYPE::QUESTIONMARK){
+					if(e->entityType == ENTITY_QUESTIONMARK){
 						QuestionMark *q = new QuestionMark();
-						Tile *tile = dynamic_cast<Tile*>(e);
+						QuestionMarkTile *tile = dynamic_cast<QuestionMarkTile*>(e);
 						setDynamicEntityPosition(e, q, &level->camera);
 						q->initParameters();
 						q->itemType = tile->itemType;
@@ -299,15 +299,16 @@ void LevelEditor::loadEntitiesToScene(){
 				}else{
 
 					switch(e->entityType){
-						case ENTITY_TYPE::PLAYER:
+						case ENTITY_PLAYER:
 						{
 							Player *p = new Player();
+
 							setDynamicEntityPosition(e, p, &level->camera);
 
 							level->layer2.dynamicEntities.push_back(p);
 							break;
 						}
-						case ENTITY_TYPE::GOOMBA:
+						case ENTITY_GOOMBA:
 						{
 							Goomba *g = new Goomba();
 							setDynamicEntityPosition(e, g, &level->camera);
@@ -346,11 +347,11 @@ void LevelEditor::loadEntitiesToScene(){
 
 void LevelEditor::drawTileVariant(){
 	switch(selectedEntity->entityType){
-		case ENTITY_TYPE::QUESTIONMARK:{
+		case ENTITY_QUESTIONMARK:{
 			QuestionMarkTile *q = dynamic_cast<QuestionMarkTile*>(selectedEntity);
-			if(q->itemType == ITEM_TYPE::MUSHROOM){
+			if(q->itemType == ITEM_MUSHROOM){
 				entityVariantText.renderText("ITEM: MUSHROOM");
-			}else if(q->itemType == ITEM_TYPE::FIRE_FLOWER){
+			}else if(q->itemType == ITEM_FIRE_FLOWER){
 				entityVariantText.renderText("ITEM: FIRE FLOWER");
 			}
 

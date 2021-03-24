@@ -4,7 +4,7 @@
 #include <iostream>
 
 QuestionMark::QuestionMark(){
-     entityType = ENTITY_TYPE::QUESTIONMARK;
+     entityType = ENTITY_QUESTIONMARK;
      isStatic = true;
      isActive = true;
 
@@ -47,13 +47,13 @@ void QuestionMark::update(float deltaTime, Camera *camera){
                spawnItem = false;
 
                switch(itemType){
-                    case ITEM_TYPE::MUSHROOM:{
+                    case ITEM_MUSHROOM:{
                          Mushroom *m = new Mushroom(position, position.y - Tile::tileSize);
                          tilemapToSpawnItemsOn->dynamicEntities.push_back(m);
 
                          break;
                     }
-                    case ITEM_TYPE::FIRE_FLOWER:{
+                    case ITEM_FIRE_FLOWER:{
                          FireFlower *f = new FireFlower(position, position.y - Tile::tileSize);
                          tilemapToSpawnItemsOn->dynamicEntities.push_back(f);
 

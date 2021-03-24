@@ -12,7 +12,7 @@ struct FireFlower : public Entity{
      FireFlower(Vector2df position, int finalSpawningPosition);
 
      FireFlowerState state = SPAWNING;
-     ITEM_TYPE type = ITEM_TYPE::FIRE_FLOWER;
+     ITEM_TYPE type = ITEM_FIRE_FLOWER;
 
      int finalSpawningPosition = 0;
      int spawningSpeed = 80;

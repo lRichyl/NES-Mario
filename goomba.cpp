@@ -5,7 +5,7 @@
 #include "texture.h"
 
 Goomba::Goomba(){
-     entityType = ENTITY_TYPE::GOOMBA;
+     entityType = ENTITY_GOOMBA;
 	isStatic = false;
 	isActive = true;
 	// boundingBox.w = Tile::tileSize;

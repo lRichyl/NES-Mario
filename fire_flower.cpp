@@ -12,7 +12,7 @@ FireFlower::FireFlower(Vector2df position, int finalSpawningPosition){
      sprite.frames.push_back(SDL_Rect{32, 32, 16, 16});
      sprite.frames.push_back(SDL_Rect{48, 32, 16, 16});
 
-     entityType = ENTITY_TYPE::FIRE_FLOWER;
+     entityType = ENTITY_FIRE_FLOWER;
      this->position = position;
      this->finalSpawningPosition = finalSpawningPosition;
      updatePosition();

@@ -8,7 +8,7 @@
 #include <cmath>
 
 Player::Player(){
-	entityType = ENTITY_TYPE::PLAYER;
+	entityType = ENTITY_PLAYER;
 	isStatic = false;
 	isActive = true;
 	// sprite.texture = loadTexture("assets/textures/mario_animations.png");
@@ -198,7 +198,7 @@ void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
 	if(penetration.x > 0 || penetration.x < 0) velocity.x = 0;
 
 
-	if(e->entityType == ENTITY_TYPE::QUESTIONMARK) collidingWithQuestionMarkBlock(penetration, e);
+	if(e->entityType == ENTITY_QUESTIONMARK) collidingWithQuestionMarkBlock(penetration, e);
 	collidingWithTheFloor(penetration);
 
 
@@ -209,7 +209,7 @@ void Player::onStaticEntityCollision(Vector2df penetration, Entity *e){
 }
 
 void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
-	if(e->entityType == ENTITY_TYPE::GOOMBA){
+	if(e->entityType == ENTITY_GOOMBA){
 		Goomba *goomba = dynamic_cast<Goomba*>(e);
 
 		if(goomba->state == goomba->GoombaState::NORMAL){
@@ -224,13 +224,13 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 			}
 		}
 
-	}else if(e->entityType == ENTITY_TYPE::MUSHROOM){
+	}else if(e->entityType == ENTITY_MUSHROOM){
 		Mushroom *m = dynamic_cast<Mushroom *>(e);
 		m->isActive = false;
 		m->isDestroyed = true;
 		// state = GROWING;
 	}
-	else if(e->entityType == ENTITY_TYPE::FIRE_FLOWER){
+	else if(e->entityType == ENTITY_FIRE_FLOWER){
 		FireFlower *f = dynamic_cast<FireFlower *>(e);
 		f->isActive = false;
 		f->isDestroyed = true;

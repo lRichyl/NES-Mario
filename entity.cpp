@@ -35,7 +35,7 @@ void Entity::updateLocalCamera(Camera camera){
 }
 
 void Entity::setInactiveIfOutsideOfCameraBounds(){
-	if(entityType != ENTITY_TYPE::PLAYER && !isDestroyed){
+	if(entityType != ENTITY_PLAYER && !isDestroyed){
 		if(isActive){
 			if(boundingBox.y + Tile::tileSize <= 0 || boundingBox.y > localCamera.bounds.h || boundingBox.x + Tile::tileSize <= 0 || boundingBox.x > localCamera.bounds.w){
 				isActive = false;

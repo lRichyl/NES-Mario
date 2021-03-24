@@ -36,9 +36,10 @@ void Tile::setClippingBox(int x, int y, int w, int h){
 	clippingBox.h = h;
 }
 
+
 void QuestionMarkTile::changeVariant(SDL_Event *e){
-	int maxItemType = static_cast<int>(ITEM_TYPE::MAX);
-	int minItemType = static_cast<int>(ITEM_TYPE::MIN);
+	int maxItemType = static_cast<int>(ITEM_MAX);
+	int minItemType = static_cast<int>(ITEM_MIN);
 
 	switch( e->key.keysym.sym ){
 		case SDLK_e:{
@@ -61,19 +62,19 @@ void QuestionMarkTile::changeVariant(SDL_Event *e){
 void QuestionMarkTile::setItemType(int selectedItemType){
 	switch(selectedItemType){
 		case 0:{
-			itemType = ITEM_TYPE::MUSHROOM;
+			itemType = ITEM_MUSHROOM;
 			break;
 		}
 		case 1:{
-			itemType = ITEM_TYPE::FIRE_FLOWER;
+			itemType = ITEM_FIRE_FLOWER;
 			break;
 		}
 		case 2:{
-			itemType = ITEM_TYPE::STAR;
+			itemType = ITEM_STAR;
 			break;
 		}
 		case 3:{
-			itemType = ITEM_TYPE::EXTRA_LIFE;
+			itemType = ITEM_EXTRA_LIFE;
 			break;
 		}
 	}

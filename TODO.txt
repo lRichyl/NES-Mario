@@ -1,7 +1,5 @@
 POR HACER
 
-
-
 *Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
