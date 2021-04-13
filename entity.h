@@ -8,8 +8,7 @@ enum ENTITY_TYPE{
 	ENTITY_PLAYER,
 	ENTITY_MIN = ENTITY_PLAYER,
 	ENTITY_GOOMBA,
-	ENTITY_MUSHROOM,
-	ENTITY_FIRE_FLOWER,
+	ENTITY_ITEM,
 	ENTITY_GROUND,
 	ENTITY_SOLIDBLOCK,
 	ENTITY_BRICK,
@@ -58,6 +57,7 @@ struct Entity{
 	void updatePosition();
 	void updateLocalCamera(Camera camera);
 	void setInactiveIfOutsideOfCameraBounds();
+	void disableAndDestroyEntity();
 	virtual Entity *clone() = 0;
 	virtual ~Entity() {};
 

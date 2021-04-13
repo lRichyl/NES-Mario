@@ -165,13 +165,6 @@ void CollisionManager::checkCollisions(TileMap *collisionLayer){
 				Vector2df penetrationVector;
 				Entity *collidedDynamicEntity = collisionLayer->dynamicEntities[i];
 				if(collidedDynamicEntity->ID != e->ID && collidedDynamicEntity->isActive){
-					// FireFlower *f = dynamic_cast<FireFlower*>(collidedDynamicEntity);
-					// if(f->type == ITEM_TYPE::FIRE_FLOWER){
-					//
-					// }
-					// std::cout << e->ID << std::endl;
-					// std::cout << collidedDynamicEntity->ID << std::endl;
-
 					if(CollisionManager::minkowskiDifference(e->boundingBox,collidedDynamicEntity->boundingBox, &penetrationVector)){
 						e->onDynamicEntityCollision(penetrationVector, collidedDynamicEntity);
 

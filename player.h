@@ -25,6 +25,9 @@ struct Player : public Entity{
 	float maxXVelocity = 8;
 	float maxYVelocity = 10;
 	int   velocityToPlayTurningSound = 3;
+	float maxTimePerAnimFrame= 20;
+	float timePerAnimFrameFactor;
+	float timePerAnimFrame;
 
 	bool isAirborne = true;
 	bool canJump = true;

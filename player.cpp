@@ -18,6 +18,7 @@ Player::Player(){
 	initializeAnimationFrames();
 	initializeSoundEffects();
 	currentAnimation = &idleAnimation;
+	timePerAnimFrameFactor = maxTimePerAnimFrame/maxXVelocity;
 }
 
 Player::~Player(){
@@ -87,11 +88,12 @@ void Player::update(float deltaTime, Camera *camera){
 
 	//if the velocity is close to zero we make it zero so that the player stands still
 	if( !currentKeyStates[ SDL_SCANCODE_LEFT ]&& !currentKeyStates[ SDL_SCANCODE_RIGHT ]){
-		currentAnimation = &idleAnimation;
-
 		if(velocity.x > -0.8 && velocity.x < 0.8){
 			velocity.x = 0;
 		}
+	}
+	if(velocity.x == 0){
+		currentAnimation = &idleAnimation;
 	}
 
 
@@ -149,6 +151,11 @@ void Player::update(float deltaTime, Camera *camera){
 	}
 /////////////////////////////////////////////
 
+	if(velocity.x > 0.8 || velocity.x < -0.8){
+
+		timePerAnimFrame = abs(velocity.x) * timePerAnimFrameFactor;
+	}
+
 
 	position.x += velocity.x;
 	position.y += velocity.y;
@@ -163,7 +170,7 @@ void Player::update(float deltaTime, Camera *camera){
 // }
 
 void Player::draw(){
-	currentAnimation->animateSprite(0.08);
+	currentAnimation->animateSprite(1.f/timePerAnimFrame);
 }
 
 void Player::collidingWithTheFloor(Vector2df penetration){
@@ -224,17 +231,8 @@ void Player::onDynamicEntityCollision(Vector2df penetration, Entity *e){
 			}
 		}
 
-	}else if(e->entityType == ENTITY_MUSHROOM){
-		Mushroom *m = dynamic_cast<Mushroom *>(e);
-		m->isActive = false;
-		m->isDestroyed = true;
-		// state = GROWING;
-	}
-	else if(e->entityType == ENTITY_FIRE_FLOWER){
-		FireFlower *f = dynamic_cast<FireFlower *>(e);
-		f->isActive = false;
-		f->isDestroyed = true;
-		// state = PICKING_FIRE;
+	}else if(e->entityType == ENTITY_ITEM){
+		e->disableAndDestroyEntity();
 	}
 }
 

@@ -47,10 +47,10 @@ void Entity::setInactiveIfOutsideOfCameraBounds(){
 				isActive = true;
 			}
 		}
-
-
-		// else if (boundingBox.x + Tile::tileSize < 0 || boundingBox.x > localCamera.bounds.w){
-		// 	isActive = false;
-		// else isActive = true;
 	}
+}
+
+void Entity::disableAndDestroyEntity(){
+	isActive = false;
+	isDestroyed = true;
 }

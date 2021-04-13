@@ -1,6 +1,5 @@
 POR HACER
 
-*Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa
@@ -10,6 +9,8 @@ POR HACER
 
 
 HECHO
+*Cuando las teclas de movimiento son soltadas la animación de mario debe seguir reproduciendose mientras disminuye su velocidad (como si estuviera frenando)
+*Se arregló el problema con el dynamic cast de question mark tile. Se tenía que sobrecargar el método clone de la clase base Entity.
 *Los objetos deben de ser desactivados si se salen de la camara
 *Colisión entre mario, champiñones  y flores de fuego
 *Agregar el objeto de FireFlower y aparecerlo con el bloque de interrogación
