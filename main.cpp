@@ -131,10 +131,14 @@ int main(int argc, char**) {
 						     editor.loadEntitiesToScene();
 						}
 					    else {
+						    if(TileMap::updateOnlyPlayer) TileMap::updateOnlyPlayer = false;
 						    Mix_HaltMusic();
 						    editedLevel.unloadEntities();
 					    }
 	                        break;
+					case SDLK_ESCAPE:
+						TileMap::updateOnlyPlayer = !TileMap::updateOnlyPlayer;
+					break;
 				}
 				break;
 				case SDL_MOUSEWHEEL:

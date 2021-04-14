@@ -38,10 +38,11 @@ void Mushroom::update(float deltaTime, Camera *camera){
      }
 
      updatePosition();
+     sprite.update(0);
 }
 
 void Mushroom::draw(){
-     sprite.animateSprite(0);
+     sprite.animateSprite();
 }
 
 // void Mushroom::updatePosition(){

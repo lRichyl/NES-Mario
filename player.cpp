@@ -18,7 +18,7 @@ Player::Player(){
 	initializeAnimationFrames();
 	initializeSoundEffects();
 	currentAnimation = &idleAnimation;
-	timePerAnimFrameFactor = maxTimePerAnimFrame/maxXVelocity;
+	timePerAnimFrameFactor = maxAnimFramesPerSecond/maxXVelocity;
 }
 
 Player::~Player(){
@@ -153,7 +153,7 @@ void Player::update(float deltaTime, Camera *camera){
 
 	if(velocity.x > 0.8 || velocity.x < -0.8){
 
-		timePerAnimFrame = abs(velocity.x) * timePerAnimFrameFactor;
+		timePerAnimFrame =  1.f / (abs(velocity.x) * timePerAnimFrameFactor);
 	}
 
 
@@ -162,6 +162,7 @@ void Player::update(float deltaTime, Camera *camera){
 
 
 	updatePosition();
+	currentAnimation->update(timePerAnimFrame);
 }
 //
 // void Player::updatePosition(){
@@ -170,7 +171,7 @@ void Player::update(float deltaTime, Camera *camera){
 // }
 
 void Player::draw(){
-	currentAnimation->animateSprite(1.f/timePerAnimFrame);
+	currentAnimation->animateSprite();
 }
 
 void Player::collidingWithTheFloor(Vector2df penetration){
@@ -246,8 +247,8 @@ void Player::initializeAnimationFrames(){
 	walkingAnimation.texture =  texturesContainer.marioAnimations;
 	walkingAnimation.bBox = &boundingBox;
 	walkingAnimation.frames.push_back(SDL_Rect {0, 32, 15, 16});
-	walkingAnimation.frames.push_back(SDL_Rect {34, 32, 13, 16});
 	walkingAnimation.frames.push_back(SDL_Rect {19, 32, 12, 16});
+	walkingAnimation.frames.push_back(SDL_Rect {34, 32, 13, 16});
 	///////// JUMPING ANIMATION ///////////
 	jumpingAnimation.texture = texturesContainer.marioAnimations;
 	jumpingAnimation.bBox = &boundingBox;

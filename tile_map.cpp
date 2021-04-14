@@ -17,6 +17,8 @@ bool TileMap::addEntityOnTile(int xTile, int yTile, Entity *e){
 	return false;
 }
 
+bool TileMap::updateOnlyPlayer = false;
+
 void TileMap::draw(){
 	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 		if(dynamicEntities[i] != nullptr){
@@ -37,28 +39,40 @@ void TileMap::draw(){
 }
 
 void TileMap::update(float deltaT, Camera *camera){
-	for(unsigned int i = 0; i < dynamicEntities.size(); i++){
-		if(dynamicEntities[i] != nullptr){
-			dynamicEntities[i]->updateLocalCamera(*camera);
-			dynamicEntities[i]->setInactiveIfOutsideOfCameraBounds();
-			if(dynamicEntities[i]->isActive && !dynamicEntities[i]->isDestroyed)
+	if(updateOnlyPlayer){
+		for(unsigned int i = 0; i < dynamicEntities.size(); i++){
+			if(dynamicEntities[i] != nullptr && dynamicEntities[i]->entityType == ENTITY_PLAYER){
 				dynamicEntities[i]->update(deltaT, camera);
-			// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
+				// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
 
-			// std::cout << "Mario" << std::endl;
-		}
-	}
-
-	for(unsigned int i = 0; i < entities.size() ; i++){
-		for(unsigned int j = 0; j < entities[i].size(); j++){
-			if(entities[i][j] != nullptr){
-				entities[i][j]->updateLocalCamera(*camera);
-				if(entities[i][j]->isActive  && !entities[i][j]->isDestroyed)
-					entities[i][j]->update(deltaT, camera);
-				// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
-
+				// std::cout << "Mario" << std::endl;
 			}
 		}
+	}else{
+		for(unsigned int i = 0; i < dynamicEntities.size(); i++){
+			if(dynamicEntities[i] != nullptr){
+				dynamicEntities[i]->updateLocalCamera(*camera);
+				dynamicEntities[i]->setInactiveIfOutsideOfCameraBounds();
+				if(dynamicEntities[i]->isActive && !dynamicEntities[i]->isDestroyed)
+				dynamicEntities[i]->update(deltaT, camera);
+				// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
+
+				// std::cout << "Mario" << std::endl;
+			}
+		}
+
+		for(unsigned int i = 0; i < entities.size() ; i++){
+			for(unsigned int j = 0; j < entities[i].size(); j++){
+				if(entities[i][j] != nullptr){
+					entities[i][j]->updateLocalCamera(*camera);
+					if(entities[i][j]->isActive  && !entities[i][j]->isDestroyed)
+						entities[i][j]->update(deltaT, camera);
+					// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
+
+				}
+			}
+		}
+
 	}
 }
 

@@ -14,6 +14,8 @@ struct TileMap{
 	int tileWidth = Tile::tileSize;
 	int tileHeight = Tile::tileSize;
 
+	static bool updateOnlyPlayer;
+
 	vector<vector<Entity*>> entities {};
 	vector<Entity*> dynamicEntities {};
 

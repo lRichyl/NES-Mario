@@ -1,5 +1,9 @@
 POR HACER
 
+*Pausar el juego a excepción del jugador cuando se agarra un champiñón o una flor mientras se hace la animación.
+*Agregar al koopa.
+*Impedir al jugador salir de la pantalla cuando va hacia la izquierda, cuando va hacia la derecha la cámara deberá
+     avanzar cuando el jugador esté en medio.
 *Agregar mas bloques a la lista bloques de muestra.
 *Implementar el guardado de niveles en archivos.
 *Escalar la imagen de forma apropiada al poner la pantalla completa usando la camara y la resolución nativa

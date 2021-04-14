@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "global_variables.h"
 #include "texture.h"
+#include "tile_map.h"
 
 Goomba::Goomba(){
      entityType = ENTITY_GOOMBA;
@@ -35,6 +36,7 @@ void Goomba::update(float deltaTime, Camera *camera){
                }
           }
           updatePosition();
+          currentAnimation->update(0.15);
 }
 // void Goomba::updatePosition(){
 // 	boundingBox.x = position.x - localCamera.bounds.x;
@@ -42,7 +44,8 @@ void Goomba::update(float deltaTime, Camera *camera){
 //
 // }
 void Goomba::draw(){
-          currentAnimation->animateSprite(0.15);
+     currentAnimation->animateSprite();
+
 }
 void Goomba::initializeAnimationFrames(){
      //---------WALKING ANIMATION----------

@@ -27,10 +27,11 @@ void FireFlower::update(float deltaTime, Camera *camera){
      }
 
      updatePosition();
+     sprite.update(0.08);
 }
 
 void FireFlower::draw(){
-     sprite.animateSprite(0.08);
+     sprite.animateSprite();
 }
 
 void FireFlower::onStaticEntityCollision(Vector2df penetration,Entity* e){

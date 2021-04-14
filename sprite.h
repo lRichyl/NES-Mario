@@ -20,7 +20,8 @@ struct Sprite{
 	Timer timer;
 	SDL_Texture *texture = NULL;
 
-	void animateSprite(float wishedTimePerFrame);
+	void update(float wishedTimePerFrame);
+	void animateSprite();
 	void setTexture(std::string);
 
 };

@@ -73,11 +73,12 @@ void QuestionMark::update(float deltaTime, Camera *camera){
 
 
      updatePosition();
+     currentAnimation->update(0.5);
 }
 
 void QuestionMark::draw(){
 
-     currentAnimation->animateSprite(0.5);
+     currentAnimation->animateSprite();
 }
 
 void QuestionMark::initParameters(){
