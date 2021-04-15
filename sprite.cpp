@@ -8,7 +8,7 @@ void Sprite::setTexture(std::string path){
 	texture = loadTexture(path);
 }
 
-void Sprite::update(float wishedTimePerFrame){
+void Sprite::update(){
 	if(wishedTimePerFrame > 0){
 		timer.countTo(wishedTimePerFrame);
 

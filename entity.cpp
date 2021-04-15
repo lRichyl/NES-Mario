@@ -54,3 +54,7 @@ void Entity::disableAndDestroyEntity(){
 	isActive = false;
 	isDestroyed = true;
 }
+
+void Entity::updateCurrentSprite(){
+	currentAnimation->update();
+}

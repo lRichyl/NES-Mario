@@ -43,6 +43,7 @@ void TileMap::update(float deltaT, Camera *camera){
 		for(unsigned int i = 0; i < dynamicEntities.size(); i++){
 			if(dynamicEntities[i] != nullptr && dynamicEntities[i]->entityType == ENTITY_PLAYER){
 				dynamicEntities[i]->update(deltaT, camera);
+				dynamicEntities[i]->currentAnimation->update();
 				// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
 
 				// std::cout << "Mario" << std::endl;
@@ -55,6 +56,7 @@ void TileMap::update(float deltaT, Camera *camera){
 				dynamicEntities[i]->setInactiveIfOutsideOfCameraBounds();
 				if(dynamicEntities[i]->isActive && !dynamicEntities[i]->isDestroyed)
 				dynamicEntities[i]->update(deltaT, camera);
+				dynamicEntities[i]->currentAnimation->update();
 				// std::cout << dynamicEntities[i]->boundingBox.x << " , " << dynamicEntities[i]->boundingBox.y << std::endl;
 
 				// std::cout << "Mario" << std::endl;
@@ -67,6 +69,7 @@ void TileMap::update(float deltaT, Camera *camera){
 					entities[i][j]->updateLocalCamera(*camera);
 					if(entities[i][j]->isActive  && !entities[i][j]->isDestroyed)
 						entities[i][j]->update(deltaT, camera);
+						// entities[i][j]->currentAnimation->update();
 					// std::cout << entities[i][j]->boundingBox.x << " , " << entities[i][j]->boundingBox.y << std::endl;
 
 				}

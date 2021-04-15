@@ -36,11 +36,12 @@ struct Player : public Entity{
 
 	PlayerState state = PlayerState::NORMAL;
 
-	Sprite *currentAnimation = nullptr;
+	// Sprite *currentAnimation = nullptr;
 	Sprite idleAnimation;
 	Sprite walkingAnimation;
 	Sprite jumpingAnimation;
 	Sprite turningAnimation;
+	Sprite growingAnimation;//TODO
 
 	SoundEffect jumpSound;
 	SoundEffect skidSound;

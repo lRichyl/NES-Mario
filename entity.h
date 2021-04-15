@@ -44,6 +44,7 @@ struct Entity{
 	// Sprite sprite;
 	SDL_Rect boundingBox;
 	ENTITY_TYPE entityType;
+	Sprite *currentAnimation;
 
 	Camera localCamera;
 
@@ -53,11 +54,13 @@ struct Entity{
 	virtual void onStaticEntityCollision(Vector2df,Entity*){};
 	virtual void onDynamicEntityCollision(Vector2df,Entity*){};
 	virtual void changeVariant(SDL_Event *e){};
+
 	void setTileSize(int tileSize);
 	void updatePosition();
 	void updateLocalCamera(Camera camera);
 	void setInactiveIfOutsideOfCameraBounds();
 	void disableAndDestroyEntity();
+	void updateCurrentSprite();
 	virtual Entity *clone() = 0;
 	virtual ~Entity() {};
 

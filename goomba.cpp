@@ -13,6 +13,7 @@ Goomba::Goomba(){
 	// boundingBox.h = Tile::tileSize;
      initializeAnimationFrames();
      currentAnimation = &walkingAnimation;
+     currentAnimation->wishedTimePerFrame = 0.15;
      initializeSoundEffects();
      velocity.x = 45;
      // isDestroyed = false;
@@ -36,7 +37,7 @@ void Goomba::update(float deltaTime, Camera *camera){
                }
           }
           updatePosition();
-          currentAnimation->update(0.15);
+          // currentAnimation->update(0.15);
 }
 // void Goomba::updatePosition(){
 // 	boundingBox.x = position.x - localCamera.bounds.x;

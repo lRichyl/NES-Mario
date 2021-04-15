@@ -1,5 +1,7 @@
 POR HACER
 
+*Implementar la animcion de crecimiento y todas las animaciones en versión grande.
+*Agregar sonido a la animación.
 *Pausar el juego a excepción del jugador cuando se agarra un champiñón o una flor mientras se hace la animación.
 *Agregar al koopa.
 *Impedir al jugador salir de la pantalla cuando va hacia la izquierda, cuando va hacia la derecha la cámara deberá

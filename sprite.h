@@ -17,10 +17,11 @@ struct Sprite{
 	float timeSum = 0;
 	float startingTime;
 	float finalTime;
+	float wishedTimePerFrame = 0;
 	Timer timer;
 	SDL_Texture *texture = NULL;
 
-	void update(float wishedTimePerFrame);
+	void update();
 	void animateSprite();
 	void setTexture(std::string);
 

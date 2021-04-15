@@ -23,6 +23,7 @@ Mushroom::Mushroom(Vector2df p, int finalSpawningPosition){
      this->finalSpawningPosition = finalSpawningPosition;
      velocity.x = 90;
      updatePosition();
+     currentAnimation = &sprite;
 }
 
 void Mushroom::update(float deltaTime, Camera *camera){
@@ -38,11 +39,11 @@ void Mushroom::update(float deltaTime, Camera *camera){
      }
 
      updatePosition();
-     sprite.update(0);
+     // currentAnimation->update(0);
 }
 
 void Mushroom::draw(){
-     sprite.animateSprite();
+     currentAnimation->animateSprite();
 }
 
 // void Mushroom::updatePosition(){

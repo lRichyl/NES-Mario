@@ -162,7 +162,8 @@ void Player::update(float deltaTime, Camera *camera){
 
 
 	updatePosition();
-	currentAnimation->update(timePerAnimFrame);
+	currentAnimation->wishedTimePerFrame = timePerAnimFrame;
+	// currentAnimation->update(timePerAnimFrame);
 }
 //
 // void Player::updatePosition(){

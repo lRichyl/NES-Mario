@@ -16,6 +16,8 @@ FireFlower::FireFlower(Vector2df position, int finalSpawningPosition){
      this->position = position;
      this->finalSpawningPosition = finalSpawningPosition;
      updatePosition();
+     currentAnimation = &sprite;
+     currentAnimation->wishedTimePerFrame = 0.08;
 }
 
 void FireFlower::update(float deltaTime, Camera *camera){
@@ -27,11 +29,11 @@ void FireFlower::update(float deltaTime, Camera *camera){
      }
 
      updatePosition();
-     sprite.update(0.08);
+     // currentAnimation->update(0.08);
 }
 
 void FireFlower::draw(){
-     sprite.animateSprite();
+     currentAnimation->animateSprite();
 }
 
 void FireFlower::onStaticEntityCollision(Vector2df penetration,Entity* e){

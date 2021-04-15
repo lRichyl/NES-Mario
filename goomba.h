@@ -24,7 +24,7 @@ struct Goomba : public Entity{
 
      GoombaState state = GoombaState::NORMAL;
      // Timer deathTimer;
-     Sprite *currentAnimation;
+     // Sprite *currentAnimation;
      Sprite walkingAnimation;
      Sprite dyingAnimation;
 
@@ -44,5 +44,5 @@ struct Goomba : public Entity{
 		Entity::IDcount++;
 		return new Goomba(*this);}
 
-     
+
 };

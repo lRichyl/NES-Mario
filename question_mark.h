@@ -22,7 +22,7 @@ struct QuestionMark : public Entity{
 
 	Sprite blockUnused;
      Sprite blockUsed;
-	Sprite *currentAnimation = nullptr;
+	// Sprite *currentAnimation = nullptr;
 
 	SoundEffect bumpingSound;
 

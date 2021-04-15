@@ -11,6 +11,7 @@ QuestionMark::QuestionMark(){
      initAnimation();
      initSounds();
 	currentAnimation = &blockUnused;
+     currentAnimation->wishedTimePerFrame = 0.5;
 
 }
 
@@ -24,6 +25,7 @@ void QuestionMark::initAnimation(){
      blockUsed.texture = texturesContainer.marioBlocks;
      blockUsed.bBox = &boundingBox;
      blockUsed.frames.push_back(SDL_Rect {432, 0, 16, 16});
+
 }
 
 void QuestionMark::update(float deltaTime, Camera *camera){
@@ -73,7 +75,7 @@ void QuestionMark::update(float deltaTime, Camera *camera){
 
 
      updatePosition();
-     currentAnimation->update(0.5);
+     // currentAnimation->update(0.5);
 }
 
 void QuestionMark::draw(){
