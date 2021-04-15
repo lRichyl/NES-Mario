@@ -256,93 +256,93 @@ void LevelEditor::drawLayerText(){
 	layerText.renderText(std::to_string(layerBeingEdited));
 }
 
-static void setDynamicEntityPosition(Entity* tileEntity, Entity* d, Camera *camera){
-	d->position.x = tileEntity->position.x - camera->bounds.x;
-	d->position.y = tileEntity->position.y - camera->bounds.y;
-	d->updatePosition();
-}
+
 
 void LevelEditor::loadEntitiesToScene(){
-	for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
-		for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
-			if(editorLayer0.entities[i][j] != nullptr){
-				level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
+	// for(unsigned int i = 0; i < editorLayer0.entities.size(); i++){
+	// 	for(unsigned int j = 0; j < editorLayer0.entities[i].size(); j++){
+	// 		if(editorLayer0.entities[i][j] != nullptr){
+	// 			level->layer0.entities[i][j] = editorLayer0.entities[i][j]->clone();
+	//
+	// 		}
+	// 	}
+	// }
+	level.layer0.copyTileMap(&editorLayer0);
+	level.layer1.copyTileMap(&editorLayer1);
+	level.layer2.copyTileMap(&editorLayer2, &level.camera);
+	level.layer1.copyTileMap(&editorLayer3);
 
-			}
-		}
-	}
+	// for(unsigned int i = 0; i < editorLayer1.entities.size(); i++){
+	// 	for(unsigned int j = 0; j < editorLayer1.entities[i].size(); j++){
+	// 		if(editorLayer1.entities[i][j] != nullptr){
+	// 			level.layer1.entities[i][j] = editorLayer1.entities[i][j]->clone();
+	//
+	// 		}
+	// 	}
+	// }
 
-	for(unsigned int i = 0; i < editorLayer1.entities.size(); i++){
-		for(unsigned int j = 0; j < editorLayer1.entities[i].size(); j++){
-			if(editorLayer1.entities[i][j] != nullptr){
-				level->layer1.entities[i][j] = editorLayer1.entities[i][j]->clone();
-
-			}
-		}
-	}
-
-	for(unsigned int i = 0; i < editorLayer2.entities.size(); i++){
-		for(unsigned int j = 0; j < editorLayer2.entities[i].size(); j++){
-			Entity *e = editorLayer2.entities[i][j];
-			if(e != nullptr){
-				if(e->isStatic ){
-					if(e->entityType == ENTITY_QUESTIONMARK){
-						QuestionMark *q = new QuestionMark();
-						QuestionMarkTile *tile = dynamic_cast<QuestionMarkTile*>(e);
-						setDynamicEntityPosition(e, q, &level->camera);
-						q->initParameters();
-						q->itemType = tile->itemType;
-						q->tilemapToSpawnItemsOn = &level->layer2;
-						level->layer2.entities[i][j] = q;
-					}else
-						level->layer2.entities[i][j] = e->clone();
-				}else{
-
-					switch(e->entityType){
-						case ENTITY_PLAYER:
-						{
-							Player *p = new Player();
-
-							setDynamicEntityPosition(e, p, &level->camera);
-
-							level->layer2.dynamicEntities.push_back(p);
-							break;
-						}
-						case ENTITY_GOOMBA:
-						{
-							Goomba *g = new Goomba();
-							setDynamicEntityPosition(e, g, &level->camera);
-
-							level->layer2.dynamicEntities.push_back(g);
-							break;
-						}
-					}
-				}
-				// if(e->entityType == ENTITY_TYPE::PLAYER){
-				// 	Player *p = new Player();
-				// 	setDynamicEntityPosition(e, p);
-				//
-				// 	level->layer2.dynamicEntities.push_back(p);
-				//
-				// } else if(e->entityType == ENTITY_TYPE::GOOMBA){
-				// 	Goomba *g = new Goomba();
-				// 	setDynamicEntityPosition(e, g);
-				//
-				// 	level->layer2.dynamicEntities.push_back(g);
-				//
-				// }
-			}
-		}
-	}
+	// for(unsigned int i = 0; i < editorLayer2.entities.size(); i++){
+	// 	for(unsigned int j = 0; j < editorLayer2.entities[i].size(); j++){
+	// 		Entity *e = editorLayer2.entities[i][j];
+	// 		if(e != nullptr){
+	// 			if(e->isStatic ){
+	// 				if(e->entityType == ENTITY_QUESTIONMARK){
+	// 					QuestionMark *q = new QuestionMark();
+	// 					QuestionMarkTile *tile = dynamic_cast<QuestionMarkTile*>(e);
+	// 					setDynamicEntityPosition(e, q, &level.camera);
+	// 					q->initParameters();
+	// 					q->itemType = tile->itemType;
+	// 					q->tilemapToSpawnItemsOn = &level.layer2;
+	// 					level.layer2.entities[i][j] = q;
+	// 				}else
+	// 					level.layer2.entities[i][j] = e->clone();
+	// 			}else{
+	//
+	// 				switch(e->entityType){
+	// 					case ENTITY_PLAYER:
+	// 					{
+	// 						Player *p = new Player();
+	//
+	// 						setDynamicEntityPosition(e, p, &level.camera);
+	//
+	// 						level.layer2.dynamicEntities.push_back(p);
+	// 						break;
+	// 					}
+	// 					case ENTITY_GOOMBA:
+	// 					{
+	// 						Goomba *g = new Goomba();
+	// 						setDynamicEntityPosition(e, g, &level.camera);
+	//
+	// 						level.layer2.dynamicEntities.push_back(g);
+	// 						break;
+	// 					}
+	// 				}
+	// 			}
+	// 			// if(e->entityType == ENTITY_TYPE::PLAYER){
+	// 			// 	Player *p = new Player();
+	// 			// 	setDynamicEntityPosition(e, p);
+	// 			//
+	// 			// 	level->layer2.dynamicEntities.push_back(p);
+	// 			//
+	// 			// } else if(e->entityType == ENTITY_TYPE::GOOMBA){
+	// 			// 	Goomba *g = new Goomba();
+	// 			// 	setDynamicEntityPosition(e, g);
+	// 			//
+	// 			// 	level->layer2.dynamicEntities.push_back(g);
+	// 			//
+	// 			// }
+	// 		}
+	// 	}
+	// }
 
 
-	for(unsigned int i = 0; i < editorLayer3.entities.size(); i++){
-		for(unsigned int j = 0; j < editorLayer3.entities[i].size(); j++){
-			if(editorLayer3.entities[i][j] != nullptr){
-					level->layer3.entities[i][j] = editorLayer3.entities[i][j]->clone();
-			}
-		}
-	}
+	// for(unsigned int i = 0; i < editorLayer3.entities.size(); i++){
+	// 	for(unsigned int j = 0; j < editorLayer3.entities[i].size(); j++){
+	// 		if(editorLayer3.entities[i][j] != nullptr){
+	// 				level.layer3.entities[i][j] = editorLayer3.entities[i][j]->clone();
+	// 		}
+	// 	}
+	// }
 }
 
 void LevelEditor::drawTileVariant(){

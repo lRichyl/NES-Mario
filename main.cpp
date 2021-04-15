@@ -83,9 +83,9 @@ int main(int argc, char**) {
 	}
 
 	bool testingLevel = false;
-	Scene editedLevel;
+	// Scene editedLevel;
 	LevelEditor editor;
-	editor.level = &editedLevel;
+	// editor.level = &editedLevel;
 	editor.setTileMapBeingEdited();
 	SDL_Event e;
 	bool quit = false;
@@ -127,13 +127,13 @@ int main(int argc, char**) {
 	                        testingLevel = !testingLevel;
 					    if(testingLevel){
 						    	overWorldTheme.play();
-						    	editedLevel.resetCamera();
+						    	editor.level.resetCamera();
 						     editor.loadEntitiesToScene();
 						}
 					    else {
 						    if(TileMap::updateOnlyPlayer) TileMap::updateOnlyPlayer = false;
 						    Mix_HaltMusic();
-						    editedLevel.unloadEntities();
+						    editor.level.unloadEntities();
 					    }
 	                        break;
 					case SDLK_ESCAPE:
@@ -187,11 +187,11 @@ int main(int argc, char**) {
 		}
 
 		if(testingLevel){
-			editedLevel.updateScene(TIME_PER_FRAME / 1000.f);
-			editedLevel.checkCollisions();
+			editor.level.updateScene(TIME_PER_FRAME / 1000.f);
+			editor.level.checkCollisions();
 			SDL_SetRenderDrawColor(renderer, 0, 0, 200, 255);
 			SDL_RenderClear( renderer );
-			editedLevel.drawScene();
+			editor.level.drawScene();
 			// printFPS(FPS, fpsText );
 			SDL_RenderPresent( renderer );
 		}

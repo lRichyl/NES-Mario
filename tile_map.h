@@ -17,17 +17,28 @@ struct TileMap{
 	static bool updateOnlyPlayer;
 
 	vector<vector<Entity*>> entities {};
-	vector<Entity*> dynamicEntities {};
+	// vector<Entity*> dynamicEntities {};
 
 	TileMap();
-	~TileMap();
+	// TileMap(const TileMap* tileMap);
+	virtual ~TileMap();
 
 	bool addEntityOnTile(int xTile, int yTile, Entity *e);
-	void emptyTilemap();
-
-
 	int getXTile(float xPosition);
 	int getYTile(float yPositiion);
-	void update(float deltaT, Camera *camera);
-	void draw();
+
+
+	void copyTileMap(const TileMap *tileMap);
+	virtual void update(float deltaT, Camera *camera);
+	virtual void draw();
+	virtual void emptyTilemap();
+};
+
+struct CollisionTileMap : public TileMap{
+	vector<Entity*> dynamicEntities {};
+	void copyTileMap(const TileMap *tileMap, Camera *camera);
+	void update(float deltaT, Camera *camera) override;
+	void draw() override;
+	void emptyTilemap() override;
+	~CollisionTileMap();
 };

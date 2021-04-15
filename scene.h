@@ -17,7 +17,7 @@ struct Scene{
 
 	TileMap layer0;		//This layer is used to draw the background
 	TileMap layer1;		//Next layer after the background. The player and other dynamic entities will "walk" over this layer
-	TileMap layer2;		//Collisions will be checked between this entities.
+	CollisionTileMap layer2;		//Collisions will be checked between this entities.
 	TileMap layer3;		//Holds all the entities that will be closer to the screen and drawn over the player.
 
 	// void setScale(float xScale, float yScale);

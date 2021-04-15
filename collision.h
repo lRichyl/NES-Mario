@@ -8,7 +8,7 @@
 
 struct CollisionManager{
 	static bool minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *penetration);
-	void checkCollisions(TileMap *collisionLayer);
+	void checkCollisions(CollisionTileMap *collisionLayer);
 };
 
 #endif

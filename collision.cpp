@@ -48,7 +48,7 @@ bool CollisionManager::minkowskiDifference(SDL_Rect b1, SDL_Rect b2, Vector2df *
 
 }
 
-void CollisionManager::checkCollisions(TileMap *collisionLayer){
+void CollisionManager::checkCollisions(CollisionTileMap *collisionLayer){
 
 
 	for(unsigned int k = 0; k < collisionLayer->dynamicEntities.size(); k++){

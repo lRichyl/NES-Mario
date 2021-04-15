@@ -31,7 +31,7 @@ struct LevelEditor{
 	LevelEditor();
 	~LevelEditor();
 
-	Scene *level;
+	Scene level;
 	std::vector<Entity*> sampleEntities;
 	Entity *selectedEntity;
 	TileMap *tileMapBeingEdited;
