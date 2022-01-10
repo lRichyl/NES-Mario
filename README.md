@@ -21,3 +21,6 @@ Here's a brief video showing a small level. https://www.youtube.com/watch?v=I0_f
 ![mario_editor_mushroom](https://user-images.githubusercontent.com/66743720/148846660-3dc5e638-20bf-45c0-be9b-533ecdf2f135.PNG)
 
 ![mario_editor_level](https://user-images.githubusercontent.com/66743720/148846670-0aa2853d-7ed8-4ce7-9976-6cb008094be8.PNG)
+
+#Compilation
+To compile first you need to have Visual Studio intalled then open a command prompt, run the startup.bat to initiallize the compiler and then run build2.bat
