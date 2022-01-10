@@ -24,3 +24,4 @@ Here's a brief video showing a small level. https://www.youtube.com/watch?v=I0_f
 
 #Compilation
 To compile first you need to have Visual Studio intalled then open a command prompt, run the startup.bat to initiallize the compiler and then run build2.bat
+
