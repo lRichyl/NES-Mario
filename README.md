@@ -13,6 +13,9 @@ Controlls:
 - Move mario with the arrows.
 - Jump with B.
 
+Here's a brief video showing a small level. https://www.youtube.com/watch?v=I0_fCcebxfc
+
+
 ![mario_editor_fire_flower](https://user-images.githubusercontent.com/66743720/148846638-9f39d839-f70f-4806-b190-6cb646bf6575.PNG)
 
 ![mario_editor_mushroom](https://user-images.githubusercontent.com/66743720/148846660-3dc5e638-20bf-45c0-be9b-533ecdf2f135.PNG)
