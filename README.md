@@ -9,9 +9,12 @@ For the **item blocks** you can select which object will appear when it is hit b
 To place an object press the mouse left button, and the right mouse button to remove them. The layer where the object was placed needs to be selected in order to remove it.
 
 To go between play mode and the level editor press SPACE.
-Controlls:
+
+Controls:
 - Move mario with the arrows.
 - Jump with B.
+- AWSD to move camera.
+- Right click to delete a tile in the current layer.
 
 Here's a brief video showing a small level. https://www.youtube.com/watch?v=I0_fCcebxfc
 
